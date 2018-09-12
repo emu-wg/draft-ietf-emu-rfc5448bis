@@ -199,13 +199,18 @@ even as different authentication methods.</t>
 <t>The rest of this specification is structured as
 follows. <xref target="prime"/> defines the EAP-AKA'
 method. <xref target="bidding"/> adds support to EAP-AKA
-to prevent bidding down attacks from EAP-AKA'.  <xref target="security"/>
-explains the security differences between EAP-AKA and
-EAP-AKA'. <xref target="iana"/> describes the IANA considerations and
-<xref target="diff2"/> and <xref target="diff"/> explains what updates to RFC 5448 AKA' and RFC 4187 EAP-AKA have
-been made in this specification. <xref target="baddesign"/>
-explains some of the design rationale for creating EAP-AKA'
-Finally, <xref target="testvectors"/> provides test vectors.
+to prevent bidding down attacks from EAP-AKA'.
+<xref target="identifiersin5g"/> specifies how EAP-AKA' identifiers are
+used in 5G context. <xref target="exported-parameters"/> specifies what
+parameters EAP-AKA' exports out of the method.
+<xref target="security"/>
+explains the security differences between EAP-AKA and EAP-AKA'. <xref
+target="iana"/> describes the IANA considerations and <xref
+target="diff2"/> and <xref target="diff"/> explains what updates to
+RFC 5448 EAP-AKA' and RFC 4187 EAP-AKA have been made in this
+specification. <xref target="baddesign"/> explains some of the design
+rationale for creating EAP-AKA' Finally, <xref target="testvectors"/>
+provides test vectors.
 
 <list style="empty">
 
@@ -306,11 +311,11 @@ AT_MAC, and AT_RES can be found in <xref target="RFC4187"/>.</t>
     | EAP-Response/AKA'-Challenge                            |
     | (AT_RES, AT_MAC)                                       |
     |-------------------------------------------------------&gt;|
-    |         +-------------------------------------------------+
+    |         +--------------------------------------------------+
     |         | Server checks the RES and MAC values received    |
     |         | in AT_RES and AT_MAC, respectively.  Success     |
     |         | requires both to be found correct.               |
-    |         +-------------------------------------------------+
+    |         +--------------------------------------------------+
     |                                           EAP-Success  |
     |&lt;-------------------------------------------------------|
 
@@ -399,7 +404,7 @@ handled.
   specifies what is called "Access Network ID" and the latter
   specifies what is called "Serving Network Name". However, from an
   EAP-AKA' perspective both occupy the same field, and need to be
-  distinghuishable from each other. Currently specified values are
+  distinguishable from each other. Currently specified values are
   distinguishable, but it would be useful that this be specified
   explicitly in the 3GPP specifications.</t>
   
@@ -847,7 +852,7 @@ the endpoints to use EAP-AKA'.</t>
   or fast re-authentication identities, this usage is clear. However,
   5G supports the concept of pseudonym or privacy identifiers, and
   it is important for interoperability that the right type of
-  identifiers are used in the right place.</t>
+  identifier is used.</t>
 
   <t>5G defines the SUbscription Permanent Identifier (SUPI) and
   SUbscription Concealed Identifier (SUCI) <xref
@@ -885,7 +890,7 @@ the endpoints to use EAP-AKA'.</t>
   <t>The following sections clarify which identifiers are used and
   how.</t>
  
-  <section title="Key Derivation">
+  <section anchor="kd5g" title="Key Derivation">
     
     <t>In EAP-AKA', the peer identity is used in the <xref
     target="key"/> key derivation formula.</t>
@@ -929,7 +934,7 @@ the endpoints to use EAP-AKA'.</t>
     existing equipment.</t>
     
     <t>When the EAP peer is connecting to a 5G access network and uses
-    the 5G core network signalling mechanisms, it can assume that the
+    the 5G core network signaling mechanisms, it can assume that the
     EAP server is in a 5G network. The EAP level identity exchanges
     are not generally used in this case, but if there is, the EAP peer
     SHOULD employ only the privacy preserving SUCI identifier within
@@ -1097,6 +1102,98 @@ following section for more discussion.</t>
 
 </list></t>
 
+<section title="Privacy">
+  
+  <t><xref target="RFC6973"/> suggests that the privacy considerations
+  of IETF protocols be documented.</t>
+
+  <t>The confidentiality properties of EAP-AKA' itself have been discussed
+  above.</t>
+
+  <t>EAP-AKA' uses several different types of identifiers to identify
+  the authenticating peer. It is strongly RECOMMENDED to use the
+  privacy-friendly temporary or hidden identifiers, i.e., the 5G SUCI,
+  pseudonym, and fast re-authentication identities. The use of
+  permanent identifiers such as the IMSI may lead to an ability to
+  track the peer and/or user associated with the peer.</t>
+  
+  <t>Note that internally, per <xref target="kd5g"/>, both the
+  EAP-AKA' peer and server need to use the permanent identifier, SUPI,
+  as an input to key generation while authenticating to a 5G
+  network. However, this use of the SUPI is only internal and the SUPI
+  need not be communicated between them.</t>
+
+</section>
+
+<section title="Discovered Vulnerabilities">
+  
+  <t>There have been no published attacks that violate the security
+  properties defined for the Authentication and Key Agreement (AKA)
+  under the originally assumed trust model. The same is true of
+  EAP-AKA'.</t>
+  
+  <t>However, there have been attacks when a different trust model is
+  in use or with characteristics not originally provided by the
+  design. For instance, the original AKA protocol does not prevent
+  supplying keys by an insider to a third party (e.g., <xref
+  target="MT2012"/>) or preventing tunneling of traffic from one place
+  to another (e.g., <xref target="ZF2005"/>).  There has also been
+  attacks related to the use of AKA without the generated session keys
+  (e.g., <xref target="BT2013"/>). Some of those attacks relate to the
+  use of originally man-in-the-middle vulnerable HTTP Digest AKAv1
+  <xref target="RFC3310"/>. This has since then been corrected in
+  <xref target="RFC4169"/>.</t>
+
+  <t>However, the EAP-AKA' protocol uses session keys and provides
+  channel binding, and as such, is resistant to the above attacks
+  except where the protocol participants leak information to
+  outsiders.</t>
+  
+  <t>In the context of pervasive monitoring revelations, there were
+  also reports of compromised long term pre-shared keys used in SIM
+  and AKA <xref target="Heist2015"/>. While no protocol can survive
+  the theft of key material associated with its credentials, there
+  are some things that alleviate the impacts in such situations.
+  These are discussed further in <xref target="pm"/>.</t>
+  
+</section>
+
+<section anchor="pm" title="Pervasive Monitoring">
+  
+  <t>As required by <xref target="RFC7258"/>, work on IETF protocols
+  needs to consider the effects of pervasive monitoring.</t>
+  
+  <t>As described above, after the publication of RFC 5448, new
+  information has come to light regarding the use of pervasive
+  monitoring techniques against many security technologies, including
+  AKA-based authentication.</t>
+
+  <t>These attacks relate to theft of the long-term shared secret key
+  material from the cards. Such attacks are conceivable, for instance,
+  during the manufacturing process of cards, through coercion of the
+  card manufacturers, or during the transfer of cards and associated
+  information to the operator. Since the publication of reports about
+  such attacks, manufacturing and provisioning processes have gained
+  much scrutiny and have improved.</t>
+
+  <t>In particular, it is crucial that manufacturers limit access to
+  the secret information and the cards to minimal systems and
+  personnel. It is also crucial that secure mechanisms be used to
+  communicate the secrets between the manufacturer and the operator
+  that adopts those cards for their customers.</t>
+
+  <t>Beyond these operational considerations, there are also technical
+  means to improve resistance to these attacks. One approach is to
+  provide Perfect Forwards Secrecy (PFS) to ensure that session keys
+  protecting actual traffic are independent from the long-term shared
+  secrets. This would prevent any passive attacks merely based on the
+  long-term secrets and observation of traffic. Such a mechanism can
+  be defined as an backwards-compatible extension of EAP-AKA', and is
+  pursued separate from this specification. However, the use of such
+  mechanisms is RECOMMENDED. </t>
+  
+</section>
+
 <section anchor="bindprop" title="Security Properties of Binding Network Names">
 
 <t>The ability of EAP-AKA' to bind the network name into the used keys
@@ -1212,9 +1309,9 @@ the Specification Required policy <xref target="RFC8126"/>.
 
 <figure><artwork>
 Value      Description              Reference
----------  ----------------------   ---------------
-0          Reserved                 [RFC 5448]
-1          EAP-AKA' with CK'/IK'    [RFC 5448]
+---------  ----------------------   -------------------------------
+0          Reserved                 [RFC Editor: Refer to this RFC]
+1          EAP-AKA' with CK'/IK'    [RFC Editor: Refer to this RFC]
 2-65535    Unassigned 
 </artwork></figure>
 </t>
@@ -1413,6 +1510,8 @@ Value      Description              Reference
 	<seriesInfo name="FIPS" value="PUB 180-2" />
       </reference>
 
+      <?rfc include="reference.RFC.3310.xml"?>
+      <?rfc include="reference.RFC.4169.xml"?>
       <?rfc include="reference.RFC.4186.xml"?>
       <?rfc include="reference.RFC.4284.xml"?>
       <?rfc include="reference.RFC.4306.xml"?>
@@ -1420,9 +1519,47 @@ Value      Description              Reference
       <?rfc include="reference.RFC.5226.xml"?>
       <?rfc include="reference.RFC.5247.xml"?>
       <?rfc include="reference.RFC.5448.xml"?>
+      <?rfc include="reference.RFC.6973.xml"?>
+      <?rfc include="reference.RFC.7258.xml"?>
 
-</references>
+      <reference anchor="Heist2015">
+	<front>
+	  <title>The great SIM heist</title>
+	  <author initials="J." surname="Scahill"></author>
+	  <author initials="J." surname="Begley"></author>
+	  <date month="February" year="2015, in https://firstlook.org/theintercept/2015/02/19/great-sim-heist/ "/>
+	</front>
+      </reference>
+      
+      <reference anchor="MT2012">
+	<front>
+	  <title>A vulnerability in the UMTS and LTE authentication and key agreement protocols</title>
+	  <author initials="S. F." surname="Mjolsnes"></author>
+	  <author initials="J-K." surname="Tsay"></author>
+	  <date month="October" year="2012, in Proceedings of the 6th international conference on Mathematical Methods, Models and Architectures for Computer Network Security: computer network security"/>
+	</front>
+      </reference>
+      
+      <reference anchor="BT2013">
+	<front>
+	  <title>Breaking Cell Phone Authentication: Vulnerabilities in AKA, IMS and Android</title>
+	  <author initials="J. G." surname="Beekman"></author>
+	  <author initials="C." surname="Thompson"></author>
+	  <date month="August" year="2013, in 7th USENIX Workshop on Offensive Technologies, WOOT '13"/>
+	</front>
+      </reference>
+      
+      <reference anchor="ZF2005">
+	<front>
+	  <title>Breaking Cell Phone Authentication: Vulnerabilities in AKA, IMS and Android</title>
+	  <author initials="M." surname="Zhang"></author>
+	  <author initials="Y." surname="Fang"></author>
+	  <date month="March" year="2005, IEEE Transactions on Wireless Communications, Vol. 4, No. 2"/>
+	</front>
+      </reference>
 
+  </references>
+  
 <section anchor="diff2" title="Changes from RFC 5448">
 
   <t>The changes consist first of all, referring to a newer version
@@ -1523,7 +1660,7 @@ hard-to-diagnose problems and increased support calls.</t>
 
    <t>Test vectors are provided below for four different cases.  The test
    vectors may be useful for testing implementations.  In the first two
-   cases, we employ the Milenage algorithm and the algorithm
+   cases, we employ the MILENAGE algorithm and the algorithm
    configuration parameters (the subscriber key K and operator algorithm
    variant configuration value OP) from test set 19 in <xref target="TS-3GPP.35.208"/>.</t>
 
@@ -1537,43 +1674,43 @@ Case 1
 
    The parameters for the AKA run are as follows:
 
-      Identity: "0555444333222111"
+      Identity:     "0555444333222111"
 
       Network name: "WLAN"
 
-      RAND: 81e9 2b6c 0ee0 e12e bceb a8d9 2a99 dfa5
+      RAND:         81e9 2b6c 0ee0 e12e bceb a8d9 2a99 dfa5
 
-      AUTN: bb52 e91c 747a c3ab 2a5c 23d1 5ee3 51d5
+      AUTN:         bb52 e91c 747a c3ab 2a5c 23d1 5ee3 51d5
 
-      IK: 9744 871a d32b f9bb d1dd 5ce5 4e3e 2e5a
+      IK:           9744 871a d32b f9bb d1dd 5ce5 4e3e 2e5a
 
-      CK: 5349 fbe0 9864 9f94 8f5d 2e97 3a81 c00f
+      CK:           5349 fbe0 9864 9f94 8f5d 2e97 3a81 c00f
 
-      RES: 28d7 b0f2 a2ec 3de5
+      RES:          28d7 b0f2 a2ec 3de5
 
    Then the derived keys are generated as follows:
 
-      CK': 0093 962d 0dd8 4aa5 684b 045c 9edf fa04
+      CK':          0093 962d 0dd8 4aa5 684b 045c 9edf fa04
 
-      IK': ccfc 230c a74f cc96 c0a5 d611 64f5 a76c
+      IK':          ccfc 230c a74f cc96 c0a5 d611 64f5 a76c
 
-      K_encr: 766f a0a6 c317 174b 812d 52fb cd11 a179
+      K_encr:       766f a0a6 c317 174b 812d 52fb cd11 a179
 
-      K_aut: 0842 ea72 2ff6 835b fa20 3249 9fc3 ec23
-      c2f0 e388 b4f0 7543 ffc6 77f1 696d 71ea
+      K_aut:        0842 ea72 2ff6 835b fa20 3249 9fc3 ec23
+                    c2f0 e388 b4f0 7543 ffc6 77f1 696d 71ea
 
-      K_re: cf83 aa8b c7e0 aced 892a cc98 e76a 9b20
-      95b5 58c7 795c 7094 715c b339 3aa7 d17a
+      K_re:         cf83 aa8b c7e0 aced 892a cc98 e76a 9b20
+                    95b5 58c7 795c 7094 715c b339 3aa7 d17a
 
-      MSK: 67c4 2d9a a56c 1b79 e295 e345 9fc3 d187
-      d42b e0bf 818d 3070 e362 c5e9 67a4 d544
-      e8ec fe19 358a b303 9aff 03b7 c930 588c
-      055b abee 58a0 2650 b067 ec4e 9347 c75a
+      MSK:          67c4 2d9a a56c 1b79 e295 e345 9fc3 d187
+                    d42b e0bf 818d 3070 e362 c5e9 67a4 d544
+                    e8ec fe19 358a b303 9aff 03b7 c930 588c
+                    055b abee 58a0 2650 b067 ec4e 9347 c75a
 
-      EMSK: f861 703c d775 590e 16c7 679e a387 4ada
-      8663 11de 2907 64d7 60cf 76df 647e a01c
-      313f 6992 4bdd 7650 ca9b ac14 1ea0 75c4
-      ef9e 8029 c0e2 90cd bad5 638b 63bc 23fb
+      EMSK:         f861 703c d775 590e 16c7 679e a387 4ada
+                    8663 11de 2907 64d7 60cf 76df 647e a01c
+                    313f 6992 4bdd 7650 ca9b ac14 1ea0 75c4
+                    ef9e 8029 c0e2 90cd bad5 638b 63bc 23fb
 </artwork>
 </figure>
 
@@ -1584,43 +1721,43 @@ Case 2
 
    The parameters for the AKA run are as follows:
 
-      Identity: "0555444333222111"
+      Identity:     "0555444333222111"
 
       Network name: "HRPD"
 
-      RAND: 81e9 2b6c 0ee0 e12e bceb a8d9 2a99 dfa5
+      RAND:         81e9 2b6c 0ee0 e12e bceb a8d9 2a99 dfa5
 
-      AUTN: bb52 e91c 747a c3ab 2a5c 23d1 5ee3 51d5
+      AUTN:         bb52 e91c 747a c3ab 2a5c 23d1 5ee3 51d5
 
-      IK: 9744 871a d32b f9bb d1dd 5ce5 4e3e 2e5a
+      IK:           9744 871a d32b f9bb d1dd 5ce5 4e3e 2e5a
 
-      CK: 5349 fbe0 9864 9f94 8f5d 2e97 3a81 c00f
+      CK:           5349 fbe0 9864 9f94 8f5d 2e97 3a81 c00f
 
-      RES: 28d7 b0f2 a2ec 3de5
+      RES:          28d7 b0f2 a2ec 3de5
 
    Then the derived keys are generated as follows:
 
-      CK': 3820 f027 7fa5 f777 32b1 fb1d 90c1 a0da
+      CK':          3820 f027 7fa5 f777 32b1 fb1d 90c1 a0da
 
-      IK': db94 a0ab 557e f6c9 ab48 619c a05b 9a9f
+      IK':          db94 a0ab 557e f6c9 ab48 619c a05b 9a9f
 
-      K_encr: 05ad 73ac 915f ce89 ac77 e152 0d82 187b
+      K_encr:       05ad 73ac 915f ce89 ac77 e152 0d82 187b
 
-      K_aut: 5b4a caef 62c6 ebb8 882b 2f3d 534c 4b35
-      2773 37a0 0184 f20f f25d 224c 04be 2afd
+      K_aut:        5b4a caef 62c6 ebb8 882b 2f3d 534c 4b35
+                    2773 37a0 0184 f20f f25d 224c 04be 2afd
 
-      K_re: 3f90 bf5c 6e5e f325 ff04 eb5e f653 9fa8
-      cca8 3981 94fb d00b e425 b3f4 0dba 10ac
+      K_re:         3f90 bf5c 6e5e f325 ff04 eb5e f653 9fa8
+                    cca8 3981 94fb d00b e425 b3f4 0dba 10ac
 
-      MSK: 87b3 2157 0117 cd6c 95ab 6c43 6fb5 073f
-      f15c f855 05d2 bc5b b735 5fc2 1ea8 a757
-      57e8 f86a 2b13 8002 e057 5291 3bb4 3b82
-      f868 a961 17e9 1a2d 95f5 2667 7d57 2900
+      MSK:          87b3 2157 0117 cd6c 95ab 6c43 6fb5 073f
+                    f15c f855 05d2 bc5b b735 5fc2 1ea8 a757
+                    57e8 f86a 2b13 8002 e057 5291 3bb4 3b82
+                    f868 a961 17e9 1a2d 95f5 2667 7d57 2900
 
-      EMSK: c891 d5f2 0f14 8a10 0755 3e2d ea55 5c9c
-      b672 e967 5f4a 66b4 bafa 0273 79f9 3aee
-      539a 5979 d0a0 042b 9d2a e28b ed3b 17a3
-      1dc8 ab75 072b 80bd 0c1d a612 466e 402c
+      EMSK:         c891 d5f2 0f14 8a10 0755 3e2d ea55 5c9c
+                    b672 e967 5f4a 66b4 bafa 0273 79f9 3aee
+                    539a 5979 d0a0 042b 9d2a e28b ed3b 17a3
+                    1dc8 ab75 072b 80bd 0c1d a612 466e 402c
 </artwork>
 </figure>
 
