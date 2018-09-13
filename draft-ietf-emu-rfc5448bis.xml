@@ -1125,7 +1125,7 @@ following section for more discussion.</t>
 
 </section>
 
-<section title="Discovered Vulnerabilities">
+<section anchor="vuln" title="Discovered Vulnerabilities">
   
   <t>There have been no published attacks that violate the security
   properties defined for the Authentication and Key Agreement (AKA)
@@ -1161,15 +1161,16 @@ following section for more discussion.</t>
 <section anchor="pm" title="Pervasive Monitoring">
   
   <t>As required by <xref target="RFC7258"/>, work on IETF protocols
-  needs to consider the effects of pervasive monitoring.</t>
+  needs to consider the effects of pervasive monitoring and mitigate
+  them when possible.</t>
   
-  <t>As described above, after the publication of RFC 5448, new
+  <t>As described <xref target="vuln"/>, after the publication of RFC 5448, new
   information has come to light regarding the use of pervasive
   monitoring techniques against many security technologies, including
   AKA-based authentication.</t>
 
   <t>These attacks relate to theft of the long-term shared secret key
-  material from the cards. Such attacks are conceivable, for instance,
+  material stored on the cards. Such attacks are conceivable, for instance,
   during the manufacturing process of cards, through coercion of the
   card manufacturers, or during the transfer of cards and associated
   information to the operator. Since the publication of reports about
@@ -1177,19 +1178,19 @@ following section for more discussion.</t>
   much scrutiny and have improved.</t>
 
   <t>In particular, it is crucial that manufacturers limit access to
-  the secret information and the cards to minimal systems and
+  the secret information and the cards only to necessary systems and
   personnel. It is also crucial that secure mechanisms be used to
   communicate the secrets between the manufacturer and the operator
   that adopts those cards for their customers.</t>
 
   <t>Beyond these operational considerations, there are also technical
   means to improve resistance to these attacks. One approach is to
-  provide Perfect Forwards Secrecy (PFS) to ensure that session keys
-  protecting actual traffic are independent from the long-term shared
-  secrets. This would prevent any passive attacks merely based on the
-  long-term secrets and observation of traffic. Such a mechanism can
-  be defined as an backwards-compatible extension of EAP-AKA', and is
-  pursued separate from this specification. However, the use of such
+  provide Perfect Forwards Secrecy (PFS). This would prevent any
+  passive attacks merely based on the long-term secrets and
+  observation of traffic. Such a mechanism can be defined as an
+  backwards-compatible extension of EAP-AKA', and is pursued
+  separately from this specification <xref
+  target="I-D.arkko-eap-aka-pfs"/>. However, the use of such
   mechanisms is RECOMMENDED. </t>
   
 </section>
@@ -1337,7 +1338,7 @@ Value      Description              Reference
   Naslund, Adrian Escott, Brian Rosenberg,
   Laksminath Dondeti, Ahmad Muhanna, Stefan Rommer, Miguel Garcia, Jan
   Kall, Ankur Agarwal, Jouni Malinen, Brian Weis, Russ Housley, Alfred
-  Hoenes, Vesa Torvinen, Anand Palanigounder, and Mohit Sethi for
+  Hoenes, Anand Palanigounder, and Mohit Sethi for
   their in-depth reviews and interesting discussions in this problem
   space.</t>
   
@@ -1521,7 +1522,9 @@ Value      Description              Reference
       <?rfc include="reference.RFC.5448.xml"?>
       <?rfc include="reference.RFC.6973.xml"?>
       <?rfc include="reference.RFC.7258.xml"?>
-
+      
+      <?rfc include="reference.I-D.arkko-eap-aka-pfs.xml"?>
+      
       <reference anchor="Heist2015">
 	<front>
 	  <title>The great SIM heist</title>
