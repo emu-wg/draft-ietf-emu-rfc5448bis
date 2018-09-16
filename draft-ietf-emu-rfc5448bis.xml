@@ -143,14 +143,17 @@ approaches would lead to severe interoperability problems.</t>
   
   <t>Update the reference
   on how the Network Name field is constructed in the protocol. The
-  update helps ensure that EAP-AKA' becomes
-  compatible with 5G deployments as well. RFC 5448 referred to the
+  update ensures that EAP-AKA' is
+  compatible with 5G deployments. RFC 5448 referred to the
   Release 8 version of <xref target="TS-3GPP.24.302"/> and this
   update points to the first 5G version, Release 15.</t>
 
-  <t>Specify how EAP and EAP-AKA' use identifiers in 5G, as additional
-  identifiers are introduced, and for interoperability, it is important
-  that implementations use the right ones.</t>
+  <t>Specify how EAP and EAP-AKA' use identifiers in 5G. Additional
+  identifiers are introduced in 5G, and for interoperability, it is
+  necessary that the right identifiers are used as inputs in the key
+  generation.  In addition, for identity privacy it is important that
+  when privacy-friendly identifiers in 5G are used, no trackable, permanent
+  identifiers are passed in EAP-AKA' either.</t>
   
   <t>Specify session identifiers and other exported parameters, as
   those were not specified in <xref target="RFC5448"/> despite
@@ -160,7 +163,7 @@ approaches would lead to severe interoperability problems.</t>
   for the case of fast re-authentication.</t>
   
   <t>Update the requirements on generating pseudonym usernames and
-  fast re-authentication identities.</t>
+  fast re-authentication identities to ensure identity privacy.</t>
   
   <t>Describe what has been learned about any vulnerabilities
   in AKA or EAP-AKA'.</t>
@@ -170,47 +173,32 @@ approaches would lead to severe interoperability problems.</t>
   
 </list></t>  
 
-<t>Arguably, the updates are small. For the first update, 
-the 3GPP specification number for the updated calculation has not
-changed,
+<t>Some of the updates are small. For instance, for the first update,
+the reference update does not change the 3GPP specification number,
 only the version. But this reference is crucial in correct calculation
 of the keys resulting from running the EAP-AKA' method, so an
 update of the RFC with the newest version pointer may be warranted.
-As always, feedback is welcome on that point as well as on any other
-topic within this document.
 
 <list style="empty">
-<t>Note: It is an open issue whether this update should refer to only the 5G
-version
-of the definition, or be explicit that any further update of that
-specification
-is something that EAP-AKA' implementations should take into
-account. Note that one should keep in mind that specification being
-automatically updated is different from implementations taking notice
-of new things.</t></list></t>
+<t>Note: This specification refers only to the 5G
+specifications. Any further update that affects, for instance, key
+generation is something that EAP-AKA' implementations should take into
+account. Upon such updates there will be a need to both update the
+specification and the implementations.</t></list></t>
 
-<t>The second update is needed to ensure that implementations use the
-correct identifiers in the context of 5G, as it introduces additional
-privacy-protected identifiers, and it is no longer clear which
-identifiers are used in EAP-AKA'.</t>
+<t>It is an explicit non-goal of this draft to include any other
+technical modifications, addition of new features or other
+changes. The EAP-AKA' base protocol is stable and needs to stay that
+way. If there are any extensions or variants, those need to be
+proposed as standalone extensions or even as different authentication
+methods.</t>
 
-<t>The third update is necessary in order to fix a problem
-in previous RFCs.</t>
-  
-<t>It is
-an explicit non-goal of this draft to include any other technical
-modifications, addition of new features or other changes. The EAP-AKA'
-base protocol is stable and needs to stay that way. If there are any
-extensions
-or variants, those need to be proposed as standalone extensions or
-even as different authentication methods.</t>
-
-<t>The rest of this specification is structured as
-follows. <xref target="prime"/> defines the EAP-AKA'
-method. <xref target="bidding"/> adds support to EAP-AKA
-to prevent bidding down attacks from EAP-AKA'.
-<xref target="identifiersin5g"/> specifies how EAP-AKA' identifiers are
-used in 5G context. <xref target="exported-parameters"/> specifies what
+<t>The rest of this specification is structured as follows. <xref
+target="prime"/> defines the EAP-AKA' method. <xref target="bidding"/> adds support to EAP-AKA to
+prevent bidding down attacks from EAP-AKA'. <xref
+target="identities"/> specifies requirements regarding the use of peer
+identities, including how how EAP-AKA' identifiers are used
+in 5G context. <xref target="exported-parameters"/> specifies what
 parameters EAP-AKA' exports out of the method.
 <xref target="security"/>
 explains the security differences between EAP-AKA and EAP-AKA'. <xref
@@ -762,98 +750,6 @@ hash output:</t>
 
 </section>
 
-<section anchor="identities" title="Peer Identities">
-  
-  <t>This section updates the requirements from RFC 4187 Section
-  4.1 regarding the use of pseudonym usernames and fast
-  re-authentication identities.</t>
-  
-  <t>EAP-AKA' includes optional identity privacy (anonymity) support
-  that can be used to hide the cleartext permanent identity and
-  thereby make the subscriber's EAP exchanges untraceable to
-  eavesdroppers.  Because the permanent identity never changes,
-  revealing it would help observers to track the user.</t>
-
-  <t>The permanent identity is usually based on the IMSI, which may
-  further help the tracking, because the same identifier may be used
-  in other contexts as well.  Identity privacy is based on temporary
-  identities, or pseudonyms, which are equivalent to but separate from
-  the Temporary Mobile Subscriber Identities (TMSI) that are used on
-  cellular networks.</t>
-  
-  <section title="Username Types in EAP-AKA' Identities">
-
-    <t><xref target="RFC4187"/> Section 4.1.1.3 specifies that there
-    are three types of usernames:
-    <list style="empty">
-      
-      <t>(1) Permanent usernames.</t>
-      
-      <t>(2) Pseudonym usernames.  For example, 2s7ah6n9q@example.com might
-      be a valid pseudonym identity.  In this example, 2s7ah6n9q is the
-      pseudonym username.</t>
-      
-      <t>(3) Fast re-authentication usernames.  For example,
-      43953754@example.com might be a valid fast re-authentication
-      identity and 43953754 the fast re-authentication
-      username.</t>
-      
-    </list></t>
-    
-    <t>The first two types of identities are used only on full
-    authentication, and the last type only on fast re-authentication.
-    Unlike permanent usernames and pseudonym usernames, fast
-    re-authentication usernames are one-time identifiers, which are
-    not re-used across EAP exchanges.</t>
-    
-  </section>
-  
-  <section anchor="genpfr"
-	   title="Generating Pseudonyms and Fast Re-Authentication Identities">
-
-    <t>As specified by <xref target="RFC4187"/> Section 4.1.1.7,
-    pseudonym usernames and fast re-authentication identities are
-    generated by the EAP server, in an implementation-dependent
-    manner. However, RFC 4187 provided some general requirements on
-    how these identities are transported, how they map to the NAI
-    syntax, how they are distinguished from each other, and so on.
-    </t>
-
-    <t>However, to ensure privacy some additional requirements need to
-    be applied.</t>
-
-    <t>The pseudonym usernames and fast re-authentication identities
-    MUST be generated in a cryptographically secure way so that that
-    it is computationally infeasible for at attacker to differentiate
-    two identities belonging to the same user from two identities
-    belonging to different users. This can for instance be achieved by
-    using random or pseudo-random identifiers such as random byte
-    strings or ciphertexts.</t>
-  
-    <t>Note that the pseudonym and fast re-authentication usernames
-    also MUST NOT include substrings that can be used to relate the
-    username to to a particular entity or a particular permanent
-    identity. For instance, the usernames can not include any
-    subscriber-identifying part of an IMSI or other permanent
-    identifier. Similarly, no part of the username can be formed by a
-    fixed mapping that stays the same across multiple different
-    pseudonyms or fast re-authentication identities for the same
-    subscriber.</t>
-    
-    <t>When the identifier used to identify a subscriber in an
-    EAP-AKA' authentication exchange is a privacy-friendly identifier
-    that is used only once, the EAP-AKA' peer MUST NOT use a pseudonym
-    provided in that authentication exchange in subsequent exchanges
-    more than once. To ensure that this does not happen, EAP-AKA'
-    server MAY decline to provide a pseudonym in such authentication
-    exchanges. An important case where such privacy-friendly
-    identifiers are used is in 5G networks (see <xref
-    target="identifiersin5g"/>)</t>
-    
-  </section>
-  
-</section>
-
 <section anchor="bidding" title="Bidding Down Prevention for EAP-AKA">
 
 <t>As discussed in <xref target="RFC3748"/>, negotiation of methods
@@ -923,6 +819,107 @@ the endpoints to use EAP-AKA'.</t>
 
 </section>
 
+<section anchor="identities" title="Peer Identities">
+  
+  <t>EAP-AKA' peer identities are as specified in <xref
+  target="RFC4187"/> Section 4.1, with the addition of some
+  requirements specified in this section.</t>
+  
+  <t>EAP-AKA' includes optional identity privacy support
+  that can be used to hide the cleartext permanent identity and
+  thereby make the subscriber's EAP exchanges untraceable to
+  eavesdroppers. EAP-AKA' can also use the privacy friendly identifiers
+  specified for 5G networks.</t>
+
+  <t>The permanent identity is usually based on the IMSI, which may
+  further help the tracking, because the same identifier may be used
+  in other contexts as well.  Identity privacy is based on temporary
+  usernames, or pseudonym usernames. These are similar to but
+  separate from the Temporary Mobile Subscriber Identities (TMSI) that
+  are used on cellular networks.</t>
+  
+  <section title="Username Types in EAP-AKA' Identities">
+
+    <t>Section 4.1.1.3 of <xref target="RFC4187"/> specified that there
+    are three types of usernames: permanent, pseudonym, and fast
+    re-authentication usernames.  This specification extends this
+    definition as follows. There are four types of usernames:
+    
+    <list style="empty">
+      
+      <t>(1) Regular usernames. These are external names given to EAP-AKA'.
+      The regular usernames are further subdivided into to categories:
+      <list style="empty">
+	<t>(a) Permanent usernames, for instance IMSI-based usernames.</t>
+	<t>(b) Privacy-friendly temporary usernames, for instance 5G identifiers (see
+	<xref target="id5guse"/>.</t>
+      </list></t>
+      
+      <t>(2) EAP-AKA' pseudonym usernames.  For example, 2s7ah6n9q@example.com might
+      be a valid pseudonym identity.  In this example, 2s7ah6n9q is the
+      pseudonym username.</t>
+      
+      <t>(3) EAP-AKA' fast re-authentication usernames.  For example,
+      43953754@example.com might be a valid fast re-authentication
+      identity and 43953754 the fast re-authentication
+      username.</t>
+      
+    </list></t>
+    
+    <t>The permanent, privacy-friendly temporary, and pseudonym
+    usernames are only used on full authentication, and fast
+    re-authentication usernames only on fast re-authentication.
+    Unlike permanent usernames and pseudonym usernames, privacy
+    friendly temporary usernames and fast re-authentication usernames
+    are one-time identifiers, which are not re-used across EAP
+    exchanges.</t>
+    
+  </section>
+  
+  <section anchor="genpfr"
+	   title="Generating Pseudonyms and Fast Re-Authentication Identities">
+
+    <t>As specified by <xref target="RFC4187"/> Section 4.1.1.7,
+    pseudonym usernames and fast re-authentication identities are
+    generated by the EAP server, in an implementation-dependent
+    manner. RFC 4187 provides some general requirements on how these
+    identities are transported, how they map to the NAI syntax, how
+    they are distinguished from each other, and so on.
+    </t>
+
+    <t>However, to ensure privacy some additional requirements need to
+    be applied.</t>
+
+    <t>The pseudonym usernames and fast re-authentication identities
+    MUST be generated in a cryptographically secure way so that that
+    it is computationally infeasible for at attacker to differentiate
+    two identities belonging to the same user from two identities
+    belonging to different users. This can be achieved, for instance,
+    by using random or pseudo-random identifiers such as random byte
+    strings or ciphertexts.</t>
+  
+    <t>Note that the pseudonym and fast re-authentication usernames
+    also MUST NOT include substrings that can be used to relate the
+    username to a particular entity or a particular permanent
+    identity. For instance, the usernames can not include any
+    subscriber-identifying part of an IMSI or other permanent
+    identifier. Similarly, no part of the username can be formed by a
+    fixed mapping that stays the same across multiple different
+    pseudonyms or fast re-authentication identities for the same
+    subscriber.</t>
+    
+    <t>When the identifier used to identify a subscriber in an
+    EAP-AKA' authentication exchange is a privacy-friendly identifier
+    that is used only once, the EAP-AKA' peer MUST NOT use a pseudonym
+    provided in that authentication exchange in subsequent exchanges
+    more than once. To ensure that this does not happen, EAP-AKA'
+    server MAY decline to provide a pseudonym in such authentication
+    exchanges. An important case where such privacy-friendly
+    identifiers are used is in 5G networks (see <xref
+    target="identifiersin5g"/>)</t>
+    
+  </section>
+  
 <section anchor="identifiersin5g" title='Identifier Usage in 5G'>
 
   <t>In EAP-AKA', the peer identity may be communicated to the server
@@ -946,15 +943,13 @@ the endpoints to use EAP-AKA'.</t>
     
   </list></t>
 
-  <t>The identity carried above may be a permanent identity or a
-  pseudonym identity or fast re-authentication identity as defined
-  in this RFC.</t>
+  <t>The identity carried above may be a permanent identity, privacy
+  friendly identity, pseudonym identity, or fast re-authentication
+  identity as defined in this RFC.</t>
 
-  <t>In networks where EAP is the only part handling such pseudonym
-  or fast re-authentication identities, this usage is clear. However,
-  5G supports the concept of pseudonym or privacy identifiers, and
-  it is important for interoperability that the right type of
-  identifier is used.</t>
+  <t>5G supports the concept of privacy identifiers, and it is
+  important for interoperability that the right type of identifier is
+  used.</t>
 
   <t>5G defines the SUbscription Permanent Identifier (SUPI) and
   SUbscription Concealed Identifier (SUCI) <xref
@@ -1023,12 +1018,42 @@ the endpoints to use EAP-AKA'.</t>
       <t>In this case, the used identity MUST be the identity most
       recently communicated by the peer to the network, again regardless
       of what type of identity it may have been.</t>
+      
+      <t>The identity MUST also be represented in the exact correct
+      format as specified in <xref target="sucifmt"/> for the key
+      derivation formula to produce correct results.</t>
 
     </list></t>
 
   </section>
+
+  <section anchor="sucifmt" title="Format of 5G Identities">
+
+    <t>This specification specifies only the the format to be used
+    with the 5G SUCI. This format MUST be used when a 5G SUCI is
+    needed in the calculation of a cryptographic value or communicated
+    in the EAP-AKA' protocol.</t>
+    
+    <t>The Figure 9.10.3.4.2 in <xref target="TS-3GPP.24.501"/>
+    specifies the format of an information element that carries a
+    SUCI. In EAP-AKA', a SUCI identity shall be represented as an
+    ASCII string that begins with the special character "5" and is
+    followed by the value of the identity from Figure 9.10.3.4.2.,
+    starting from octet 3 (type of identity, odd/even indicator, and
+    first identifier digit) to the end of the identity. Each byte MUST
+    be represented as two hex digits, using decimal digits and
+    lower-case letters "a" through "f".</t>
+
+    <t>Note: There is a need to check whether <xref
+    target="TS-3GPP.33.501"/> specification of the key derivation
+    agrees with this definition. Also, neither <xref
+    target="TS-3GPP.33.501"/> or <xref target="TS-3GPP.24.501"/> are
+    clear whether the SUCI 4-bit protection scheme indicator is at the
+    upper half of octet 3 or somewhere else.</t>
+    
+  </section>
   
-  <section title="EAP Identity Response and EAP-AKA' AT_IDENTITY Attribute">
+  <section anchor="id5guse" title="EAP Identity Response and EAP-AKA' AT_IDENTITY Attribute">
     
     <t>The EAP authentication option is only available in 5G when the
     new 5G core network is also in use. However, in other networks an
@@ -1037,22 +1062,29 @@ the endpoints to use EAP-AKA'.</t>
     
     <t>When the EAP peer is connecting to a 5G access network and uses
     the 5G core network signaling mechanisms, it can assume that the
-    EAP server is in a 5G network. The EAP level identity exchanges
-    are not generally used in this case, but if there is, the EAP peer
-    SHOULD employ only the privacy preserving SUCI identifier within
-    EAP (either in EAP Identity Response or EAP-AKA' AT_IDENTITY
-    attribute).</t>
+    EAP server is in a 5G network. The EAP identity exchanges are
+    generally not used in this case, as the identity is already made
+    available on previous link layer exchanges. But if there is a need
+    to send an identity in EAP, the EAP peer SHOULD employ only the
+    privacy preserving SUCI identifier within EAP (either in EAP
+    Identity Response or EAP-AKA' AT_IDENTITY attribute).</t>
     
-    <t>Similarly, if the peer is explicitly communicating through
-    mechanisms developed for 5G to connect to 5G networks over WLAN,
-    it MUST assume that the EAP server is in a 5G network, and again
-    employ the SUCI within EAP.</t>
+    <t>Similarly, if the peer is communicating over a non-3GPP network
+    but carrying EAP inside the 5G Non-Access Stratum (NAS) protocol
+    <xref target="TS-3GPP.24.501"/>, it MUST assume that the EAP
+    server is in a 5G network, and again employ the SUCI within
+    EAP.</t>
     
     <t>Otherwise, the peer SHOULD employ IMSI, SUPI, or a NAI as it is
     configured to use.</t>
-
+    
+    <t>When SUCI is carried in EAP-AKA', it SHOULD be represented as
+    specified in <xref target="sucifmt"/>.</t>
+    
   </section>
   
+</section>
+
 </section>
 
 <section anchor="exported-parameters" title='Exported Parameters'>
@@ -1083,8 +1115,13 @@ the endpoints to use EAP-AKA'.</t>
   AT_IDENTITY attribute, using only the Actual Identity Length octets
   from the beginning.  Note that the contents are used as they are
   transmitted, regardless of whether the transmitted identity was a
-  permanent, pseudonym, or fast EAP re-authentication identity.  The
-  Server-Id is the null string (zero length).</t>
+  permanent, pseudonym, or fast EAP re-authentication identity. If no
+  AT_IDENTITY attribute was exchanged, the exported Peer-Id is the
+  identity provided from the EAP Identity Response packet. If no EAP
+  Identity Response was provided either, the exported Peer-Id is null
+  string (zero length).</t>
+
+  <t>The Server-Id is the null string (zero length).</t>
   
 </section>
 
@@ -1209,14 +1246,14 @@ target="bindprop"/> for more discussion.</t>
   <t><xref target="RFC6973"/> suggests that the privacy considerations
   of IETF protocols be documented.</t>
 
-  <t>The confidentiality properties of EAP-AKA' itself have been discussed
-  above.</t>
-
+  <t>The confidentiality properties of EAP-AKA' itself have been
+  discussed above under "Confidentiality".</t>
+  
   <t>EAP-AKA' uses several different types of identifiers to identify
   the authenticating peer. It is strongly RECOMMENDED to use the
   privacy-friendly temporary or hidden identifiers, i.e., the 5G SUCI,
-  pseudonym usernames, and fast re-authentication identities. The use
-  of permanent identifiers such as the IMSI may lead to an ability to
+  pseudonym usernames, and fast re-authentication usernames. The use
+  of permanent identifiers such as the IMSI or SUPI may lead to an ability to
   track the peer and/or user associated with the peer. The use of
   permanent identifiers such as the IMSI or SUPI is strongly NOT
   RECOMMENDED.</t>
@@ -1227,22 +1264,27 @@ target="bindprop"/> for more discussion.</t>
   limited. In fact, the re-use of the same pseudonym multiple times
   will result in a tracking opportunity for observers that see the
   pseudonym pass by. To avoid this, the peer and server need to follow
-  the guidelines given in <xref target="genpfr"/>.
-  <list style="empty">
+  the guidelines given in <xref target="genpfr"/>.</t>
 
-    <t>Note: When authenticating to a 5G network, per <xref
-    target="kd5g"/>, both the EAP-AKA' peer and server need employ
-    permanent identifier, SUPI, as an input to key
-    generation. However, this use of the SUPI is only internal and the
-    SUPI need not be communicated in EAP messages. SUCI MUST NOT be
-    communicated in EAP-AKA' when authenticating to a 5G network.</t>
-
-  </list></t>
+  <t>When authenticating to a 5G network, per <xref target="kd5g"/>,
+  both the EAP-AKA' peer and server need employ permanent identifier,
+  SUPI, as an input to key generation. However, this use of the SUPI
+  is only internal and the SUPI need not be communicated in EAP
+  messages. SUCI MUST NOT be communicated in EAP-AKA' when
+  authenticating to a 5G network.</t>
+ 
+  <t>While the use of SUCI in 5G networks generally provides identity
+  privacy, this is not true if the null-scheme encryption is used to
+  construct the SUCI (see <xref target="TS-3GPP.23.501"/> Annex C). The use
+  of this scheme turns the use of SUCI equivalent to the use of SUPI
+  or IMSI. The use of the null scheme is NOT RECOMMENDED where
+  identity privacy is important.</t>
   
   <t>The use of fast re-authentication identities when authenticating
   to a 5G network does not have the same problems as the use of
   pseudonyms, as long as the 5G authentication server generates the
-  fast re-authentication identifiers in a proper manner (see below).</t>
+  fast re-authentication identifiers in a proper manner specified in
+  <xref target="genpfr"/>.</t>
   
   <t>Outside 5G, there is a full choice to use permanent, pseudonym, or fast
   re-authentication identifiers:
@@ -1253,11 +1295,14 @@ target="bindprop"/> for more discussion.</t>
     not typically have a pseudonym available. If the peer does not
     have a pseudonym available, then the privacy mechanism cannot be
     used, and the permanent identity will have to be sent in the
-    clear. The terminal SHOULD store the pseudonym in non-volatile
+    clear.
+    <vspace blankLines="1"/>
+
+    The terminal SHOULD store the pseudonym in non-volatile
     memory so that it can be maintained across reboots.  An active
     attacker that impersonates the network may use the
     AT_PERMANENT_ID_REQ attribute (<xref target="RFC4187"/> Section
-    4.1.2) to learn the subscriber's IMSI.  However, as discussed in
+    4.1.2) to learn the subscriber's IMSI. However, as discussed in
     <xref target="RFC4187"/> Section 4.1.2, the terminal can refuse to
     send the cleartext permanent identity if it believes that the
     network should be able to recognize the pseudonym.</t>
@@ -1275,19 +1320,24 @@ target="bindprop"/> for more discussion.</t>
     
   </list></t>
 
-  <t>Finally, if the peer and server cannot guarantee that 5G
+  <t>If the peer and server cannot guarantee that 5G
   SUCI can be used or pseudonyms will available,
   generated properly, and maintained reliably, and identity privacy
   is required then additional protection from an external security
   mechanism such as tunneled EAP methods may be used.  The benefits
   and the security considerations of using an external security
   mechanism with EAP-AKA are beyond the scope of this document.</t>
+
+  <t>Finally, as with other EAP methods, even when privacy-friendly
+  identifiers or EAP tunneling is used, typically the domain part of
+  an identifier (e.g., the home operator) is visible to external
+  parties.</t>
   
 </section>
 
 <section anchor="vuln" title="Discovered Vulnerabilities">
   
-  <t>There have been no published attacks that violate the key secrecy
+  <t>There have been no published attacks that violate the primary secrecy
   or authentication properties defined for the anticipated
   Authentication and Key Agreement (AKA) under the originally assumed
   trust model. The same is true of EAP-AKA'.</t>
@@ -1316,7 +1366,7 @@ target="bindprop"/> for more discussion.</t>
   encrypt all payload traffic after encryption. As an authentication
   mechanism, EAP-AKA' is not directly affected by most such
   attacks. EAP-AKA' network name binding can also help alleviate some
-  of the attacks.  In any case, it is recommended that EAP-AKA'
+  of the attacks.  In any case, it is RECOMMENDED that EAP-AKA'
   configuration not be dependent on the location of where a request
   comes from.</t>
 
@@ -1361,7 +1411,7 @@ target="bindprop"/> for more discussion.</t>
   <t>Finally, while this is not a problem with the protocol itself,
   bad implementations may not produce pseudonym usernames or fast
   re-authentication identities in a manner that is sufficiently
-  secure. Recommendations from <xref target="priv"/> need to be
+  secure. Recommendations from <xref target="genpfr"/> need to be
   followed to avoid this.</t>
   
 </section>
@@ -1381,7 +1431,7 @@ target="bindprop"/> for more discussion.</t>
   material stored on the cards. Such attacks are conceivable, for instance,
   during the manufacturing process of cards, through coercion of the
   card manufacturers, or during the transfer of cards and associated
-  information to the operator. Since the publication of reports about
+  information to an operator. Since the publication of reports about
   such attacks, manufacturing and provisioning processes have gained
   much scrutiny and have improved.</t>
 
@@ -1398,8 +1448,10 @@ target="bindprop"/> for more discussion.</t>
   observation of traffic. Such a mechanism can be defined as an
   backwards-compatible extension of EAP-AKA', and is pursued
   separately from this specification <xref
-  target="I-D.arkko-eap-aka-pfs"/>. However, the use of such
-  mechanisms is RECOMMENDED. </t>
+  target="I-D.arkko-eap-aka-pfs"/>. Alternatively, EAP-AKA'
+  authentication can be run inside a PFS-capable tunneled
+  authentication method. In any case, the use of some PFS-capable
+  mechanism is RECOMMENDED. </t>
   
 </section>
 
@@ -1529,30 +1581,6 @@ Value      Description              Reference
 
 </section>
 
-<section title="Contributors">
-
-   <t>The test vectors in Appendix C were provided by Yogendra Pal and
-   Jouni Malinen, based on two independent implementations of this
-   specification.</t>
-   
-   <t>Jouni Malinen provided suggested text for <xref
-   target="exported-parameters"/>. John Mattsson provided much of the
-   text for <xref target="priv"/>. Karl Norrman was the source of
-   much of the information in <xref target="vuln"/>.</t>
-   
-</section>
-
-<section title="Acknowledgments">
-  
-  <t>The authors would like to thank Guenther Horn, Joe Salowey, Mats
-  Naslund, Adrian Escott, Brian Rosenberg, Laksminath Dondeti, Ahmad
-  Muhanna, Stefan Rommer, Miguel Garcia, Jan Kall, Ankur Agarwal,
-  Jouni Malinen, John Mattsson, Brian Weis, Russ Housley, Alfred
-  Hoenes, Anand Palanigounder, and Mohit Sethi for their in-depth
-  reviews and interesting discussions in this problem space.</t>
-  
-</section>
-
 </middle>
 <back>
 
@@ -1592,6 +1620,24 @@ Value      Description              Reference
 	
       </reference>
       
+      <reference anchor="TS-3GPP.24.501">
+	<front>
+	  <title>3rd Generation Partnership Project;
+	  Technical Specification Group Core Network and Terminals;
+	  Access to the 3GPP Evolved Packet Core (EPC)
+	  via non-3GPP access networks;
+	  Stage 3;
+	  (Release 15)</title>
+	  <author>
+	    <organization>3GPP</organization>
+	  </author>
+	  <date month="June" year="2018" />
+	</front>
+	
+	<seriesInfo name="3GPP" value="Draft Technical Specification 24.501" />
+	
+      </reference>
+
       <reference anchor="TS-3GPP.33.102">
 	<front>
 	  <title>3rd Generation Partnership Project;
@@ -1847,7 +1893,7 @@ Value      Description              Reference
   <t>The -00 version of the working group draft is merely a
   republication of an earlier individual draft.</t>
 
-  <t>The -01 version of the working group clarifies updates
+  <t>The -01 version of the working group draft clarifies updates
   relationship to RFC 4187, clarifies language relating to obsoleting
   RFC 5448, clarifies when the 3GPP references are expected to be
   stable, updates several past references to their more recently
@@ -1855,6 +1901,19 @@ Value      Description              Reference
   derivation formula for 5G, specifies how to construct the network
   name in manner that is compatible with both 5G and previous
   versions, and has some minor editorial changes.</t>
+
+  <t>The -02 version of the working group draft added specification of
+  peer identity usage in EAP-AKA', added requirements on the
+  generation of pseudonym and fast re-authentication identifiers,
+  specified the format of 5G-identifiers when they are used within
+  EAP-AKA', defined privacy and pervasive surveillance considerations,
+  clarified when 5G-related procedures apply, specified what Peer-Id
+  value is exported when no AT_IDENTITY is exchanged within EAP-AKA',
+  and made a number of other clarifications and editorial
+  improvements. The security considerations section also includes a
+  summary of vulnerabilities brought up in the context of AKA or
+  EAP-AKA', and discusses their applicability and impacts in
+  EAP-AKA'.</t>
   
 </section>
 
@@ -2013,43 +2072,43 @@ Case 3
 
    The parameters for the AKA run are as follows:
 
-        Identity:     "0555444333222111"
+      Identity:     "0555444333222111"
 
-        Network name: "WLAN"
+      Network name: "WLAN"
 
-        RAND:         e0e0 e0e0 e0e0 e0e0 e0e0 e0e0 e0e0 e0e0
+      RAND:         e0e0 e0e0 e0e0 e0e0 e0e0 e0e0 e0e0 e0e0
 
-        AUTN:         a0a0 a0a0 a0a0 a0a0 a0a0 a0a0 a0a0 a0a0
+      AUTN:         a0a0 a0a0 a0a0 a0a0 a0a0 a0a0 a0a0 a0a0
 
-        IK:           b0b0 b0b0 b0b0 b0b0 b0b0 b0b0 b0b0 b0b0
+      IK:           b0b0 b0b0 b0b0 b0b0 b0b0 b0b0 b0b0 b0b0
 
-        CK:           c0c0 c0c0 c0c0 c0c0 c0c0 c0c0 c0c0 c0c0
+      CK:           c0c0 c0c0 c0c0 c0c0 c0c0 c0c0 c0c0 c0c0
 
-        RES:          d0d0 d0d0 d0d0 d0d0 d0d0 d0d0 d0d0 d0d0
+      RES:          d0d0 d0d0 d0d0 d0d0 d0d0 d0d0 d0d0 d0d0
 
-     Then the derived keys are generated as follows:
+   Then the derived keys are generated as follows:
 
-        CK':          cd4c 8e5c 68f5 7dd1 d7d7 dfd0 c538 e577
+      CK':          cd4c 8e5c 68f5 7dd1 d7d7 dfd0 c538 e577
 
-        IK':          3ece 6b70 5dbb f7df c459 a112 80c6 5524
+      IK':          3ece 6b70 5dbb f7df c459 a112 80c6 5524
 
-        K_encr:       897d 302f a284 7416 488c 28e2 0dcb 7be4
+      K_encr:       897d 302f a284 7416 488c 28e2 0dcb 7be4
 
-        K_aut:        c407 00e7 7224 83ae 3dc7 139e b0b8 8bb5
-                      58cb 3081 eccd 057f 9207 d128 6ee7 dd53
+      K_aut:        c407 00e7 7224 83ae 3dc7 139e b0b8 8bb5
+                    58cb 3081 eccd 057f 9207 d128 6ee7 dd53
 
-        K_re:         0a59 1a22 dd8b 5b1c f29e 3d50 8c91 dbbd
-                      b4ae e230 5189 2c42 b6a2 de66 ea50 4473
+      K_re:         0a59 1a22 dd8b 5b1c f29e 3d50 8c91 dbbd
+                    b4ae e230 5189 2c42 b6a2 de66 ea50 4473
 
-        MSK:          9f7d ca9e 37bb 2202 9ed9 86e7 cd09 d4a7
-                      0d1a c76d 9553 5c5c ac40 a750 4699 bb89
-                      61a2 9ef6 f3e9 0f18 3de5 861a d1be dc81
-                      ce99 1639 1b40 1aa0 06c9 8785 a575 6df7
+      MSK:          9f7d ca9e 37bb 2202 9ed9 86e7 cd09 d4a7
+                    0d1a c76d 9553 5c5c ac40 a750 4699 bb89
+                    61a2 9ef6 f3e9 0f18 3de5 861a d1be dc81
+                    ce99 1639 1b40 1aa0 06c9 8785 a575 6df7
 
-        EMSK:         724d e00b db9e 5681 87be 3fe7 4611 4557
-                      d501 8779 537e e37f 4d3c 6c73 8cb9 7b9d
-                      c651 bc19 bfad c344 ffe2 b52c a78b d831
-                      6b51 dacc 5f2b 1440 cb95 1552 1cc7 ba23
+      EMSK:         724d e00b db9e 5681 87be 3fe7 4611 4557
+                    d501 8779 537e e37f 4d3c 6c73 8cb9 7b9d
+                    c651 bc19 bfad c344 ffe2 b52c a78b d831
+                    6b51 dacc 5f2b 1440 cb95 1552 1cc7 ba23
 </artwork>
 </figure>
 
@@ -2061,47 +2120,71 @@ Case 4
 
    The parameters for the AKA run are as follows:
 
-        Identity:     "0555444333222111"
+      Identity:     "0555444333222111"
 
-        Network name: "HRPD"
+      Network name: "HRPD"
 
-        RAND:         e0e0 e0e0 e0e0 e0e0 e0e0 e0e0 e0e0 e0e0
+      RAND:         e0e0 e0e0 e0e0 e0e0 e0e0 e0e0 e0e0 e0e0
 
-        AUTN:         a0a0 a0a0 a0a0 a0a0 a0a0 a0a0 a0a0 a0a0
+      AUTN:         a0a0 a0a0 a0a0 a0a0 a0a0 a0a0 a0a0 a0a0
 
-        IK:           b0b0 b0b0 b0b0 b0b0 b0b0 b0b0 b0b0 b0b0
+      IK:           b0b0 b0b0 b0b0 b0b0 b0b0 b0b0 b0b0 b0b0
 
-        CK:           c0c0 c0c0 c0c0 c0c0 c0c0 c0c0 c0c0 c0c0
+      CK:           c0c0 c0c0 c0c0 c0c0 c0c0 c0c0 c0c0 c0c0
 
-        RES:          d0d0 d0d0 d0d0 d0d0 d0d0 d0d0 d0d0 d0d0
+      RES:          d0d0 d0d0 d0d0 d0d0 d0d0 d0d0 d0d0 d0d0
 
-     Then the derived keys are generated as follows:
+   Then the derived keys are generated as follows:
 
-        CK':          8310 a71c e6f7 5488 9613 da8f 64d5 fb46
+      CK':          8310 a71c e6f7 5488 9613 da8f 64d5 fb46
 
-        IK':          5adf 1436 0ae8 3819 2db2 3f6f cb7f 8c76
+      IK':          5adf 1436 0ae8 3819 2db2 3f6f cb7f 8c76
 
-        K_encr:       745e 7439 ba23 8f50 fcac 4d15 d47c d1d9
+      K_encr:       745e 7439 ba23 8f50 fcac 4d15 d47c d1d9
 
-        K_aut:        3e1d 2aa4 e677 025c fd86 2a4b e183 61a1
-                      3a64 5765 5714 63df 833a 9759 e809 9879
+      K_aut:        3e1d 2aa4 e677 025c fd86 2a4b e183 61a1
+                    3a64 5765 5714 63df 833a 9759 e809 9879
 
-        K_re:         99da 835e 2ae8 2462 576f e651 6fad 1f80
-                      2f0f a119 1655 dd0a 273d a96d 04e0 fcd3
+      K_re:         99da 835e 2ae8 2462 576f e651 6fad 1f80
+                    2f0f a119 1655 dd0a 273d a96d 04e0 fcd3
 
-        MSK:          c6d3 a6e0 ceea 951e b20d 74f3 2c30 61d0
-                      680a 04b0 b086 ee87 00ac e3e0 b95f a026
-                      83c2 87be ee44 4322 94ff 98af 26d2 cc78
-                      3bac e75c 4b0a f7fd feb5 511b a8e4 cbd0
+      MSK:          c6d3 a6e0 ceea 951e b20d 74f3 2c30 61d0
+                    680a 04b0 b086 ee87 00ac e3e0 b95f a026
+                    83c2 87be ee44 4322 94ff 98af 26d2 cc78
+                    3bac e75c 4b0a f7fd feb5 511b a8e4 cbd0
 
-        EMSK:         7fb5 6813 838a dafa 99d1 40c2 f198 f6da
-                      cebf b6af ee44 4961 1054 02b5 08c7 f363
-                      352c b291 9644 b504 63e6 a693 5415 0147
-                      ae09 cbc5 4b8a 651d 8787 a689 3ed8 536d
+      EMSK:         7fb5 6813 838a dafa 99d1 40c2 f198 f6da
+                    cebf b6af ee44 4961 1054 02b5 08c7 f363
+                    352c b291 9644 b504 63e6 a693 5415 0147
+                    ae09 cbc5 4b8a 651d 8787 a689 3ed8 536d
 </artwork>
 </figure>
 
 </section>
 		       
+<section title="Contributors">
+
+   <t>The test vectors in Appendix C were provided by Yogendra Pal and
+   Jouni Malinen, based on two independent implementations of this
+   specification.</t>
+   
+   <t>Jouni Malinen provided suggested text for <xref
+   target="exported-parameters"/>. John Mattsson provided much of the
+   text for <xref target="priv"/>. Karl Norrman was the source of
+   much of the information in <xref target="vuln"/>.</t>
+   
+</section>
+
+<section title="Acknowledgments">
+  
+  <t>The authors would like to thank Guenther Horn, Joe Salowey, Mats
+  Naslund, Adrian Escott, Brian Rosenberg, Laksminath Dondeti, Ahmad
+  Muhanna, Stefan Rommer, Miguel Garcia, Jan Kall, Ankur Agarwal,
+  Jouni Malinen, John Mattsson, Brian Weis, Russ Housley, Alfred
+  Hoenes, Anand Palanigounder, and Mohit Sethi for their in-depth
+  reviews and interesting discussions in this problem space.</t>
+  
+</section>
+
 </back>
 </rfc>

@@ -13,4 +13,5 @@ diff:
 	scp jar@arkko.eu:/tmp/draft-ietf-emu-rfc5448bis-from--01.diff.html .
 	scp draft-ietf-emu-rfc5448bis.txt \
 	    draft-ietf-emu-rfc5448bis-from--01.diff.html \
+	    draft-ietf-emu-rfc5448bis-from-rfc5448.diff.html \
 	    jar@cloud1.arkko.eu:/var/www/www.arkko.com/html/ietf/eap
