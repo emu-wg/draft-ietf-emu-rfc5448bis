@@ -83,9 +83,8 @@ EAP-AKA' employs SHA-256 instead of SHA-1.</t>
 <t>This specification also updates RFC 4187 EAP-AKA to prevent bidding
 down attacks from EAP-AKA'.</t>
 
-<t>This version of the EAP-AKA' specification updates a reference
-to constructing one field in the protocol, so that EAP-AKA' becomes
-compatible with 5G deployments as well.</t>
+<t>This version of the EAP-AKA' specification provides updates to
+specify the protocol behaviour for 5G deployments as well.</t>
 
 </abstract>
 
@@ -847,17 +846,23 @@ the endpoints to use EAP-AKA'.</t>
     
     <list style="empty">
       
-      <t>(1) Regular usernames. These are external names given to EAP-AKA'.
-      The regular usernames are further subdivided into to categories:
+      <t>(1) Regular usernames. These are external names given to
+      EAP-AKA'.  The regular usernames are further subdivided into to
+      categories:
       <list style="empty">
-	<t>(a) Permanent usernames, for instance IMSI-based usernames.</t>
-	<t>(b) Privacy-friendly temporary usernames, for instance 5G identifiers (see
-	<xref target="id5guse"/>.</t>
+
+	<t>(a) Permanent usernames, for instance IMSI-based
+	usernames.</t>
+
+	<t>(b) Privacy-friendly temporary usernames, for instance 5G
+	privacy identifiers (see <xref target="id5guse"/> and <xref
+	target="sucifmt"/>.</t>
+
       </list></t>
       
-      <t>(2) EAP-AKA' pseudonym usernames.  For example, 2s7ah6n9q@example.com might
-      be a valid pseudonym identity.  In this example, 2s7ah6n9q is the
-      pseudonym username.</t>
+      <t>(2) EAP-AKA' pseudonym usernames.  For example,
+      2s7ah6n9q@example.com might be a valid pseudonym identity.  In
+      this example, 2s7ah6n9q is the pseudonym username.</t>
       
       <t>(3) EAP-AKA' fast re-authentication usernames.  For example,
       43953754@example.com might be a valid fast re-authentication
@@ -953,12 +958,12 @@ the endpoints to use EAP-AKA'.</t>
 
   <t>5G defines the SUbscription Permanent Identifier (SUPI) and
   SUbscription Concealed Identifier (SUCI) <xref
-  target="TS-3GPP.23.501"/> <xref target="TS-3GPP.33.501"/>. SUPI is
-  globally unique and allocated to each subscriber. However, it is
-  only used internally in the 5G network, and is privacy
-  sensitive. The SUCI is a privacy preserving identifier containing
-  the concealed SUPI, using public key cryptography to encrypt the
-  SUPI.</t>
+  target="TS-3GPP.23.501"/> <xref target="TS-3GPP.33.501"/> <xref
+  target="TS-3GPP.23.003"/>. SUPI is globally unique and allocated to
+  each subscriber. However, it is only used internally in the 5G
+  network, and is privacy sensitive. The SUCI is a privacy preserving
+  identifier containing the concealed SUPI, using public key
+  cryptography to encrypt the SUPI.</t>
 
   <t>Given the choice between these two types of identifiers,
   two areas need further specification in EAP-AKA' to ensure
@@ -1000,6 +1005,11 @@ the endpoints to use EAP-AKA'.</t>
     some other identifier at a lower layer or as a response to an EAP
     Identity Request or if no identity was sent.</t>
 
+    <t>The identity MUST also be represented in the exact correct
+    format for the key derivation formula to produce correct
+    results. For the SUPI, this format is as defined <xref
+    target="supifmt"/>.</t>
+
     <t>In all other cases, the following applies:
 
     <list style="empty">
@@ -1019,40 +1029,37 @@ the endpoints to use EAP-AKA'.</t>
       recently communicated by the peer to the network, again regardless
       of what type of identity it may have been.</t>
       
-      <t>The identity MUST also be represented in the exact correct
-      format as specified in <xref target="sucifmt"/> for the key
-      derivation formula to produce correct results.</t>
-
     </list></t>
 
+    <section anchor="supifmt" title="Format of the SUPI">
+      
+      <t>A SUPI is either an IMSI or a Network Access Identifier <xref
+      target="RFC4282"/>.</t>
+      
+      <t>The NAI string MUST be directly used in key derivation, and for
+      IMSI, the following string MUST be used:
+      <list style="symbols">
+	
+        <t>Three ASCII digits to represent the Mobile Country Code (MCC).</t>
+	
+	<t>Three ASCII digits to represent the Mobile Network Code
+	(MNC). If there are only 2 significant digits in the MNC, one
+	"0" digit shall be inserted at the left side to fill the 3
+	digits coding of MNC.</t>
+
+	<t>ASCII digits to represent the rest of the IMSI.</t>
+
+      </list></t>
+
+      <t>The component values are specified in more detail in <xref
+      target="TS-3GPP.23.003"/>. Note that no prefix ("0" or "6") in
+      front of the entire IMSI is used in the IMSI when used in the
+      key derivation function in 5G.</t>
+      
+    </section>
+    
   </section>
 
-  <section anchor="sucifmt" title="Format of 5G Identities">
-
-    <t>This specification specifies only the the format to be used
-    with the 5G SUCI. This format MUST be used when a 5G SUCI is
-    needed in the calculation of a cryptographic value or communicated
-    in the EAP-AKA' protocol.</t>
-    
-    <t>The Figure 9.10.3.4.2 in <xref target="TS-3GPP.24.501"/>
-    specifies the format of an information element that carries a
-    SUCI. In EAP-AKA', a SUCI identity shall be represented as an
-    ASCII string that begins with the special character "5" and is
-    followed by the value of the identity from Figure 9.10.3.4.2.,
-    starting from octet 3 (type of identity, odd/even indicator, and
-    first identifier digit) to the end of the identity. Each byte MUST
-    be represented as two hex digits, using decimal digits and
-    lower-case letters "a" through "f".</t>
-
-    <t>Note: There is a need to check whether <xref
-    target="TS-3GPP.33.501"/> specification of the key derivation
-    agrees with this definition. Also, neither <xref
-    target="TS-3GPP.33.501"/> or <xref target="TS-3GPP.24.501"/> are
-    clear whether the SUCI 4-bit protection scheme indicator is at the
-    upper half of octet 3 or somewhere else.</t>
-    
-  </section>
-  
   <section anchor="id5guse" title="EAP Identity Response and EAP-AKA' AT_IDENTITY Attribute">
     
     <t>The EAP authentication option is only available in 5G when the
@@ -1061,26 +1068,97 @@ the endpoints to use EAP-AKA'.</t>
     existing equipment.</t>
     
     <t>When the EAP peer is connecting to a 5G access network and uses
-    the 5G core network signaling mechanisms, it can assume that the
-    EAP server is in a 5G network. The EAP identity exchanges are
-    generally not used in this case, as the identity is already made
-    available on previous link layer exchanges. But if there is a need
-    to send an identity in EAP, the EAP peer SHOULD employ only the
-    privacy preserving SUCI identifier within EAP (either in EAP
-    Identity Response or EAP-AKA' AT_IDENTITY attribute).</t>
+    the 5G Non-Access Stratum (NAS) protocol <xref
+    target="TS-3GPP.24.501"/>, the EAP server is in a 5G network. The
+    EAP identity exchanges are generally not used in this case, as the
+    identity is already made available on previous link layer
+    exchanges.</t>
+
+    <t>In this situation, the EAP server SHOULD NOT request an additional
+    identity from the peer. If the peer for some reason receives
+    EAP-Request/Identity or EAP-Request/AKA-Identity messages, the peer should
+    behave as follows.
+    <list style="hanging">
+
+    <t hangText="Receive EAP-Request/Identity"><vspace blankLines="1"/>
     
-    <t>Similarly, if the peer is communicating over a non-3GPP network
-    but carrying EAP inside the 5G Non-Access Stratum (NAS) protocol
-    <xref target="TS-3GPP.24.501"/>, it MUST assume that the EAP
+    In this case, the peer SHOULD respond with a EAP-Response/Identity
+    containing the privacy-friendly 5G identifier, the SUCI. The SUCI
+    SHOULD be represented as specified in <xref target="sucifmt"/>.</t>
+    
+    <t hangText="EAP-Request/AKA-Identity with AT_PERMANENT_REQ"><vspace blankLines="1"/>
+    
+    For privacy reasons, the peer should follow a "conservative"
+    policy and terminate the authentication exchange rather than
+    risk revaling its permanent identity.<vspace blankLines="1"/>
+
+    The peer SHOULD respond with EAP-Response/AKA-Client-Error with the
+    client error code 0, "unable to process packet".</t>
+    
+    <t hangText="EAP-Request/AKA-Identity with AT_FULLAUTH_REQ"><vspace blankLines="1"/>
+
+    In this case, the peer SHOULD respond with a EAP-Response/AKA-Identity
+    containing the SUCI.  The SUCI
+    SHOULD be represented as specified in <xref target="sucifmt"/>.</t>
+    
+    <t hangText="EAP-Request/AKA-Identity with AT_ANY_ID_REQ"><vspace blankLines="1"/>
+    
+    If the peer supports fast re-authentication and has a fast
+    re-authentication identity available, the peer SHOULD respond with
+    EAP-Response/AKA-Identity containing the fast re-authentication
+    identity. Otherwise the peer SHOULD respond with a
+    EAP-Response/AKA-Identity containing the SUCI, and SHOULD
+    represent the SUCI as specified in <xref target="sucifmt"/>.</t>
+
+  </list></t>
+  
+  <t>Similarly, if the peer is communicating over a non-3GPP network
+    but carrying EAP inside 5G NAS protocol, it MUST assume that the EAP
     server is in a 5G network, and again employ the SUCI within
     EAP.</t>
     
     <t>Otherwise, the peer SHOULD employ IMSI, SUPI, or a NAI as it is
     configured to use.</t>
     
-    <t>When SUCI is carried in EAP-AKA', it SHOULD be represented as
-    specified in <xref target="sucifmt"/>.</t>
+  <section anchor="sucifmt" title="Format of the SUCI">
+
+    <t>The SUCI format extends the format specified in <xref
+    target="RFC4187"/> Section 4.1.1.6 for IMSIs.</t>
+
+    <t>A SUCI SHOULD be represented by an ASCII string containing the
+    following components in sequence:
     
+    <list style="symbols">
+      
+      <t>A leading "6"</t>
+      
+      <t>Three ASCII digits to represent the Mobile Country Code (MCC).</t>
+      
+      <t>Three ASCII digits to represent the Mobile Network Code
+      (MNC). If there are only 2 significant digits in the MNC, one
+      "0" digit shall be inserted at the left side to fill the 3
+      digits coding of MNC.</t>
+      
+      <t>Four ASCII digits to represent a routing indicator.</t>
+      
+      <t>One hex character ("0" through "9" and "a" through "f") to
+      represent the protection profile.</t>
+
+      <t>Hex characters representing Home Network Public Key
+      Identifier (HNPKI). The number of hex characters needed for this
+      depends on the protection profile.</t>
+      
+      <t>Hex characters representing the encrypted identity. The
+      number of hex characters depends on the protection profile and
+      identity being encrypted.</t>
+
+    </list></t>
+
+    <t>The component values are specified in more detail in <xref
+    target="TS-3GPP.23.003"/>.</t>
+    
+  </section>
+  
   </section>
   
 </section>
@@ -1427,13 +1505,14 @@ target="bindprop"/> for more discussion.</t>
   monitoring techniques against many security technologies, including
   AKA-based authentication.</t>
 
-  <t>These attacks relate to theft of the long-term shared secret key
-  material stored on the cards. Such attacks are conceivable, for instance,
-  during the manufacturing process of cards, through coercion of the
-  card manufacturers, or during the transfer of cards and associated
-  information to an operator. Since the publication of reports about
-  such attacks, manufacturing and provisioning processes have gained
-  much scrutiny and have improved.</t>
+  <t>For AKA, these attacks relate to theft of the long-term shared
+  secret key material stored on the cards. Such attacks are
+  conceivable, for instance, during the manufacturing process of
+  cards, through coercion of the card manufacturers, or during the
+  transfer of cards and associated information to an operator. Since
+  the publication of reports about such attacks, manufacturing and
+  provisioning processes have gained much scrutiny and have
+  improved.</t>
 
   <t>In particular, it is crucial that manufacturers limit access to
   the secret information and the cards only to necessary systems and
@@ -1586,6 +1665,21 @@ Value      Description              Reference
 
   <references title="Normative References">
     
+      <reference anchor="TS-3GPP.23.003">
+	<front>
+	  <title>3rd Generation Partnership Project;
+	  Technical Specification Group Core Network and Terminals;
+	  Numbering, addressing and identification
+	  (Release 15)</title>
+	  <author>
+	    <organization>3GPP</organization>
+	  </author>
+	  <date month="June" year="2018" />
+	</front>
+	
+	<seriesInfo name="3GPP" value="Draft Technical Specification 23.003" />
+      </reference>
+      
       <reference anchor="TS-3GPP.23.501">
 	<front>
 	  <title>3rd Generation Partnership Project;
@@ -1696,33 +1790,19 @@ Value      Description              Reference
 	</front>
 	<seriesInfo name="FIPS" value="PUB 180-4" />
       </reference>
-
+      
       <?rfc include="reference.RFC.2104.xml"?>
       <?rfc include="reference.RFC.2119.xml"?>
       <?rfc include="reference.RFC.3748.xml"?>
       <?rfc include="reference.RFC.4187.xml"?>
+      <?rfc include="reference.RFC.4282.xml"?>
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
-
+      
   </references>
 
   <references title="Informative References">
     
-      <reference anchor="TS-3GPP.23.003">
-	<front>
-	  <title>3rd Generation Partnership Project;
-	  Technical Specification Group Core Network and Terminals;
-	  Numbering, addressing and identification
-	  (Release 15)</title>
-	  <author>
-	    <organization>3GPP</organization>
-	  </author>
-	  <date month="June" year="2018" />
-	</front>
-	
-	<seriesInfo name="3GPP" value="Draft Technical Specification 23.003" />
-      </reference>
-      
       <reference anchor="TS-3GPP.35.208">
 	<front>
 	  <title>3rd Generation Partnership Project;
