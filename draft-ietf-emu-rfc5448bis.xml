@@ -1134,9 +1134,10 @@ the endpoints to use EAP-AKA'.</t>
     target="TS-3GPP.23.003"/>. But to explain the examples, the SUPI
     type is "0", the mobile country code is "123", mobile network code
     is "45", the routing Identifier is "0002", protection scheme is
-    "1" for Profile A, the home network public key identifier is "17",
-    scheme output is "32" for ECC ephemeral public key, and 50 octets
-    of encrypted and integrity protected identifier:
+    "1" for Profile A, and the home network public key identifier is
+    "17".  In this example, for a, say, a 10 octet input identity, the
+    cryptographic scheme output is 50 octets, including the encrypted
+    and integrity protected identifier:
  
       <figure>
         <artwork>
@@ -1148,9 +1149,9 @@ the endpoints to use EAP-AKA'.</t>
    <t>In the second example, the SUPI is NAI-based and protected with
    Profile B. Here SUPI type is "1", the domain in the NAI is
    "example.com", the routing identifier is "84", protection scheme is
-   "2" for Profile B, the home network public key identifier is "250",
-   scheme output is "33" for ECC ephemeral public key in Profile B,
-   and 46 octets encrypted and integrity protected identifier:
+   "2" for Profile B, and the home network public key identifier is
+   "250".  In this example the cryptographic scheme output is 46
+   octets (for a 5 octet username):
 
       <figure>
         <artwork>
