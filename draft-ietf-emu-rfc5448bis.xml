@@ -1126,26 +1126,52 @@ the endpoints to use EAP-AKA'.</t>
     target="RFC5448"/>, in 5G EAP-AKA' does not use the "0" or "6"
     prefix in front of the identifier.</t>
 
-    <t>For instance, the following two examples represents SUCIs that have been 
-    encrypted from IMSI- and NAI-based identifiers:
-      
+    <t>For instance, the following three examples represents SUCIs.</t>
+
+    <t>In the first example, the SUPI is IMSI-based and protected with
+    Profile A.  The specification of the format is in <xref
+    target="TS-3GPP.29.503"/> and semantics in <xref
+    target="TS-3GPP.23.003"/>. But to explain the examples, the SUPI
+    type is "0", the mobile country code is "123", mobile network code
+    is "45", the routing Identifier is "0002", protection scheme is
+    "1" for Profile A, the home network public key identifier is "17",
+    scheme output is "32" for ECC ephemeral public key, and 50 octets
+    of encrypted and integrity protected identifier:
+ 
       <figure>
         <artwork>
-      0-358-01-9-0-0-... (full examples coming from Jesus)
-      1-example.com-...
+  0-123-45-0002-1-17-aabbccddeeff00112233445566778899aabbccddeeff
+  00112233445566778899aabbccddeeff00112233445566778899aabb
         </artwork>
       </figure></t>
 
-      <t>The specification of the format is in <xref
-      target="TS-3GPP.29.503"/> and semantics in <xref
-      target="TS-3GPP.23.003"/>. But to explain the
-      examples, the first digit identifies the SUPI type, with "0"
-      signifying IMSI-based SUPIs. The rest of the SUCI is data fields
-      separated by dashes ("-"). The second data field is the country
-      code, the third the operator code. ... need fuller description
-      ... For NAI-based SUPIs, the second field is the home domain,
-      the third ... </t>
-      
+   <t>In the second example, the SUPI is NAI-based and protected with
+   Profile B. Here SUPI type is "1", the domain in the NAI is
+   "example.com", the routing identifier is "84", protection scheme is
+   "2" for Profile B, the home network public key identifier is "250",
+   scheme output is "33" for ECC ephemeral public key in Profile B,
+   and 46 octets encrypted and integrity protected identifier:
+
+      <figure>
+        <artwork>
+  1-example.com-84-2-250-aabbccddeeff00112233445566778899aabbccddeeff
+  00112233445566778899aabbccddeeff0011223344556677
+        </artwork>
+      </figure></t>
+
+      <t>In the last example, the SUCI uses null-schme (see <xref
+      target="priv"/>).  Here the SUPI type is "0", the mobile country
+      code is "123", mobile network code is "45", the routing
+      Identifier is "012", protection scheme is "0" for the
+      null-scheme, the home network public key identifier is "0", and
+      the identifier is in cleartext:
+    
+      <figure>
+        <artwork>
+  0-123-45-012-0-0-0123456789
+        </artwork>
+      </figure></t>
+
   </section>
   
   </section>
@@ -2273,9 +2299,10 @@ Case 4
   <t>The authors would like to thank Guenther Horn, Joe Salowey, Mats
   Naslund, Adrian Escott, Brian Rosenberg, Laksminath Dondeti, Ahmad
   Muhanna, Stefan Rommer, Miguel Garcia, Jan Kall, Ankur Agarwal,
-  Jouni Malinen, John Mattsson, Brian Weis, Russ Housley, Alfred
-  Hoenes, Anand Palanigounder, and Mohit Sethi for their in-depth
-  reviews and interesting discussions in this problem space.</t>
+  Jouni Malinen, John Mattsson, Jesus De Gregorio, Brian Weis, Russ
+  Housley, Alfred Hoenes, Anand Palanigounder, and Mohit Sethi for
+  their in-depth reviews and interesting discussions in this problem
+  space.</t>
   
 </section>
 
