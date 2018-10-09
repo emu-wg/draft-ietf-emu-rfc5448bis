@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-02" category="info" obsoletes="5448" updates="4187">
+<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-03" category="info" obsoletes="5448" updates="4187">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -72,10 +72,10 @@ Method for 3rd Generation Authentication and Key Agreement
 
 <abstract>
 
-<t>This specification defines a new EAP method, EAP-AKA', a small
-revision of the EAP-AKA method. The change is a new key derivation
+<t>This specification defines an EAP method, EAP-AKA', a small
+revision of the EAP-AKA method. EAP-AKA' provides a key derivation
 function that binds the keys derived within the method to the name of
-the access network. The new key derivation mechanism has been defined
+the access network. The key derivation mechanism has been defined
 in the 3rd Generation Partnership Project (3GPP). This specification
 allows its use in EAP in an interoperable manner. In addition,
 EAP-AKA' employs SHA-256 instead of SHA-1.</t>
@@ -93,10 +93,10 @@ specify the protocol behaviour for 5G deployments as well.</t>
 
 <section title="Introduction">
 
-<t>This specification defines a new Extensible Authentication Protocol
+<t>This specification defines an Extensible Authentication Protocol
 (EAP)<xref target="RFC3748"/> method, EAP-AKA', a small revision of
 the EAP-AKA method originally defined in
-<xref target="RFC4187"/>. What is new in EAP-AKA' is that it has a new
+<xref target="RFC4187"/>. EAP-AKA' provides a new
 key derivation function, specified in
 <xref target="TS-3GPP.33.402"/>. This function binds the keys derived
 within the method to the name of the access network. This limits the
@@ -1032,29 +1032,26 @@ the endpoints to use EAP-AKA'.</t>
     </list></t>
 
     <section anchor="supifmt" title="Format of the SUPI">
-      
+
       <t>A SUPI is either an IMSI or a Network Access Identifier <xref
       target="RFC4282"/>.</t>
+
+      <t>When used in EAP-AKA', the format of the SUPI MUST be as
+      specified in <xref target="TS-3GPP.29.503"/> Section 6.3.3.2.2
+      and <xref target="TS-3GPP.23.003"/> Section 2.2B, with the
+      exception that no prefix "imsi-" or "nai-" is used.  Also, in
+      contrast to <xref target="RFC5448"/>, in 5G EAP-AKA' does not use the
+      "0" or "6" prefix in front of the entire IMSI.</t>
+
+      <t>For instance, the following two examples represent IMSI- and
+      NAI-based SUPIs when used in EAP-AKA':
       
-      <t>The NAI string MUST be directly used in key derivation, and for
-      IMSI, the following string MUST be used:
-      <list style="symbols">
-	
-        <t>Three ASCII digits to represent the Mobile Country Code (MCC).</t>
-	
-	<t>Three ASCII digits to represent the Mobile Network Code
-	(MNC). If there are only 2 significant digits in the MNC, one
-	"0" digit shall be inserted at the left side to fill the 3
-	digits coding of MNC.</t>
-
-	<t>ASCII digits to represent the rest of the IMSI.</t>
-
-      </list></t>
-
-      <t>The component values are specified in more detail in <xref
-      target="TS-3GPP.23.003"/>. Note that no prefix ("0" or "6") in
-      front of the entire IMSI is used in the IMSI when used in the
-      key derivation function in 5G.</t>
+      <figure>
+        <artwork>
+    124567890
+    user@example.com
+        </artwork>
+      </figure></t>
       
     </section>
     
@@ -1122,45 +1119,37 @@ the endpoints to use EAP-AKA'.</t>
     
   <section anchor="sucifmt" title="Format of the SUCI">
 
-    <t>The SUCI format extends the format specified in <xref
-    target="RFC4187"/> Section 4.1.1.6 for IMSIs.</t>
+    <t>When used in EAP-AKA', the format of the SUCI MUST be as
+    specified in <xref target="TS-3GPP.29.503"/> Section 6.3.3.2.2 and
+    <xref target="TS-3GPP.23.003"/> Section 2.2B, with the exception
+    that no prefix "suci-" is used. Also, in contrast to <xref
+    target="RFC5448"/>, in 5G EAP-AKA' does not use the "0" or "6"
+    prefix in front of the identifier.</t>
 
-    <t>A SUCI SHOULD be represented by an ASCII string containing the
-    following components in sequence:
-    
-    <list style="symbols">
+    <t>For instance, the following two examples represents SUCIs that have been 
+    encrypted from IMSI- and NAI-based identifiers:
       
-      <t>A leading "6"</t>
-      
-      <t>Three ASCII digits to represent the Mobile Country Code (MCC).</t>
-      
-      <t>Three ASCII digits to represent the Mobile Network Code
-      (MNC). If there are only 2 significant digits in the MNC, one
-      "0" digit shall be inserted at the left side to fill the 3
-      digits coding of MNC.</t>
-      
-      <t>Four ASCII digits to represent a routing indicator.</t>
-      
-      <t>One hex character ("0" through "9" and "a" through "f") to
-      represent the protection profile.</t>
+      <figure>
+        <artwork>
+      0-358-01-9-0-0-... (full examples coming from Jesus)
+      1-example.com-...
+        </artwork>
+      </figure></t>
 
-      <t>Hex characters representing Home Network Public Key
-      Identifier (HNPKI). The number of hex characters needed for this
-      depends on the protection profile.</t>
+      <t>The specification of the format is in <xref
+      target="TS-3GPP.29.503"/> and semantics in <xref
+      target="TS-3GPP.23.003"/>. But to explain the
+      examples, the first digit identifies the SUPI type, with "0"
+      signifying IMSI-based SUPIs. The rest of the SUCI is data fields
+      separated by dashes ("-"). The second data field is the country
+      code, the third the operator code. ... need fuller description
+      ... For NAI-based SUPIs, the second field is the home domain,
+      the third ... </t>
       
-      <t>Hex characters representing the encrypted identity. The
-      number of hex characters depends on the protection profile and
-      identity being encrypted.</t>
-
-    </list></t>
-
-    <t>The component values are specified in more detail in <xref
-    target="TS-3GPP.23.003"/>.</t>
-    
   </section>
   
   </section>
-  
+
 </section>
 
 </section>
@@ -1415,10 +1404,10 @@ target="bindprop"/> for more discussion.</t>
 
 <section anchor="vuln" title="Discovered Vulnerabilities">
   
-  <t>There have been no published attacks that violate the primary secrecy
-  or authentication properties defined for the anticipated
-  Authentication and Key Agreement (AKA) under the originally assumed
-  trust model. The same is true of EAP-AKA'.</t>
+  <t>There have been no published attacks that violate the primary
+  secrecy or authentication properties defined for Authentication and
+  Key Agreement (AKA) under the originally assumed trust model. The
+  same is true of EAP-AKA'.</t>
   
   <t>However, there have been attacks when a different trust model is
   in use, with characteristics not originally provided by the design,
@@ -1444,7 +1433,7 @@ target="bindprop"/> for more discussion.</t>
   encrypt all payload traffic after encryption. As an authentication
   mechanism, EAP-AKA' is not directly affected by most such
   attacks. EAP-AKA' network name binding can also help alleviate some
-  of the attacks.  In any case, it is RECOMMENDED that EAP-AKA'
+  of the attacks.  In any case, it is recommended that EAP-AKA'
   configuration not be dependent on the location of where a request
   comes from.</t>
 
@@ -1530,7 +1519,7 @@ target="bindprop"/> for more discussion.</t>
   target="I-D.arkko-eap-aka-pfs"/>. Alternatively, EAP-AKA'
   authentication can be run inside a PFS-capable tunneled
   authentication method. In any case, the use of some PFS-capable
-  mechanism is RECOMMENDED. </t>
+  mechanism is recommended. </t>
   
 </section>
 
@@ -1674,7 +1663,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2018" />
+	  <date month="September" year="2018" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 23.003" />
@@ -1689,7 +1678,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="December" year="2017" />
+	  <date month="September" year="2018" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Technical Specification 23.501" />
@@ -1707,7 +1696,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2018" />
+	  <date month="September" year="2018" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 24.302" />
@@ -1725,10 +1714,27 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2018" />
+	  <date month="September" year="2018" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 24.501" />
+	
+      </reference>
+
+      <reference anchor="TS-3GPP.29.503">
+	<front>
+	  <title>3rd Generation Partnership Project;
+	  Technical Specification Group Core Network and Terminals;
+	  5G System; Unified Data Management Services;
+	  Stage 3
+	  (Release 15)</title>
+	  <author>
+	    <organization>3GPP</organization>
+	  </author>
+	  <date month="September" year="2018" />
+	</front>
+	
+	<seriesInfo name="3GPP" value="Draft Technical Specification 29.503" />
 	
       </reference>
 
@@ -1772,7 +1778,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2018" />
+	  <date month="September" year="2018" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 33.501" />
@@ -1994,6 +2000,13 @@ Value      Description              Reference
   summary of vulnerabilities brought up in the context of AKA or
   EAP-AKA', and discusses their applicability and impacts in
   EAP-AKA'.</t>
+
+  <t>The -03 version of the working group draft corrected some typos,
+  referred to the 3GPP specifications for the SUPI and SUCI formats,
+  updated some of the references to newer versions, and reduced the
+  strength of some of the recommendations in the security
+  considerations section from keyword level to normal language (as
+  they are just deployment recommendations).</t>
   
 </section>
 
