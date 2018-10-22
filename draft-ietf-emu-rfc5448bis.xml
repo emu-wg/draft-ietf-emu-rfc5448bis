@@ -63,7 +63,7 @@ Method for 3rd Generation Authentication and Key Agreement
 </address>
 </author>
 
-<date month="September" year="2018" />
+<date month="October" year="2018" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -1037,19 +1037,17 @@ the endpoints to use EAP-AKA'.</t>
       target="RFC4282"/>.</t>
 
       <t>When used in EAP-AKA', the format of the SUPI MUST be as
-      specified in <xref target="TS-3GPP.29.503"/> Section 6.3.3.2.2
-      and <xref target="TS-3GPP.23.003"/> Section 2.2B, with the
-      exception that no prefix "imsi-" or "nai-" is used.  Also, in
-      contrast to <xref target="RFC5448"/>, in 5G EAP-AKA' does not use the
-      "0" or "6" prefix in front of the entire IMSI.</t>
+      specified in <xref target="TS-3GPP.23.003"/> Sections 28.7.2,
+      with the semantics defined in <xref target="TS-3GPP.23.003"/>
+      Section 2.2B.  Also, in contrast to <xref target="RFC5448"/>, in
+      5G EAP-AKA' does not use the "0" or "6" prefix in front of the
+      entire IMSI.</t>
 
-      <t>For instance, the following two examples represent IMSI- and
-      NAI-based SUPIs when used in EAP-AKA':
-      
+      <t>For instance, if the IMSI is 234150999999999 (MCC = 234, MNC = 15), the NAI format for the SUPI takes the form:
+
       <figure>
-        <artwork>
-    1234567890
-    user@example.com
+	<artwork>
+  234150999999999@nai.5gc.mnc015.mcc234.3gppnetwork.org
         </artwork>
       </figure></t>
       
@@ -1120,58 +1118,30 @@ the endpoints to use EAP-AKA'.</t>
   <section anchor="sucifmt" title="Format of the SUCI">
 
     <t>When used in EAP-AKA', the format of the SUCI MUST be as
-    specified in <xref target="TS-3GPP.29.503"/> Section 6.3.3.2.2 and
-    <xref target="TS-3GPP.23.003"/> Section 2.2B, with the exception
-    that no prefix "suci-" is used. Also, in contrast to <xref
+    specified in <xref target="TS-3GPP.23.003"/> Section 28.7.3, with the semantics defined in
+    <xref target="TS-3GPP.23.003"/> Section 2.2B. Also, in contrast to <xref
     target="RFC5448"/>, in 5G EAP-AKA' does not use the "0" or "6"
     prefix in front of the identifier.</t>
 
-    <t>For instance, the following three examples represents SUCIs.</t>
+    <t>For instance, assuming the IMSI 234150999999999, where MCC=234,
+    MNC=15 and MSISN=0999999999, the Routing Indicator 678, and a Home
+    Network Public Key Identifier of 27, the NAI format for the SUCI
+    takes the form:
 
-    <t>In the first example, the SUPI is IMSI-based and protected with
-    Profile A.  The specification of the format is in <xref
-    target="TS-3GPP.29.503"/> and semantics in <xref
-    target="TS-3GPP.23.003"/>. But to explain the examples, the SUPI
-    type is "0", the mobile country code is "123", mobile network code
-    is "45", the routing Identifier is "0002", protection scheme is
-    "1" for Profile A, and the home network public key identifier is
-    "17".  In this example, for a, say, a 10 octet input identity, the
-    cryptographic scheme output is 50 octets, including the encrypted
-    and integrity protected identifier:
- 
-      <figure>
-        <artwork>
-  0-123-45-0002-1-17-aabbccddeeff00112233445566778899aabbccddeeff
-  00112233445566778899aabbccddeeff00112233445566778899aabb
-        </artwork>
-      </figure></t>
+    <figure>
+      <artwork>
+  For the null-scheme:
 
-   <t>In the second example, the SUPI is NAI-based and protected with
-   Profile B. Here SUPI type is "1", the domain in the NAI is
-   "example.com", the routing identifier is "84", protection scheme is
-   "2" for Profile B, and the home network public key identifier is
-   "250".  In this example the cryptographic scheme output is 46
-   octets (for a 5 octet username):
+    type0.rid678.schid0.userid0999999999@nai.5gc.mnc015.
+    mcc234.3gppnetwork.org
 
-      <figure>
-        <artwork>
-  1-example.com-84-2-250-aabbccddeeff00112233445566778899aabbccddeeff
-  00112233445566778899aabbccddeeff0011223344556677
-        </artwork>
-      </figure></t>
+  For the Profile &lt;A&gt; protection scheme:
 
-      <t>In the last example, the SUCI uses null-schme (see <xref
-      target="priv"/>).  Here the SUPI type is "0", the mobile country
-      code is "123", mobile network code is "45", the routing
-      Identifier is "012", protection scheme is "0" for the
-      null-scheme, the home network public key identifier is "0", and
-      the identifier is in cleartext:
-    
-      <figure>
-        <artwork>
-  0-123-45-012-0-0-0123456789
-        </artwork>
-      </figure></t>
+    type0.rid678.schid1.hnkey27.ecckey&lt;ECC ephemeral public key&gt;.
+    cip&lt;encryption of 0999999999&gt;.mac&lt;MAC tag value&gt;@nai.5gc.
+    mnc015.mcc234.3gppnetwork.org
+      </artwork>
+    </figure></t>
 
   </section>
   
@@ -1745,23 +1715,6 @@ Value      Description              Reference
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 24.501" />
-	
-      </reference>
-
-      <reference anchor="TS-3GPP.29.503">
-	<front>
-	  <title>3rd Generation Partnership Project;
-	  Technical Specification Group Core Network and Terminals;
-	  5G System; Unified Data Management Services;
-	  Stage 3
-	  (Release 15)</title>
-	  <author>
-	    <organization>3GPP</organization>
-	  </author>
-	  <date month="September" year="2018" />
-	</front>
-	
-	<seriesInfo name="3GPP" value="Draft Technical Specification 29.503" />
 	
       </reference>
 
