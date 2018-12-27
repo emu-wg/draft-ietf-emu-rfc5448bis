@@ -921,7 +921,7 @@ the endpoints to use EAP-AKA'.</t>
     server MAY decline to provide a pseudonym in such authentication
     exchanges. An important case where such privacy-friendly
     identifiers are used is in 5G networks (see <xref
-    target="identifiersin5g"/>)</t>
+    target="identifiersin5g"/>)</t>.
     
   </section>
   
