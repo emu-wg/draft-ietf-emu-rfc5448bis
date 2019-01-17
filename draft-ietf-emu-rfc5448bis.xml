@@ -52,14 +52,14 @@ Method for 3rd Generation Authentication and Key Agreement
 </author>
 
 <author initials='P.' surname="Eronen" fullname='Pasi Eronen'>
-<organization abbrev='Nokia'>Nokia Research Center</organization>
+<organization>Independent</organization>
 <address>
 <postal>
-<street>P.O. Box 407</street>
-<city>FIN-00045 Nokia Group</city>
+<street></street>
+<city></city>
 <country>Finland</country>
 </postal>
-<email>pasi.eronen@nokia.com</email>
+<email>pe@iki.fi</email>
 </address>
 </author>
 
@@ -72,21 +72,26 @@ Method for 3rd Generation Authentication and Key Agreement
 
 <abstract>
 
-<t>This specification defines an EAP method, EAP-AKA', a small
-revision of the EAP-AKA method. EAP-AKA' provides a key derivation
-function that binds the keys derived within the method to the name of
-the access network. The key derivation function has been defined
-in the 3rd Generation Partnership Project (3GPP). This specification
-allows its use in EAP in an interoperable manner. In addition,
-EAP-AKA' employs SHA-256 instead of SHA-1.</t>
+  <t>The 3rd Generation Authentication and Key Agreement (AKA) 
+  is the primary authentication mechanism for devices wishing to
+  access mobile networks. RFC 4187 (EAP-AKA) made the use of this mechanism
+  possible within the Extensible Authentication Protocol (EAP)
+  framework. RFC 5448 (EAP-AKA') was an improved version of EAP-AKA.</t>
+  
+  <t>This memo is an update of the specification for EAP-AKA'. This
+  version obsoletes RFC 5448.</t>
 
-<t>This specification also updates RFC 4187 EAP-AKA to prevent bidding
-down attacks from EAP-AKA'.</t>
+  <t>EAP-AKA' differs from EAP-AKA by providing a key derivation
+  function that binds the keys derived within the method to the name
+  of the access network. The key derivation function has been defined
+  in the 3rd Generation Partnership Project (3GPP). EAP-AKA' allows
+  its use in EAP in an interoperable manner. EAP-AKA' is also an
+  algorithm update, as it employs SHA-256 instead of SHA-1 as in
+  EAP-AKA.</t>
 
-<t>This version of the EAP-AKA' specification provides updates to
-specify the protocol behaviour for 5G deployments as well. This
-version obsoletes the initial definition of EAP-AKA', RFC 5448.</t>
-
+  <t>This version of EAP-AKA' specification specifies the protocol
+  behaviour for 5G deployments as well.</t>
+  
 </abstract>
 
 </front>
@@ -94,133 +99,134 @@ version obsoletes the initial definition of EAP-AKA', RFC 5448.</t>
 
 <section title="Introduction">
 
-<t>This specification defines an Extensible Authentication Protocol
-(EAP)<xref target="RFC3748"/> method, EAP-AKA', a small revision of
-the EAP-AKA method originally defined in
-<xref target="RFC4187"/>. EAP-AKA' provides a new
-key derivation function, specified in
-<xref target="TS-3GPP.33.402"/>. This function binds the keys derived
-within the method to the name of the access network. This limits the
-effects of compromised access network nodes and keys. This
-specification defines the EAP encapsulation for AKA when the new key
-derivation function is in use.</t>
+  <t>The 3rd Generation Authentication and Key Agreement (AKA) is the
+  primary authentication mechanism for devices wishing to access mobile
+  networks. <xref target="RFC4187"/> (EAP-AKA) made the use of this mechanism
+  possible within the Extensible Authentication Protocol (EAP)
+  framework <xref target="RFC3748"/>.</t>
 
-<t>3GPP has defined a number of applications for the revised AKA
-mechanism, some based on native encapsulation of AKA over 3GPP radio
-access networks and others based on the use of EAP.</t>
+  <t><xref target="RFC5448"/> (EAP-AKA') was an improved version of
+  EAP-AKA. This memo is an update of the specification for EAP-AKA'. This
+  version obsoletes RFC 5448.</t>
 
-<t>For making the new key derivation function usable in EAP-AKA,
-additional protocol mechanisms are necessary.  Given that RFC 4187
-calls for the use of CK (the encryption key) and IK (the integrity
-key) from AKA, existing implementations continue to use these.  Any
-change of the key derivation must be unambiguous to both sides in the
-protocol. That is, it must not be possible to accidentally connect old
-equipment to new equipment and get the key derivation wrong or attempt
-to use wrong keys without getting a proper error message. The change
-must also be secure against bidding down attacks that attempt to force
-the participants to use the least secure function.</t>
-
-<t>This specification therefore introduces a variant of the EAP-AKA
-method, called EAP-AKA'. This method can employ the derived keys CK'
-and IK' from the 3GPP specification and updates the used hash function
-to SHA-256 <xref target="FIPS.180-4"/>. But it is otherwise
-equivalent to RFC 4187. Given that a different EAP method type value
-is used for EAP-AKA and EAP-AKA', a mutually supported method may be
-negotiated using the standard mechanisms in EAP
-<xref target="RFC3748"/>.
-
-<list style="empty">
-
-<t>Note: <xref target="baddesign"/> explains why it is important to be
-explicit about the change of semantics for the keys, and why other
-approaches would lead to severe interoperability problems.</t>
-
-</list></t>
-
-<t>This version of the EAP-AKA' specification obsoletes RFC
-5448. The changes are as follows:
-<list style="symbols">
+  <t>EAP-AKA' is commonly implemented in smart phones and network
+  equipment. It can be used for authentication to gain network access via
+  Wireless LAN networks and, with 5G, also directly to mobile
+  networks.</t>
   
-  <t>Update the reference
-  on how the Network Name field is constructed in the protocol. The
-  update ensures that EAP-AKA' is
-  compatible with 5G deployments. RFC 5448 referred to the
-  Release 8 version of <xref target="TS-3GPP.24.302"/> and this
-  update points to the first 5G version, Release 15.</t>
+  <t>EAP-AKA' differs from EAP-AKA by providing a different key
+  derivation function. This function binds the keys derived within the
+  method to the name of the access network. This limits the effects of
+  compromised access network nodes and keys. EAP-AKA' is also an
+  algorithm update for the used hash functions.</t>
 
-  <t>Specify how EAP and EAP-AKA' use identifiers in 5G. Additional
-  identifiers are introduced in 5G, and for interoperability, it is
-  necessary that the right identifiers are used as inputs in the key
-  generation.  In addition, for identity privacy it is important that
-  when privacy-friendly identifiers in 5G are used, no trackable, permanent
-  identifiers are passed in EAP-AKA' either.</t>
+  <t>The EAP-AKA' method employs the derived keys CK' and IK' from the
+  3GPP specification <xref target="TS-3GPP.33.402"/> and updates the
+  used hash function to SHA-256 <xref
+  target="FIPS.180-4"/>. Otherwise, EAP-AKA' is equivalent to
+  EAP-AKA. Given that a different EAP method type value is used for
+  EAP-AKA and EAP-AKA', a mutually supported method may be negotiated
+  using the standard mechanisms in EAP <xref target="RFC3748"/>.
+
+  <list style="empty">
+    
+    <t>Note that any change of the key derivation must be unambiguous
+    to both sides in the protocol. That is, it must not be possible to
+    accidentally connect old equipment to new equipment and get the
+    key derivation wrong or attempt to use wrong keys without getting
+    a proper error message. See <xref target="baddesign"/> for further
+    information.</t>
+    
+    <t>Note also that choices in authentication protocols should be
+    secure against bidding down attacks that attempt to force the
+    participants to use the least secure function. See <xref
+    target="bidding"/> for further information.</t>
   
-  <t>Specify session identifiers and other exported parameters, as
-  those were not specified in <xref target="RFC5448"/> despite
-  requirements set forward in <xref target="RFC5247"/> to do so.
-  Also, while <xref target="RFC5247"/> specified session identifiers
-  for EAP-AKA, it only did so for the full authentication case, not
-  for the case of fast re-authentication.</t>
+  </list></t>
+
+  <t>The changes from RFC 5448 to this specification are as follows:
+  <list style="symbols">
+    
+    <t>Update the reference on how the Network Name field is
+    constructed in the protocol. The update ensures that EAP-AKA' is
+    compatible with 5G deployments. RFC 5448 referred to the Release 8
+    version of <xref target="TS-3GPP.24.302"/> and this update points
+    to the first 5G version, Release 15.</t>
+    
+    <t>Specify how EAP and EAP-AKA' use identifiers in 5G. Additional
+    identifiers are introduced in 5G, and for interoperability, it is
+    necessary that the right identifiers are used as inputs in the key
+    derivation.  In addition, for identity privacy it is important that
+    when privacy-friendly identifiers in 5G are used, no trackable, permanent
+    identifiers are passed in EAP-AKA' either.</t>
+    
+    <t>Specify session identifiers and other exported parameters, as
+    those were not specified in <xref target="RFC5448"/> despite
+    requirements set forward in <xref target="RFC5247"/> to do so.
+    Also, while <xref target="RFC5247"/> specified session identifiers
+    for EAP-AKA, it only did so for the full authentication case, not
+    for the case of fast re-authentication.</t>
+    
+    <t>Update the requirements on generating pseudonym usernames and
+    fast re-authentication identities to ensure identity privacy.</t>
+    
+    <t>Describe what has been learned about any vulnerabilities
+    in AKA or EAP-AKA'.</t>
+    
+    <t>Describe the privacy and pervasive monitoring considerations
+    related to EAP-AKA'.</t>
+    
+  </list></t>  
   
-  <t>Update the requirements on generating pseudonym usernames and
-  fast re-authentication identities to ensure identity privacy.</t>
+  <t>Some of the updates are small. For instance, for the first update,
+  the reference update does not change the 3GPP specification number,
+  only the version. But this reference is crucial in correct calculation
+  of the keys resulting from running the EAP-AKA' method, so an
+  update of the RFC with the newest version pointer may be warranted.
   
-  <t>Describe what has been learned about any vulnerabilities
-  in AKA or EAP-AKA'.</t>
+  <list style="empty">
+    <t>Note: This specification refers only to the 5G
+    specifications. Any further update that affects, for instance, key
+    derivation is something that EAP-AKA' implementations should take
+    into account. Upon such updates there will be a need to both
+    update the specification and the implementations.</t></list></t>
   
-  <t>Describe the privacy and pervasive monitoring considerations
-  related to EAP-AKA'.</t>
+  <t>It is an explicit non-goal of this draft to include any other
+  technical modifications, addition of new features or other
+  changes. The EAP-AKA' base protocol is stable and needs to stay that
+  way. If there are any extensions or variants, those need to be
+  proposed as standalone extensions or even as different authentication
+  methods.</t>
   
-</list></t>  
-
-<t>Some of the updates are small. For instance, for the first update,
-the reference update does not change the 3GPP specification number,
-only the version. But this reference is crucial in correct calculation
-of the keys resulting from running the EAP-AKA' method, so an
-update of the RFC with the newest version pointer may be warranted.
-
-<list style="empty">
-<t>Note: This specification refers only to the 5G
-specifications. Any further update that affects, for instance, key
-generation is something that EAP-AKA' implementations should take into
-account. Upon such updates there will be a need to both update the
-specification and the implementations.</t></list></t>
-
-<t>It is an explicit non-goal of this draft to include any other
-technical modifications, addition of new features or other
-changes. The EAP-AKA' base protocol is stable and needs to stay that
-way. If there are any extensions or variants, those need to be
-proposed as standalone extensions or even as different authentication
-methods.</t>
-
-<t>The rest of this specification is structured as follows. <xref
-target="prime"/> defines the EAP-AKA' method. <xref target="bidding"/> adds support to EAP-AKA to
-prevent bidding down attacks from EAP-AKA'. <xref
-target="identities"/> specifies requirements regarding the use of peer
-identities, including how how EAP-AKA' identifiers are used
-in 5G context. <xref target="exported-parameters"/> specifies what
-parameters EAP-AKA' exports out of the method.
-<xref target="security"/>
-explains the security differences between EAP-AKA and EAP-AKA'. <xref
-target="iana"/> describes the IANA considerations and <xref
-target="diff2"/> and <xref target="diff"/> explains what updates to
-RFC 5448 EAP-AKA' and RFC 4187 EAP-AKA have been made in this
-specification. <xref target="baddesign"/> explains some of the design
-rationale for creating EAP-AKA' Finally, <xref target="testvectors"/>
-provides test vectors.
-
-<list style="empty">
-
-<t>Editor's Note: The publication of this RFC depends on its normative
-references <xref target="TS-3GPP.24.302"/>
-and <xref target="TS-3GPP.33.501"/> reaching a stable status for Release 15,
-as indicated by 3GPP. This is expected to happen shortly. The RFC
-Editor should check with the 3GPP liaisons that this has happened. RFC
-Editor: Please delete this note upon publication of this specification
-as an RFC.
-</t>
-
-</list></t>
+  <t>The rest of this specification is structured as follows. <xref
+  target="prime"/> defines the EAP-AKA' method. <xref
+  target="bidding"/> adds support to EAP-AKA to prevent bidding down
+  attacks from EAP-AKA'. <xref target="identities"/> specifies
+  requirements regarding the use of peer identities, including how how
+  EAP-AKA' identifiers are used in 5G context. <xref
+  target="exported-parameters"/> specifies what parameters EAP-AKA'
+  exports out of the method.
+  <xref target="security"/>
+  explains the security differences between EAP-AKA and EAP-AKA'. <xref
+  target="iana"/> describes the IANA considerations and <xref
+  target="diff2"/> and <xref target="diff"/> explains what updates to
+  RFC 5448 EAP-AKA' and RFC 4187 EAP-AKA have been made in this
+  specification. <xref target="baddesign"/> explains some of the design
+  rationale for creating EAP-AKA' Finally, <xref target="testvectors"/>
+  provides test vectors.
+  
+  <list style="empty">
+    
+    <t>Editor's Note: The publication of this RFC depends on its normative
+    references <xref target="TS-3GPP.24.302"/>
+    and <xref target="TS-3GPP.33.501"/> reaching a stable status for Release 15,
+    as indicated by 3GPP. This is expected to happen shortly. The RFC
+    Editor should check with the 3GPP liaisons that this has happened. RFC
+    Editor: Please delete this note upon publication of this specification
+    as an RFC.
+    </t>
+    
+  </list></t>
 
 </section>
 
@@ -236,7 +242,7 @@ when, they appear in all capitals, as shown here.</t>
 
 <section anchor="prime" title="EAP-AKA'">
 
-<t>EAP-AKA' is a new EAP method that follows the EAP-AKA specification
+<t>EAP-AKA' is an EAP method that follows the EAP-AKA specification
 <xref target="RFC4187"/> in all respects except the following:
 
 <list style="symbols">
@@ -570,13 +576,13 @@ AT_MAC had been incorrect and fail the authentication.</t>
 
 </section>
 
-<section anchor="key" title="Key Generation">
+<section anchor="key" title="Key Derivation">
 
 <t>Both the peer and server MUST derive the keys as follows.
 
 <list style="hanging">
 
-<t hangText="AT_KDF set to 1"><vspace blankLines="1"/>
+<t hangText="AT_KDF parameter has the value 1"><vspace blankLines="1"/>
 
 In this case, MK is derived and used as
 follows:<vspace blankLines="1"/>
@@ -684,7 +690,7 @@ as in EAP-AKA. This requires a change to the pseudo-random function
 
 <t>The PRF' construction is the same one IKEv2 uses (see Section 2.13 of
 <xref target="RFC4306"/>). The function takes two arguments. K is a
-256-bit value and S is an octet string of arbitrary length. PRF' is
+256-bit value and S is an byte string of arbitrary length. PRF' is
 defined as follows:</t>
 
 <figure>
@@ -971,9 +977,7 @@ the endpoints to use EAP-AKA'.</t>
   cryptography to encrypt the SUPI.</t>
 
   <t>Given the choice between these two types of identifiers,
-  two areas need further specification in EAP-AKA' to ensure
-  that different implementations understand each other and
-  stay interoperable:
+  EAP-AKA' ensures interoperability as follows:
 
   <list style="symbols">
 
@@ -1159,7 +1163,7 @@ the endpoints to use EAP-AKA'.</t>
 <section anchor="exported-parameters" title='Exported Parameters'>
   
   <t>The EAP-AKA' Session-Id is the concatenation of the EAP Type Code
-  (50, one octet) with the contents of the RAND field from the AT_RAND attribute,
+  (50, one byte) with the contents of the RAND field from the AT_RAND attribute,
   followed by the contents of the AUTN field in the AT_AUTN attribute:
   
   <figure>
@@ -1181,7 +1185,7 @@ the endpoints to use EAP-AKA'.</t>
   </figure></t>
   
   <t>The Peer-Id is the contents of the Identity field from the
-  AT_IDENTITY attribute, using only the Actual Identity Length octets
+  AT_IDENTITY attribute, using only the Actual Identity Length bytes
   from the beginning.  Note that the contents are used as they are
   transmitted, regardless of whether the transmitted identity was a
   permanent, pseudonym, or fast EAP re-authentication identity. If no
@@ -1338,7 +1342,7 @@ target="bindprop"/> for more discussion.</t>
 
   <t>When authenticating to a 5G network, per <xref target="kd5g"/>,
   both the EAP-AKA' peer and server need employ permanent identifier,
-  SUPI, as an input to key generation. However, this use of the SUPI
+  SUPI, as an input to key derivation. However, this use of the SUPI
   is only internal and the SUPI need not be communicated in EAP
   messages. SUCI MUST NOT be communicated in EAP-AKA' when
   authenticating to a 5G network.</t>
@@ -2003,11 +2007,16 @@ Value      Description              Reference
   considerations section from keyword level to normal language (as
   they are just deployment recommendations).</t>
 
-  <t>The -04 version of the working group draft corrected some typos,
-  added sentence to the abstract about obsoleting RFC 5448, provided
+  <t>The -04 version of the working group draft rewrote the abstract
+  and some of the introduction, corrected some typos,
+  added sentence to the abstract about obsoleting RFC 5448, clarified
+  the use of the language when referring to AT_KDF values
+  vs. AT_KDF attribute number, provided
   guidance on random number generation, clarified the dangers relating
-  to the use of permanent user identities such as IMSIs, unified the
-  key derivation function/mechanism terminology, clarified the
+  to the use of permanent user identities such as IMSIs, aligned the
+  key derivation function/mechanism terminology, aligned the key
+  derivation/generation terminology, aligned the
+  octet/byte terminology, clarified the
   text regarding strength of SHA-256, added
   some cross references between sections, instructed IANA to change
   registries to point to this RFC rather than RFC 5448, and changed
