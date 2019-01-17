@@ -1198,7 +1198,8 @@ the endpoints to use EAP-AKA'.</t>
 
 <t>A summary of the security properties of EAP-AKA' follows. These
 properties are very similar to those in EAP-AKA. We assume that
-SHA-256 is at least as secure as SHA-1. This is called the SHA-256
+HMAC SHA-256 is at least as secure as HMAC SHA-1 (see also <xref
+target="RFC6194"/>. This is called the SHA-256
 assumption in the remainder of this section.  Under this assumption,
 EAP-AKA' is at least as secure as EAP-AKA.</t>
 
@@ -1852,6 +1853,7 @@ Value      Description              Reference
       <?rfc include="reference.RFC.5226.xml"?>
       <?rfc include="reference.RFC.5247.xml"?>
       <?rfc include="reference.RFC.5448.xml"?>
+      <?rfc include="reference.RFC.6194.xml"?>
       <?rfc include="reference.RFC.6973.xml"?>
       <?rfc include="reference.RFC.7258.xml"?>
       
@@ -1942,7 +1944,7 @@ Value      Description              Reference
   <t>The security, privacy, and pervasive monitoring considerations
   have been updated or added. See <xref target="security"/>.</t>
   
-  <t>Finally, the references to <xref target="RFC2119"/>, <xref
+  <t>The references to <xref target="RFC2119"/>, <xref
   target="RFC5226"/>, <xref target="FIPS.180-1"/> and <xref
   target="FIPS.180-2"/> have been updated to their most recent
   versions and language in this document changed
@@ -1950,6 +1952,8 @@ Value      Description              Reference
   specifications have been updated to their 5G (Release 15) versions
   or otherwise most recent version when there has not been a
   5G-related update.</t>
+
+  <t>Finally, a number of editorial clarifications have been made.</t>
   
 </section>
 
@@ -2003,7 +2007,8 @@ Value      Description              Reference
   added sentence to the abstract about obsoleting RFC 5448, provided
   guidance on random number generation, clarified the dangers relating
   to the use of permanent user identities such as IMSIs, unified the
-  key derivation function/mechanism terminology, added
+  key derivation function/mechanism terminology, clarified the
+  text regarding strength of SHA-256, added
   some cross references between sections, instructed IANA to change
   registries to point to this RFC rather than RFC 5448, and changed
   Pasi's listed affiliation.</t>
