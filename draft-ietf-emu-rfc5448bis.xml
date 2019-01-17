@@ -75,7 +75,7 @@ Method for 3rd Generation Authentication and Key Agreement
 <t>This specification defines an EAP method, EAP-AKA', a small
 revision of the EAP-AKA method. EAP-AKA' provides a key derivation
 function that binds the keys derived within the method to the name of
-the access network. The key derivation mechanism has been defined
+the access network. The key derivation function has been defined
 in the 3rd Generation Partnership Project (3GPP). This specification
 allows its use in EAP in an interoperable manner. In addition,
 EAP-AKA' employs SHA-256 instead of SHA-1.</t>
@@ -103,13 +103,13 @@ key derivation function, specified in
 within the method to the name of the access network. This limits the
 effects of compromised access network nodes and keys. This
 specification defines the EAP encapsulation for AKA when the new key
-derivation mechanism is in use.</t>
+derivation function is in use.</t>
 
 <t>3GPP has defined a number of applications for the revised AKA
 mechanism, some based on native encapsulation of AKA over 3GPP radio
 access networks and others based on the use of EAP.</t>
 
-<t>For making the new key derivation mechanisms usable in EAP-AKA,
+<t>For making the new key derivation function usable in EAP-AKA,
 additional protocol mechanisms are necessary.  Given that RFC 4187
 calls for the use of CK (the encryption key) and IK (the integrity
 key) from AKA, existing implementations continue to use these.  Any
@@ -118,7 +118,7 @@ protocol. That is, it must not be possible to accidentally connect old
 equipment to new equipment and get the key derivation wrong or attempt
 to use wrong keys without getting a proper error message. The change
 must also be secure against bidding down attacks that attempt to force
-the participants to use the least secure mechanism.</t>
+the participants to use the least secure function.</t>
 
 <t>This specification therefore introduces a variant of the EAP-AKA
 method, called EAP-AKA'. This method can employ the derived keys CK'
@@ -2002,7 +2002,8 @@ Value      Description              Reference
   <t>The -04 version of the working group draft corrected some typos,
   added sentence to the abstract about obsoleting RFC 5448, provided
   guidance on random number generation, clarified the dangers relating
-  to the use of permanent user identities such as IMSIs, added
+  to the use of permanent user identities such as IMSIs, unified the
+  key derivation function/mechanism terminology, added
   some cross references between sections, instructed IANA to change
   registries to point to this RFC rather than RFC 5448, and changed
   Pasi's listed affiliation.</t>
@@ -2036,7 +2037,7 @@ deployed access networks and clients attaching to them.</t>
 with all of the existing implementations. Perhaps it would be possible
 to employ strict separation into domain names that should be used by
 the new clients and networks. Only these new devices would then employ
-the new key derivation mechanism. While this can be made to work for
+the new key derivation function. While this can be made to work for
 specific cases, it would be an extremely brittle mechanism, ripe to
 result in problems whenever client configuration, routing of
 authentication requests, or server configuration does not match
