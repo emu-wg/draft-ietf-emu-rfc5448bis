@@ -84,7 +84,8 @@ EAP-AKA' employs SHA-256 instead of SHA-1.</t>
 down attacks from EAP-AKA'.</t>
 
 <t>This version of the EAP-AKA' specification provides updates to
-specify the protocol behaviour for 5G deployments as well.</t>
+specify the protocol behaviour for 5G deployments as well. This
+version obsoletes the initial definition of EAP-AKA', RFC 5448.</t>
 
 </abstract>
 
@@ -1992,6 +1993,12 @@ Value      Description              Reference
   strength of some of the recommendations in the security
   considerations section from keyword level to normal language (as
   they are just deployment recommendations).</t>
+
+  <t>The -04 version of the working group draft corrected some typos,
+  added sentence to the abstract about obsoleting RFC 5448, added
+  some cross references between sections, instructed IANA to change
+  registries to point to this RFC rather than RFC 5448, and changed
+  Pasi's listed affiliation.</t>
   
 </section>
 
