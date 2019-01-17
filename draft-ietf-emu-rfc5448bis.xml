@@ -921,7 +921,7 @@ the endpoints to use EAP-AKA'.</t>
     server MAY decline to provide a pseudonym in such authentication
     exchanges. An important case where such privacy-friendly
     identifiers are used is in 5G networks (see <xref
-    target="identifiersin5g"/>)</t>
+    target="identifiersin5g"/>)</t>.
     
   </section>
   
@@ -974,11 +974,11 @@ the endpoints to use EAP-AKA'.</t>
 
     <t>Where identifiers are used within EAP-AKA' -- such as key
     derivation -- specify what values exactly should be used,
-    to avoid ambiguity.</t>
+    to avoid ambiguity (see <xref target="kd5g"/>.</t>
 
     <t>Where identifiers are carried within EAP-AKA' packets --
     such as in the AT_IDENTITY attribute -- specify which identifiers
-    should be filled in.</t>
+    should be filled in (see <xref target="id5guse"/>.</t>
     
   </list></t>
 
