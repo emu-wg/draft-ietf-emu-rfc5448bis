@@ -831,9 +831,12 @@ the endpoints to use EAP-AKA'.</t>
   eavesdroppers. EAP-AKA' can also use the privacy friendly identifiers
   specified for 5G networks.</t>
 
-  <t>The permanent identity is usually based on the IMSI, which may
-  further help the tracking, because the same identifier may be used
-  in other contexts as well.  Identity privacy is based on temporary
+  <t>The permanent identity is usually based on the IMSI. Exposing the
+  IMSI is undesirable, because as a permanent identity it is easily
+  trackable. In addition, since IMSIs may be used in other contexts as
+  well, there would be additional opportunities for such tracking.</t>
+
+  <t>In EAP-AKA', identity privacy is based on temporary
   usernames, or pseudonym usernames. These are similar to but
   separate from the Temporary Mobile Subscriber Identities (TMSI) that
   are used on cellular networks.</t>
@@ -1997,7 +2000,9 @@ Value      Description              Reference
   they are just deployment recommendations).</t>
 
   <t>The -04 version of the working group draft corrected some typos,
-  added sentence to the abstract about obsoleting RFC 5448, added
+  added sentence to the abstract about obsoleting RFC 5448, provided
+  guidance on random number generation, clarified the dangers relating
+  to the use of permanent user identities such as IMSIs, added
   some cross references between sections, instructed IANA to change
   registries to point to this RFC rather than RFC 5448, and changed
   Pasi's listed affiliation.</t>
