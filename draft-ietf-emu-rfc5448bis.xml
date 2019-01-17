@@ -902,7 +902,8 @@ the endpoints to use EAP-AKA'.</t>
     two identities belonging to the same user from two identities
     belonging to different users. This can be achieved, for instance,
     by using random or pseudo-random identifiers such as random byte
-    strings or ciphertexts.</t>
+    strings or ciphertexts. See also <xref target="RFC4086"/> for guidance
+    on random number generation.</t>
   
     <t>Note that the pseudonym and fast re-authentication usernames
     also MUST NOT include substrings that can be used to relate the
@@ -1839,6 +1840,7 @@ Value      Description              Reference
       </reference>
 
       <?rfc include="reference.RFC.3310.xml"?>
+      <?rfc include="reference.RFC.4086.xml"?>
       <?rfc include="reference.RFC.4169.xml"?>
       <?rfc include="reference.RFC.4186.xml"?>
       <?rfc include="reference.RFC.4284.xml"?>
