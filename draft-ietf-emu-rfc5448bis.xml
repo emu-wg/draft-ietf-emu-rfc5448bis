@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-03" category="info" obsoletes="5448" updates="4187">
+<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-04" category="info" obsoletes="5448" updates="4187">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -63,7 +63,7 @@ Method for 3rd Generation Authentication and Key Agreement
 </address>
 </author>
 
-<date month="October" year="2018" />
+<date month="January" year="2019" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -1037,7 +1037,7 @@ the endpoints to use EAP-AKA'.</t>
       target="RFC4282"/>.</t>
 
       <t>When used in EAP-AKA', the format of the SUPI MUST be as
-      specified in <xref target="TS-3GPP.23.003"/> Sections 28.7.2,
+      specified in <xref target="TS-3GPP.23.003"/> Section 28.7.2,
       with the semantics defined in <xref target="TS-3GPP.23.003"/>
       Section 2.2B.  Also, in contrast to <xref target="RFC5448"/>, in
       5G EAP-AKA' does not use the "0" or "6" prefix in front of the
@@ -1085,7 +1085,7 @@ the endpoints to use EAP-AKA'.</t>
     
     For privacy reasons, the peer should follow a "conservative"
     policy and terminate the authentication exchange rather than
-    risk revaling its permanent identity.<vspace blankLines="1"/>
+    risk revealing its permanent identity.<vspace blankLines="1"/>
 
     The peer SHOULD respond with EAP-Response/AKA-Client-Error with the
     client error code 0, "unable to process packet".</t>
@@ -1432,7 +1432,8 @@ target="bindprop"/> for more discussion.</t>
   attacks. EAP-AKA' network name binding can also help alleviate some
   of the attacks.  In any case, it is recommended that EAP-AKA'
   configuration not be dependent on the location of where a request
-  comes from.</t>
+  comes from, unless the location information can be cryptographically
+  confirmed, e.g., with the network name binding.</t>
 
   <t>Zhang and Fang also looked at Denial-of-Service attacks <xref
   target="ZF2005"/>. A serving network may request large numbers of
