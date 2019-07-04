@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-04" category="info" obsoletes="5448" updates="4187">
+<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-05" category="info" obsoletes="5448" updates="4187">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -63,7 +63,7 @@ Method for 3rd Generation Authentication and Key Agreement
 </address>
 </author>
 
-<date month="January" year="2019" />
+<date month="July" year="2019" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -77,9 +77,10 @@ Method for 3rd Generation Authentication and Key Agreement
   access mobile networks. RFC 4187 (EAP-AKA) made the use of this mechanism
   possible within the Extensible Authentication Protocol (EAP)
   framework. RFC 5448 (EAP-AKA') was an improved version of EAP-AKA.</t>
-  
-  <t>This memo is an update of the specification for EAP-AKA'. This
-  version obsoletes RFC 5448.</t>
+
+  <t>This memo replaces of the specification of EAP-AKA'. EAP-AKA' was
+  defined in RFC 5448 and updated EAP-AKA RFC 4187. As such this
+  document obsoletes RFC 5448 and updates RFC 4187.</t>
 
   <t>EAP-AKA' differs from EAP-AKA by providing a key derivation
   function that binds the keys derived within the method to the name
@@ -106,10 +107,12 @@ Method for 3rd Generation Authentication and Key Agreement
   framework <xref target="RFC3748"/>.</t>
 
   <t><xref target="RFC5448"/> (EAP-AKA') was an improved version of
-  EAP-AKA. This memo is an update of the specification for EAP-AKA'. This
-  version obsoletes RFC 5448.</t>
+  EAP-AKA.  This memo replaces of the specification of
+  EAP-AKA'. EAP-AKA' was defined in RFC 5448 and updated EAP-AKA RFC
+  4187. As such this document obsoletes RFC 5448 and updates RFC
+  4187.</t>
 
-  <t>EAP-AKA' is commonly implemented in smart phones and network
+  <t>EAP-AKA' is commonly implemented in mobile phones and network
   equipment. It can be used for authentication to gain network access via
   Wireless LAN networks and, with 5G, also directly to mobile
   networks.</t>
@@ -212,7 +215,7 @@ Method for 3rd Generation Authentication and Key Agreement
   target="diff2"/> and <xref target="diff"/> explains what updates to
   RFC 5448 EAP-AKA' and RFC 4187 EAP-AKA have been made in this
   specification. <xref target="baddesign"/> explains some of the design
-  rationale for creating EAP-AKA' Finally, <xref target="testvectors"/>
+  rationale for creating EAP-AKA'. Finally, <xref target="testvectors"/>
   provides test vectors.
   
   <list style="empty">
@@ -505,7 +508,8 @@ be useful for future evolution of the key derivation functions.</t>
 <t hangText="AT_KDF"><vspace blankLines="1"/>This is set to 24.</t>
 
 <t hangText="Length"><vspace blankLines="1"/>The length of the
-attribute, MUST be set to 1.</t>
+attribute, calculated as defined in <xref target="RFC4187"/>, Section
+8.1. For AT_KDF, the Length field MUST be set to 1.</t>
 
 <t hangText="Key Derivation Function"><vspace blankLines="1"/>An
 enumerated value representing the key derivation function that the
@@ -598,7 +602,8 @@ follows:<vspace blankLines="1"/>
 </artwork>
 </figure></t>
 
-   <t>Here [n..m] denotes the substring from bit n to m.  PRF' is a new
+   <t>Here [n..m] denotes the substring from bit n to m, including
+   bits n and m. PRF' is a new
    pseudo-random function specified in <xref target="hashup"/>.  The first 1664 bits
    from its output are used for K_encr (encryption key, 128 bits), K_aut
    (authentication key, 256 bits), K_re (re-authentication key, 256
@@ -611,7 +616,7 @@ follows:<vspace blankLines="1"/>
    <t>IK' and CK' are derived as specified in <xref target="TS-3GPP.33.402"/>.  The functions
    that derive IK' and CK' take the following parameters:  CK and IK
    produced by the AKA algorithm, and value of the Network Name field
-   comes from the AT_KDF_INPUT attribute (without length or padding) .</t>
+   comes from the AT_KDF_INPUT attribute (without length or padding).</t>
 
    <t>The value "EAP-AKA'" is an eight-characters-long ASCII string.  It is
    used as is, without any trailing NUL characters.</t>
@@ -690,7 +695,7 @@ as in EAP-AKA. This requires a change to the pseudo-random function
 
 <t>The PRF' construction is the same one IKEv2 uses (see Section 2.13 of
 <xref target="RFC4306"/>). The function takes two arguments. K is a
-256-bit value and S is an byte string of arbitrary length. PRF' is
+256-bit value and S is a byte string of arbitrary length. PRF' is
 defined as follows:</t>
 
 <figure>
@@ -769,8 +774,9 @@ mechanism for EAP-AKA that allows the endpoints to securely discover
 the capabilities of each other. This mechanism comes in the form of
 the AT_BIDDING attribute. This allows both endpoints to communicate
 their desire and support for EAP-AKA' when exchanging EAP-AKA
-messages. This attribute is not included in EAP-AKA' messages as
-defined in this RFC. It is only included in EAP-AKA messages.  This is
+messages. This attribute is not included in EAP-AKA' messages. It is
+only included in EAP-AKA messages. (Those messages are protected with
+the AT_MAC attribute.)  This approach is
 based on the assumption that EAP-AKA' is always preferable (see
 <xref target="security"/>). If during the EAP-AKA authentication
 process it is discovered that both endpoints would have been able to
@@ -1016,7 +1022,7 @@ the endpoints to use EAP-AKA'.</t>
 
     <t>The identity MUST also be represented in the exact correct
     format for the key derivation formula to produce correct
-    results. For the SUPI, this format is as defined <xref
+    results. In 5G, this identifier is the SUPI. The SUPI format is as defined <xref
     target="supifmt"/>.</t>
 
     <t>In all other cases, the following applies:
@@ -1343,8 +1349,8 @@ target="bindprop"/> for more discussion.</t>
   <t>When authenticating to a 5G network, per <xref target="kd5g"/>,
   both the EAP-AKA' peer and server need employ permanent identifier,
   SUPI, as an input to key derivation. However, this use of the SUPI
-  is only internal and the SUPI need not be communicated in EAP
-  messages. SUCI MUST NOT be communicated in EAP-AKA' when
+  is only internal. As such, the SUPI need not be communicated in EAP
+  messages. Therefore, SUPI MUST NOT be communicated in EAP-AKA' when
   authenticating to a 5G network.</t>
  
   <t>While the use of SUCI in 5G networks generally provides identity
@@ -2021,6 +2027,10 @@ Value      Description              Reference
   some cross references between sections, instructed IANA to change
   registries to point to this RFC rather than RFC 5448, and changed
   Pasi's listed affiliation.</t>
+
+  <t>The -05 version of the draft corrected the <xref target="priv"/>
+  statement that SUCI must not be communicated in EAP-AKA'; this
+  statement was meant to say SUPI must not be communicated.</t>
   
 </section>
 
@@ -2269,7 +2279,7 @@ Case 4
 
 </section>
 		       
-<section title="Contributors">
+<section title="Contributors" numbered="no">
 
    <t>The test vectors in Appendix C were provided by Yogendra Pal and
    Jouni Malinen, based on two independent implementations of this
@@ -2282,15 +2292,15 @@ Case 4
    
 </section>
 
-<section title="Acknowledgments">
+<section title="Acknowledgments" numbered="no">
   
   <t>The authors would like to thank Guenther Horn, Joe Salowey, Mats
   Naslund, Adrian Escott, Brian Rosenberg, Laksminath Dondeti, Ahmad
   Muhanna, Stefan Rommer, Miguel Garcia, Jan Kall, Ankur Agarwal,
   Jouni Malinen, John Mattsson, Jesus De Gregorio, Brian Weis, Russ
-  Housley, Alfred Hoenes, Anand Palanigounder, and Mohit Sethi for
-  their in-depth reviews and interesting discussions in this problem
-  space.</t>
+  Housley, Alfred Hoenes, Anand Palanigounder, Daniel Migault, and
+  Mohit Sethi for their in-depth reviews and interesting discussions
+  in this problem space.</t>
   
 </section>
 
