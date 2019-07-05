@@ -12,7 +12,7 @@
 <front>
 
 <title abbrev="EAP-AKA'">Improved Extensible Authentication Protocol
-Method for 3rd Generation Authentication and Key Agreement
+Method for 3GPP Mobile Network Authentication and Key Agreement
 (EAP-AKA')</title>
 
 <author initials="J" surname="Arkko" fullname="Jari Arkko">
@@ -72,7 +72,7 @@ Method for 3rd Generation Authentication and Key Agreement
 
 <abstract>
 
-  <t>The 3rd Generation Authentication and Key Agreement (AKA) 
+  <t>The 3GPP Mobile Network Authentication and Key Agreement (AKA) 
   is the primary authentication mechanism for devices wishing to
   access mobile networks. RFC 4187 (EAP-AKA) made the use of this mechanism
   possible within the Extensible Authentication Protocol (EAP)
@@ -100,7 +100,7 @@ Method for 3rd Generation Authentication and Key Agreement
 
 <section title="Introduction">
 
-  <t>The 3rd Generation Authentication and Key Agreement (AKA) is the
+  <t>The 3GPP Mobile Network Authentication and Key Agreement (AKA) is the
   primary authentication mechanism for devices wishing to access mobile
   networks. <xref target="RFC4187"/> (EAP-AKA) made the use of this mechanism
   possible within the Extensible Authentication Protocol (EAP)
@@ -250,7 +250,7 @@ when, they appear in all capitals, as shown here.</t>
 
 <list style="symbols">
 
-<t>It uses the Type code 50, not 23 (which is used by
+<t>It uses the Type code 0x32, not 0x17 (which is used by
 EAP-AKA).</t>
 
 <t>It carries the AT_KDF_INPUT attribute, as defined in
@@ -334,7 +334,7 @@ AT_MAC, and AT_RES can be found in <xref target="RFC4187"/>.</t>
    characters than EAP-AKA for the conventions given in Section 4.1.1 of
    <xref target="RFC4187"/> for International Mobile Subscriber Identifier (IMSI) based
    usernames.  EAP-AKA' MUST use the leading character "6" (ASCII 36
-   hexadecimal) instead of "0" for IMSI-based permanent usernames.  All
+   hexadecimal) instead of "0" for IMSI-based permanent usernames. Identifier usage in 5G is specified in Section 5.3. All
    other usage and processing of the leading characters, usernames, and
    identities is as defined by EAP-AKA <xref target="RFC4187"/>.  For instance, the
    pseudonym and fast re-authentication usernames need to be constructed
@@ -543,7 +543,7 @@ derivation function; see below for further information).</t>
 <t>Upon receiving an EAP-Response/AKA'-Challenge with AT_KDF from the
 peer, the server checks that the suggested AT_KDF value was one of the
 alternatives in its offer. The first AT_KDF value in the message from
-the server is not a valid alternative. If the peer has replied with
+the server is not a valid alternative since the peer should have accepted it without further negotiation. If the peer has replied with
 the first AT_KDF value, the server behaves as if AT_MAC of the
 response had been incorrect and fails the authentication. For an
 overview of the failed authentication process in the server side, see
@@ -1054,7 +1054,7 @@ the endpoints to use EAP-AKA'.</t>
       <t>When used in EAP-AKA', the format of the SUPI MUST be as
       specified in <xref target="TS-3GPP.23.003"/> Section 28.7.2,
       with the semantics defined in <xref target="TS-3GPP.23.003"/>
-      Section 2.2B.  Also, in contrast to <xref target="RFC5448"/>, in
+      Section 2.2A.  Also, in contrast to <xref target="RFC5448"/>, in
       5G EAP-AKA' does not use the "0" or "6" prefix in front of the
       entire IMSI.</t>
 
@@ -1086,8 +1086,8 @@ the endpoints to use EAP-AKA'.</t>
 
     <t>In this situation, the EAP server SHOULD NOT request an additional
     identity from the peer. If the peer for some reason receives
-    EAP-Request/Identity or EAP-Request/AKA-Identity messages, the peer should
-    behave as follows.
+    EAP-Request/Identity or EAP-Request/AKA-Identity messages, the peer 
+    behaves as follows.
     <list style="hanging">
 
     <t hangText="Receive EAP-Request/Identity"><vspace blankLines="1"/>
@@ -1109,7 +1109,7 @@ the endpoints to use EAP-AKA'.</t>
 
     In this case, the peer MUST respond with a EAP-Response/AKA-Identity
     containing the SUCI.  The SUCI
-    SHOULD be represented as specified in <xref target="sucifmt"/>.</t>
+    MUST be represented as specified in <xref target="sucifmt"/>.</t>
     
     <t hangText="EAP-Request/AKA-Identity with AT_ANY_ID_REQ"><vspace blankLines="1"/>
     
@@ -1179,7 +1179,7 @@ the endpoints to use EAP-AKA'.</t>
   </figure></t>
   
   <t>When using fast re-authentication, the EAP-AKA' Session-Id is the
-  concatenation of the EAP Type Code (50) with the contents of the
+  concatenation of the EAP Type Code (0x32) with the contents of the
   NONCE_S field from the AT_NONCE_S attribute, followed by the
   contents of the MAC field from the AT_MAC attribute from
   EAP-Request/AKA-Reauthentication:
@@ -1488,8 +1488,12 @@ target="bindprop"/> for more discussion.</t>
   depends on the ability of the attacker to have a false base station
   on the given area, and the subscriber performing at least one
   authentication between the time the attack is set up and run.</t>
-  
-  <t>Finally, while this is not a problem with the protocol itself,
+
+  <t>Ravishankar et al ([Ravishankar2019]) discovered that the AKA resynchronization protocol may also be used to predict the authentication frequency of a subscribers if non-time-based SQN generation scheme is used. The attacker can force the re-use of the keystream that is used to protect the SQN in the AKA resynchronization protocol. The attacker then guesses the authentication frequency based on the lowest bits of two XORed SQNs. The researchers� concern was that the authentication frequency would reflect phone usage behavior e.g. number of phone calls or SMS messages. However, there are many more triggers for authentication than phone calls or SMS messages, such as mobile data and various mobility events. The impact of the attack is also different depending on whether time or non-time-based SQN generation scheme is used. [XXX Massage?]</t>
+
+  <t>Similar attacks are possible outside AKA in the cellular paging protocols where the attacker can simply send application layer data, short messages or make phone calls to the intended victim and observe the air-interface [e.g. Kune2012, Shaik2016]. Hussain et. al. demonstrated a slightly more sophisticated version of the attack that exploits the fact that 4G paging protocol uses the IMSI to calculate the paging timeslot [Hussain2019]. As this attack is outside AKA, it does not impact EAP-AKA'.</t>
+
+  <t> [XXX Massage?] Finally, while it is not a problem with the protocol itself,
   bad implementations may not produce pseudonym usernames or fast
   re-authentication identities in a manner that is sufficiently
   secure. Recommendations from <xref target="genpfr"/> need to be
@@ -1604,7 +1608,7 @@ use by other domains or devices using the same technology.</t>
   
 <section title="Type Value">
 
-  <t>EAP-AKA' has the EAP Type value 50 in the Extensible
+  <t>EAP-AKA' has the EAP Type value 0x32 in the Extensible
   Authentication Protocol (EAP) Registry under Method Types. Per
   Section 6.2 of <xref
   target="RFC3748"/>, this allocation can be made with
