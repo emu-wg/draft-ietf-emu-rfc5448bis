@@ -329,23 +329,26 @@ AT_MAC, and AT_RES can be found in <xref target="RFC4187"/>.</t>
 </artwork>
 </figure>
 
-   <t>EAP-AKA' can operate on the same credentials as EAP-AKA and employ
-   the same identities.  However, EAP-AKA' employs different leading
-   characters than EAP-AKA for the conventions given in Section 4.1.1 of
-   <xref target="RFC4187"/> for International Mobile Subscriber Identifier (IMSI) based
-   usernames.  EAP-AKA' MUST use the leading character "6" (ASCII 36
-   hexadecimal) instead of "0" for IMSI-based permanent usernames. Identifier usage in 5G is specified in Section 5.3. All
-   other usage and processing of the leading characters, usernames, and
-   identities is as defined by EAP-AKA <xref target="RFC4187"/>.  For instance, the
-   pseudonym and fast re-authentication usernames need to be constructed
-   so that the server can recognize them.  As an example, a pseudonym
-   could begin with a leading "7" character (ASCII 37 hexadecimal) and a
-   fast re-authentication username could begin with "8" (ASCII 38
-   hexadecimal).  Note that a server that implements only EAP-AKA may
-   not recognize these leading characters.  According to Section 4.1.4
-   of <xref target="RFC4187"/>, such a server will re-request the identity via the EAP-
-   Request/AKA-Identity message, making obvious to the peer that EAP-AKA
-   and associated identity are expected.</t>
+   <t>EAP-AKA' can operate on the same credentials as EAP-AKA and
+   employ the same identities.  However, EAP-AKA' employs different
+   leading characters than EAP-AKA for the conventions given in
+   Section 4.1.1 of <xref target="RFC4187"/> for International Mobile
+   Subscriber Identifier (IMSI) based usernames.  EAP-AKA' MUST use
+   the leading character "6" (ASCII 36 hexadecimal) instead of "0" for
+   IMSI-based permanent usernames, or 5G-specific identifiers in 5G
+   networks. Identifier usage in 5G is specified in Section 5.3. All
+   other usage and processing of the leading characters, usernames,
+   and identities is as defined by EAP-AKA <xref target="RFC4187"/>.
+   For instance, the pseudonym and fast re-authentication usernames
+   need to be constructed so that the server can recognize them.  As
+   an example, a pseudonym could begin with a leading "7" character
+   (ASCII 37 hexadecimal) and a fast re-authentication username could
+   begin with "8" (ASCII 38 hexadecimal).  Note that a server that
+   implements only EAP-AKA may not recognize these leading characters.
+   According to Section 4.1.4 of <xref target="RFC4187"/>, such a
+   server will re-request the identity via the EAP-
+   Request/AKA-Identity message, making obvious to the peer that
+   EAP-AKA and associated identity are expected.</t>
    
 <section title="AT_KDF_INPUT" anchor="netbind">
 
@@ -567,16 +570,22 @@ EAP-Request/AKA'-Challenge messages with differing AT_KDF attributes
 without having requested negotiation, the peer MUST behave as if
 AT_MAC had been incorrect and fail the authentication.</t>
 
-<t>Note that the peer may also request sequence number resynchronization
-   <xref target="RFC4187"/>. This happens after AT_KDF negotiation has already
-   completed.  An AKA'-Synchronization-Failure message is sent as a
-   response to the newly received EAP-Request/AKA'-Challenge (the last
-   message of the AT_KDF negotiation).  The AKA'-Synchronization-Failure
-   message MUST contain the AUTS parameter as specified in <xref target="RFC4187"/> and
-   a copy the AT_KDF attributes as they appeared in the last message of
-   the AT_KDF negotiation.  If the AT_KDF attributes are found to differ
-   from their earlier values, the peer and server MUST behave as if
-AT_MAC had been incorrect and fail the authentication.</t>
+<t>Note that the peer may also request sequence number
+   resynchronization <xref target="RFC4187"/>. This happens after
+   AT_KDF negotiation has already completed.  That is, the
+   EAP-Request/AKA'-Challenge and EAP-Response/AKA'-Challenge message
+   are exchanged first to come up with a mutually acceptable key
+   derivation function, and only then the possible
+   AKA'-Synchronization-Failure message is sent.  The
+   AKA'-Synchronization-Failure message is sent as a response to the
+   newly received EAP-Request/AKA'-Challenge (the last message of the
+   AT_KDF negotiation).  The AKA'-Synchronization-Failure message MUST
+   contain the AUTS parameter as specified in <xref target="RFC4187"/>
+   and a copy the AT_KDF attributes as they appeared in the last
+   message of the AT_KDF negotiation.  If the AT_KDF attributes are
+   found to differ from their earlier values, the peer and server MUST
+   behave as if AT_MAC had been incorrect and fail the
+   authentication.</t>
 
 </section>
 
@@ -759,6 +768,76 @@ hash output:</t>
 
 </section>
 
+<section anchor="attrtable" title="Summary of Attributes">
+
+   <t>The following table provides a guide to which attributes may be found
+   in which kinds of messages, and in what quantity.</t>
+
+   <t>Messages are denoted with numbers in parentheses as follows:
+   <list style="empty">
+   
+   <t>(1) EAP-Request/AKA-Identity,</t>
+   <t>(2) EAP-Response/AKA-Identity,</t>
+   <t>(3) EAP-Request/AKA-Challenge,</t>
+   <t>(4) EAP-Response/AKA-Challenge,</t>
+   <t>(5) EAP-Request/AKA-Notification,</t>
+   <t>(6) EAP-Response/AKA-Notification,</t>
+   <t>(7) EAP-Response/AKA-Client-Error</t>
+   <t>(8) EAP-Request/AKA-Reauthentication,</t>
+   <t>(9) EAP-Response/AKA-Reauthentication,</t>
+   <t>(10) EAP-Response/AKA-Authentication-Reject, and</t>
+   <t>(11) EAP-Response/AKA-Synchronization-ailure.</t>
+   </list></t>
+   
+   <t>The column denoted with "E" indicates whether the attribute is a
+   nested attribute that MUST be included within AT_ENCR_DATA.</t>
+
+   <t>In addition:
+   <list style="empty">
+         
+   <t>"0" indicates that the attribute MUST NOT be included in the message,</t>
+   <t>"1" indicates that the attribute MUST be included in the message,</t>
+   <t>"0-1" indicates that the attribute is sometimes included in the
+   message, </t>
+   <t>"0+" indicates that zero or more copies of the attribute MAY be included in the message,</t>
+   <t>"1+" indicates that there MUST be at least one attribute in the message but more than one MAY be included in the message, and </t>
+   <t>"0*" indicates that the attribute is not included in the
+   message in cases specified in this document, but MAY be included in
+   the future versions of the protocol.</t></list></t>
+
+   <t>The attribute table is shown below:</t>
+
+   <figure>
+   <artwork>
+            Attribute (1) (2) (3) (4) (5) (6) (7) (8) (9) (10)(11) E
+  AT_PERMANENT_ID_REQ 0-1  0   0   0   0   0   0   0   0   0   0   N
+        AT_ANY_ID_REQ 0-1  0   0   0   0   0   0   0   0   0   0   N
+   AT_FULLAUTH_ID_REQ 0-1  0   0   0   0   0   0   0   0   0   0   N
+          AT_IDENTITY  0  0-1  0   0   0   0   0   0   0   0   0   N
+              AT_RAND  0   0   1   0   0   0   0   0   0   0   0   N
+              AT_AUTN  0   0   1   0   0   0   0   0   0   0   0   N
+               AT_RES  0   0   0   1   0   0   0   0   0   0   0   N
+              AT_AUTS  0   0   0   0   0   0   0   0   0   0   1   N
+    AT_NEXT_PSEUDONYM  0   0  0-1  0   0   0   0   0   0   0   0   Y
+    AT_NEXT_REAUTH_ID  0   0  0-1  0   0   0   0  0-1  0   0   0   Y
+                AT_IV  0   0  0-1  0* 0-1 0-1  0   1   1   0   0   N
+         AT_ENCR_DATA  0   0  0-1  0* 0-1 0-1  0   1   1   0   0   N
+           AT_PADDING  0   0  0-1  0* 0-1 0-1  0  0-1 0-1  0   0   Y
+         AT_CHECKCODE  0   0  0-1 0-1  0   0   0  0-1 0-1  0   0   N
+        AT_RESULT_IND  0   0  0-1 0-1  0   0   0  0-1 0-1  0   0   N
+               AT_MAC  0   0   1   1  0-1 0-1  0   1   1   0   0   N
+           AT_COUNTER  0   0   0   0  0-1 0-1  0   1   1   0   0   Y
+ AT_COUNTER_TOO_SMALL  0   0   0   0   0   0   0   0  0-1  0   0   Y
+           AT_NONCE_S  0   0   0   0   0   0   0   1   0   0   0   Y
+      AT_NOTIFICATION  0   0   0   0   1   0   0   0   0   0   0   N
+ AT_CLIENT_ERROR_CODE  0   0   0   0   0   0   1   0   0   0   0   N
+               AT_KDF  0   0   1+  0+  0   0   0   0   0   0   1+  N
+         AT_KDF_INPUT  0   0   1   0   0   0   0   0   0   0   0   N
+   </artwork>
+   </figure>
+   
+</section>
+
 </section>
 
 <section anchor="bidding" title="Bidding Down Prevention for EAP-AKA">
@@ -829,6 +908,17 @@ it cannot be removed by a man-in-the-middle attacker.</t>
 always stronger than EAP-AKA. As a result, there is no need to prevent
 bidding "down" attacks in the other direction, i.e., attackers forcing
 the endpoints to use EAP-AKA'.</t>
+
+<section anchor="attrtable2" title="Summary of Attributes">
+   <t>The appearance of the AT_BIDDING attribute in EAP-AKA exchanges is shown below, using the notation from <xref target="attrtable"/>:</t>
+
+   <figure>
+   <artwork>
+            Attribute (1) (2) (3) (4) (5) (6) (7) (8) (9) (10)(11) E
+           AT_BIDDING  0   0   1   0   0   0   0   0   0   0   0   N
+   </artwork>
+   </figure>
+</section>
 
 </section>
 
@@ -2021,7 +2111,8 @@ Value      Description              Reference
   or otherwise most recent version when there has not been a
   5G-related update.</t>
 
-  <t>Finally, a number of editorial clarifications have been made.</t>
+  <t>Finally, a number of clarifications have been made, including a
+  summary of where attributes may appear.</t>
   
 </section>
 
@@ -2092,8 +2183,11 @@ Value      Description              Reference
   version also added information about attacks against the
   re-synchronization protocol, switched to use of hexadecimal for EAP
   Type Values for consistency with other documents, clarified length
-  field calculations and the AT_KDF negotiation procedure, and made editorial
-  clarifications to a number places in the document</t>
+  field calculations and the AT_KDF negotiation procedure, and made
+  editorial clarifications to a number places in the document. An
+  table of where attributes may appear has been added to the document
+  (<xref target="attrtable"/> and <xref target="attrtable2"/>), based
+  on the original table in RFC 4187.</t>
   
 </section>
 
