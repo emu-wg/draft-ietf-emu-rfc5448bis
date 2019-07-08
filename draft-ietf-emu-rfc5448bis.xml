@@ -2213,11 +2213,13 @@ Value      Description              Reference
 
   <t>The -05 version of the draft corrected the <xref target="priv"/>
   statement that SUCI must not be communicated in EAP-AKA'; this
-  statement was meant to say SUPI must not be communicated. The -05
-  version also added information about attacks against the
-  re-synchronization protocol, switched to use of hexadecimal for EAP
-  Type Values for consistency with other documents, clarified length
-  field calculations and the AT_KDF negotiation procedure, and made
+  statement was meant to say SUPI must not be communicated. That was a
+  major bug!  The -05 version also added information about attacks
+  against the re-synchronization protocol and other attacks recently
+  discussed in academic conferences, updated and added several
+  references, switched to use of hexadecimal for EAP Type Values for
+  consistency with other documents, clarified length field
+  calculations and the AT_KDF negotiation procedure, and made
   editorial clarifications to a number places in the document. An
   table of where attributes may appear has been added to the document
   (<xref target="attrtable"/> and <xref target="attrtable2"/>), based
