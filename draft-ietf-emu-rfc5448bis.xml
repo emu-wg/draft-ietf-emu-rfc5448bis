@@ -2223,22 +2223,45 @@ Value      Description              Reference
   statement that SUCI must not be communicated in EAP-AKA'; this
   statement was meant to say SUPI must not be communicated. That was a
   major bug, but hopefully one that previous readers understood was a
-  mistake!  The -05 version also added information about attacks
-  against the re-synchronization protocol and other attacks recently
-  discussed in academic conferences, updated and added several
-  references, switched to use of hexadecimal for EAP Type Values for
-  consistency with other documents, clarified length field
-  calculations and the AT_KDF negotiation procedure, and made
-  editorial clarifications to a number places in the document. The
-  treatment of AT_KDF attribute copy in the
-  EAP-Response/AKA'-Synchronization-Failure message was clarified in
-  <xref target="keyderiv"/>. A table of where attributes may appear
-  has been added to the document (<xref target="attrtable"/> and <xref
-  target="attrtable2"/>), based on the original table in RFC 4187. The
-  attribute appearance table entry for AT_MAC in
+  mistake!</t>
+
+  <t>The -05 version also changed keyword strengths for identifier
+  requests in different cases in a 5G network, to match the 3GPP
+  specifications (see <xref target="id5guse"/>.</t>
+
+  <t>Tables of where attributes may appear has been added to the -05
+  version of the document, see <xref target="attrtable"/> and <xref
+  target="attrtable2"/>. The tables are based on the original table in
+  RFC 4187.</t>
+
+  <t>Other changes in the -05 version included the following:
+  <list style="symbols">
+
+  <t>The attribute appearance table entry for AT_MAC in
   EAP-Response/AKA-Challenge has been specified to be 0-1 because it
   does not appear when AT_KDF has to be sent; this was based on
   implementor feedback.</t>
+  
+  <t>Added information about attacks against the re-synchronization
+  protocol and other attacks recently discussed in academic
+  conferences.</t>
+
+  <t>Clarified length field calculations and the AT_KDF
+  negotiation procedure.</t>
+  
+  <t>The treatment of AT_KDF attribute copy in
+  the EAP-Response/AKA'-Synchronization-Failure message was clarified
+  in <xref target="keyderiv"/>.</t>
+
+  <t>Updated and added several references</t>
+
+  <t>Switched to use of hexadecimal for EAP Type Values for
+  consistency with other documents.</t>
+
+  <t>Made editorial clarifications to a number
+  places in the document.</t>
+
+  </list></t>
   
 </section>
 
