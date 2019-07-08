@@ -805,7 +805,9 @@ hash output:</t>
    message in cases specified in this document, but MAY be included in
    the future versions of the protocol.</t></list></t>
 
-   <t>The attribute table is shown below:</t>
+   <t>The attribute table is shown below. Only the last two lines are
+   different from EAP-AKA attribute table (<xref target="RFC4187"/>
+   Section 10.1):</t>
 
    <figure>
    <artwork>
