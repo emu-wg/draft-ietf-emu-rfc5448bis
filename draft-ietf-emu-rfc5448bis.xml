@@ -220,13 +220,13 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   
   <list style="empty">
     
-    <t>Editor's Note: The publication of this RFC depends on its normative
-    references <xref target="TS-3GPP.24.302"/>
-    and <xref target="TS-3GPP.33.501"/> reaching a stable status for Release 15,
-    as indicated by 3GPP. This is expected to happen shortly. The RFC
-    Editor should check with the 3GPP liaisons that this has happened. RFC
-    Editor: Please delete this note upon publication of this specification
-    as an RFC.
+    <t>Editor's Note: The publication of this RFC depends on its
+    normative references to 3GPP Technical Specifications reaching a
+    stable status for Release 15, as indicated by 3GPP. The RFC Editor
+    should check with the 3GPP liaisons that a stable version from
+    Release 15 is available and refer to that version. RFC Editor:
+    Please delete this note upon publication of this specification as
+    an RFC.
     </t>
     
   </list></t>
@@ -803,7 +803,8 @@ bidding down attack may have happened.</t>
 <t hangText="AT_BIDDING"><vspace blankLines="1"/>This is set to 136.</t>
 
 <t hangText="Length"><vspace blankLines="1"/>The length of the
-attribute, MUST be set to 1.</t>
+attribute, calculated as defined in <xref target="RFC4187"/>, Section
+8.1.  For AT_BIDDING, the Length MUST be set to 1.</t>
 
 <t hangText="D"><vspace blankLines="1"/>This bit is set to 1 if the
 sender supports EAP-AKA', is willing to use it, and prefers it
@@ -1347,11 +1348,11 @@ target="bindprop"/> for more discussion.</t>
   the guidelines given in <xref target="genpfr"/>.</t>
 
   <t>When authenticating to a 5G network, per <xref target="kd5g"/>,
-  both the EAP-AKA' peer and server need employ permanent identifier,
-  SUPI, as an input to key derivation. However, this use of the SUPI
-  is only internal. As such, the SUPI need not be communicated in EAP
-  messages. Therefore, SUPI MUST NOT be communicated in EAP-AKA' when
-  authenticating to a 5G network.</t>
+  both the EAP-AKA' peer and server need to employ the permanent
+  identifier, SUPI, as an input to key derivation. However, this use
+  of the SUPI is only internal. As such, the SUPI need not be
+  communicated in EAP messages. Therefore, SUPI MUST NOT be
+  communicated in EAP-AKA' when authenticating to a 5G network.</t>
  
   <t>While the use of SUCI in 5G networks generally provides identity
   privacy, this is not true if the null-scheme encryption is used to
@@ -2090,7 +2091,8 @@ Value      Description              Reference
   statement was meant to say SUPI must not be communicated. The -05
   version also added information about attacks against the
   re-synchronization protocol, switched to use of hexadecimal for EAP
-  Type Values for consistency with other documents, and made editorial
+  Type Values for consistency with other documents, clarified length
+  field calculations and the AT_KDF negotiation procedure, and made editorial
   clarifications to a number places in the document</t>
   
 </section>
