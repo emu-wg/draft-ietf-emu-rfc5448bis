@@ -87,8 +87,8 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   of the access network. The key derivation function has been defined
   in the 3rd Generation Partnership Project (3GPP). EAP-AKA' allows
   its use in EAP in an interoperable manner. EAP-AKA' is also an
-  algorithm update, as it employs SHA-256 instead of SHA-1 as in
-  EAP-AKA.</t>
+  algorithm update, as it employs SHA-256 / HMAC-SHA-256 instead of
+  SHA-1 / HMAC-SHA-1 as in EAP-AKA.</t>
 
   <t>This version of EAP-AKA' specification specifies the protocol
   behaviour for 5G deployments as well.</t>
@@ -125,11 +125,11 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
 
   <t>The EAP-AKA' method employs the derived keys CK' and IK' from the
   3GPP specification <xref target="TS-3GPP.33.402"/> and updates the
-  used hash function to SHA-256 <xref
-  target="FIPS.180-4"/>. Otherwise, EAP-AKA' is equivalent to
-  EAP-AKA. Given that a different EAP method type value is used for
-  EAP-AKA and EAP-AKA', a mutually supported method may be negotiated
-  using the standard mechanisms in EAP <xref target="RFC3748"/>.
+  used hash function to SHA-256 <xref target="FIPS.180-4"/> and HMAC
+  to HMAC-SHA-256. Otherwise, EAP-AKA' is equivalent to EAP-AKA. Given
+  that a different EAP method type value is used for EAP-AKA and
+  EAP-AKA', a mutually supported method may be negotiated using the
+  standard mechanisms in EAP <xref target="RFC3748"/>.
 
   <list style="empty">
     
@@ -264,8 +264,8 @@ extensions.</t>
 <t>It calculates keys as defined in <xref target="key"/>, not as
 defined in EAP-AKA.</t>
 
-<t>It employs SHA-256, not SHA-1 <xref target="FIPS.180-4"/> (<xref
-target="hashup"/>).</t>
+<t>It employs SHA-256 / HMAC-SHA-256, not SHA-1 / HMAC-SHA-1 <xref target="FIPS.180-4"/> (<xref
+target="hashup"/> <xref target="RFC2104"/>).</t>
 
 </list>
 </t>
@@ -573,19 +573,21 @@ AT_MAC had been incorrect and fail the authentication.</t>
 <t>Note that the peer may also request sequence number
    resynchronization <xref target="RFC4187"/>. This happens after
    AT_KDF negotiation has already completed.  That is, the
-   EAP-Request/AKA'-Challenge and EAP-Response/AKA'-Challenge message
-   are exchanged first to come up with a mutually acceptable key
-   derivation function, and only then the possible
-   AKA'-Synchronization-Failure message is sent.  The
+   EAP-Request/AKA'-Challenge and, possibly, the
+   EAP-Response/AKA'-Challenge message are exchanged first to come up
+   with a mutually acceptable key derivation function, and only then
+   the possible AKA'-Synchronization-Failure message is sent.  The
    AKA'-Synchronization-Failure message is sent as a response to the
-   newly received EAP-Request/AKA'-Challenge (the last message of the
-   AT_KDF negotiation).  The AKA'-Synchronization-Failure message MUST
-   contain the AUTS parameter as specified in <xref target="RFC4187"/>
-   and a copy the AT_KDF attributes as they appeared in the last
-   message of the AT_KDF negotiation.  If the AT_KDF attributes are
-   found to differ from their earlier values, the peer and server MUST
-   behave as if AT_MAC had been incorrect and fail the
-   authentication.</t>
+   newly received EAP-Request/AKA'-Challenge which is the last message
+   of the AT_KDF negotiation. Note that if the first proposed KDF is
+   acceptable, then last message is at the same time the first
+   EAP-Request/AKA'-Challenge message. The
+   AKA'-Synchronization-Failure message MUST contain the AUTS
+   parameter as specified in <xref target="RFC4187"/> and a copy the
+   AT_KDF attributes as they appeared in the last message of the
+   AT_KDF negotiation.  If the AT_KDF attributes are found to differ
+   from their earlier values, the peer and server MUST behave as if
+   AT_MAC had been incorrect and fail the authentication.</t>
 
 </section>
 
@@ -696,9 +698,10 @@ the keys and behaves as explained in <xref target="keyderiv"/>.</t>
 
 <section anchor="hashup" title="Hash Functions">
 
-<t>EAP-AKA' uses SHA-256, not SHA-1 (see <xref target="FIPS.180-4"/>)
-as in EAP-AKA. This requires a change to the pseudo-random function
-(PRF) as well as the AT_MAC and AT_CHECKCODE attributes.</t>
+<t>EAP-AKA' uses SHA-256 / HMAC-SHA-256, not SHA-1 / HMAC-SHA-1 (see
+<xref target="FIPS.180-4"/> <xref target="RFC2104"/>) as in
+EAP-AKA. This requires a change to the pseudo-random function (PRF) as
+well as the AT_MAC and AT_CHECKCODE attributes.</t>
 
 <section title="PRF'">
 
@@ -768,7 +771,7 @@ hash output:</t>
 
 </section>
 
-<section anchor="attrtable" title="Summary of Attributes">
+<section anchor="attrtable" title="Summary of Attributes for EAP-AKA'">
 
    <t>The following table provides a guide to which attributes may be found
    in which kinds of messages, and in what quantity.</t>
@@ -786,7 +789,7 @@ hash output:</t>
    <t>(8) EAP-Request/AKA-Reauthentication,</t>
    <t>(9) EAP-Response/AKA-Reauthentication,</t>
    <t>(10) EAP-Response/AKA-Authentication-Reject, and</t>
-   <t>(11) EAP-Response/AKA-Synchronization-ailure.</t>
+   <t>(11) EAP-Response/AKA-Synchronization-Failure.</t>
    </list></t>
    
    <t>The column denoted with "E" indicates whether the attribute is a
@@ -805,9 +808,12 @@ hash output:</t>
    message in cases specified in this document, but MAY be included in
    the future versions of the protocol.</t></list></t>
 
-   <t>The attribute table is shown below. Only the last two lines are
-   different from EAP-AKA attribute table (<xref target="RFC4187"/>
-   Section 10.1):</t>
+   <t>The attribute table is shown below. The table is largely the
+   same as in the EAP-AKA attribute table (<xref target="RFC4187"/>
+   Section 10.1), but changes how many times AT_MAC may appear in
+   EAP-Response/AKA'-Challenge message as it does not appear there
+   when AT_KDF has to be sent from the peer to the server. The table
+   also adds the AT_KDF and AT_KDF_INPUT attributes.</t>
 
    <figure>
    <artwork>
@@ -827,7 +833,7 @@ hash output:</t>
            AT_PADDING  0   0  0-1  0* 0-1 0-1  0  0-1 0-1  0   0   Y
          AT_CHECKCODE  0   0  0-1 0-1  0   0   0  0-1 0-1  0   0   N
         AT_RESULT_IND  0   0  0-1 0-1  0   0   0  0-1 0-1  0   0   N
-               AT_MAC  0   0   1   1  0-1 0-1  0   1   1   0   0   N
+               AT_MAC  0   0   1  0-1 0-1 0-1  0   1   1   0   0   N
            AT_COUNTER  0   0   0   0  0-1 0-1  0   1   1   0   0   Y
  AT_COUNTER_TOO_SMALL  0   0   0   0   0   0   0   0  0-1  0   0   Y
            AT_NONCE_S  0   0   0   0   0   0   0   1   0   0   0   Y
@@ -911,7 +917,7 @@ always stronger than EAP-AKA. As a result, there is no need to prevent
 bidding "down" attacks in the other direction, i.e., attackers forcing
 the endpoints to use EAP-AKA'.</t>
 
-<section anchor="attrtable2" title="Summary of Attributes">
+<section anchor="attrtable2" title="Summary of Attributes for EAP-AKA">
    <t>The appearance of the AT_BIDDING attribute in EAP-AKA exchanges is shown below, using the notation from <xref target="attrtable"/>:</t>
 
    <figure>
@@ -1333,8 +1339,8 @@ Section 12 for further details.</t>
 SHA-256 assumption, the properties of EAP-AKA' are at least as good
 (most likely better) as those of EAP-AKA in this respect.  Refer to
 <xref target="RFC4187"/>, Section 12 for further details. The only
-difference is that a stronger hash algorithm, SHA-256, is used instead
-of SHA-1.</t>
+difference is that a stronger hash algorithm and keyed MAC, SHA-256 /
+HMAC-SHA-256, is used instead of SHA-1 / HMAC-SHA-1.</t>
 
 <t hangText="Replay protection"><vspace blankLines="1"/> Under the
 SHA-256 assumption, the properties of EAP-AKA' are at least as good as
@@ -1610,7 +1616,7 @@ target="bindprop"/> for more discussion.</t>
   to calculate the paging timeslot <xref target="Hussain2019"/>. As this attack is
   outside AKA, it does not impact EAP-AKA'.</t>
 
-  <t>Finally, bad implementations EAP-AKA' may not produce pseudonym
+  <t>Finally, bad implementations of EAP-AKA' may not produce pseudonym
   usernames or fast re-authentication identities in a manner that is
   sufficiently secure. While it is not a problem with the protocol
   itself, recommendations from <xref target="genpfr"/> need to be
@@ -1798,7 +1804,7 @@ Value      Description              Reference
 	  <title>All 3GPP references should be updated to the latest
           Release 15 version before publishing.</title>
           <author><organization>Editors</organization></author>
-	  <date year="2019" />
+	  <date />
         </front>
     </reference>
     
@@ -1945,7 +1951,7 @@ Value      Description              Reference
 	  <title>All 3GPP references should be updated to the latest
           Release 15 version before publishing.</title>
           <author><organization>Editors</organization></author>
-	  <date year="2019" />
+	  <date />
         </front>
     </reference>
     
@@ -2216,16 +2222,22 @@ Value      Description              Reference
   <t>The -05 version of the draft corrected the <xref target="priv"/>
   statement that SUCI must not be communicated in EAP-AKA'; this
   statement was meant to say SUPI must not be communicated. That was a
-  major bug!  The -05 version also added information about attacks
+  major bug, but hopefully one that previous readers understood was a
+  mistake!  The -05 version also added information about attacks
   against the re-synchronization protocol and other attacks recently
   discussed in academic conferences, updated and added several
   references, switched to use of hexadecimal for EAP Type Values for
   consistency with other documents, clarified length field
   calculations and the AT_KDF negotiation procedure, and made
-  editorial clarifications to a number places in the document. An
-  table of where attributes may appear has been added to the document
-  (<xref target="attrtable"/> and <xref target="attrtable2"/>), based
-  on the original table in RFC 4187.</t>
+  editorial clarifications to a number places in the document. The
+  treatment of AT_KDF attribute copy in the
+  EAP-Response/AKA'-Synchronization-Failure message was clarified in
+  <xref target="keyderiv"/>. A table of where attributes may appear
+  has been added to the document (<xref target="attrtable"/> and <xref
+  target="attrtable2"/>), based on the original table in RFC 4187. The
+  appearance table entry for AT_MAC in EAP-Response/AKA-Challenge has
+  been specified to be 0-1 because it does not appear when AT_KDF has
+  to be sent; this was based on implementor feedback.</t>
   
 </section>
 
