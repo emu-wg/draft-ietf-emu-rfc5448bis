@@ -1602,10 +1602,10 @@ target="bindprop"/> for more discussion.</t>
   <t>Similar attacks are possible outside AKA in the cellular paging
   protocols where the attacker can simply send application layer data,
   short messages or make phone calls to the intended victim and
-  observe the air-interface [e.g. Kune2012, Shaik2016]. Hussain
+  observe the air-interface (e.g., <xref target="Kune2012"/> and <xref target="Shaik2016"/>). Hussain
   et. al. demonstrated a slightly more sophisticated version of the
   attack that exploits the fact that 4G paging protocol uses the IMSI
-  to calculate the paging timeslot [Hussain2019]. As this attack is
+  to calculate the paging timeslot <xref target="Hussain2019"/>. As this attack is
   outside AKA, it does not impact EAP-AKA'.</t>
 
   <t>Finally, bad implementations EAP-AKA' may not produce pseudonym
@@ -2076,6 +2076,40 @@ Value      Description              Reference
 	  <author initials="S." surname="Park"></author>
 	  <author initials="A." surname="Shaik"></author>
 	  <date year="2018 in IACR Cryptology ePrint Archive"/>
+	</front>
+      </reference>
+
+      <reference anchor="Kune2012">
+	<front>
+	  <title>Location leaks on the GSM air interface</title>
+	  <author initials="D." surname="Kune"></author>
+          <author initials="J." surname="Koelndorfer"></author>
+	  <author initials="Y." surname="Kim"></author>
+	  <date year="2012 in the proceedings of NDSS '12 held 5-8 February, 2012 in San Diego, California"/>
+	</front>
+      </reference>
+
+      <reference anchor="Shaik2016">
+	<front>
+	  <title>Practical attacks against privacy and availability in 4G/LTE mobile communication systems</title>
+	  <author initials="A." surname="Shaik"></author>
+	  <author initials="J." surname="Seifert"></author>
+	  <author initials="R." surname="Borgaonkar"></author>
+	  <author initials="N." surname="Asokan"></author>
+          <author initials="V." surname="Niemi"></author>
+	  <date year="2012 in the proceedings of NDSS '16 held 21-24 February, 2016 in San Diego, California"/>
+	</front>
+      </reference>
+
+      <reference anchor="Hussain2019">
+	<front>
+	  <title>Privacy Attacks to the 4G and 5G Cellular Paging Protocols Using Side Channel Information</title>
+	  <author initials="S." surname="Hussain"></author>
+	  <author initials="M." surname="Echeverria"></author>
+	  <author initials="O." surname="Chowdhury"></author>
+	  <author initials="N." surname="Li"></author>
+	  <author initials="E." surname="Bertino"></author>
+	  <date year="in the Proceedings of NDSS '19, held 24-27 February, 2019, in San Diego, California"/>
 	</front>
       </reference>
       
