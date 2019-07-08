@@ -2235,9 +2235,10 @@ Value      Description              Reference
   <xref target="keyderiv"/>. A table of where attributes may appear
   has been added to the document (<xref target="attrtable"/> and <xref
   target="attrtable2"/>), based on the original table in RFC 4187. The
-  appearance table entry for AT_MAC in EAP-Response/AKA-Challenge has
-  been specified to be 0-1 because it does not appear when AT_KDF has
-  to be sent; this was based on implementor feedback.</t>
+  attribute appearance table entry for AT_MAC in
+  EAP-Response/AKA-Challenge has been specified to be 0-1 because it
+  does not appear when AT_KDF has to be sent; this was based on
+  implementor feedback.</t>
   
 </section>
 
