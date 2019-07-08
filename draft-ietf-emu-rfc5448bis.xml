@@ -78,7 +78,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   possible within the Extensible Authentication Protocol (EAP)
   framework. RFC 5448 (EAP-AKA') was an improved version of EAP-AKA.</t>
 
-  <t>This memo replaces of the specification of EAP-AKA'. EAP-AKA' was
+  <t>This memo replaces the specification of EAP-AKA'. EAP-AKA' was
   defined in RFC 5448 and updated EAP-AKA RFC 4187. As such this
   document obsoletes RFC 5448 and updates RFC 4187.</t>
 
@@ -107,7 +107,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   framework <xref target="RFC3748"/>.</t>
 
   <t><xref target="RFC5448"/> (EAP-AKA') was an improved version of
-  EAP-AKA.  This memo replaces of the specification of
+  EAP-AKA.  This memo replaces the specification of
   EAP-AKA'. EAP-AKA' was defined in RFC 5448 and updated EAP-AKA RFC
   4187. As such this document obsoletes RFC 5448 and updates RFC
   4187.</t>
@@ -1489,14 +1489,38 @@ target="bindprop"/> for more discussion.</t>
   on the given area, and the subscriber performing at least one
   authentication between the time the attack is set up and run.</t>
 
-  <t>Ravishankar et al ([Ravishankar2019]) discovered that the AKA resynchronization protocol may also be used to predict the authentication frequency of a subscribers if non-time-based SQN generation scheme is used. The attacker can force the re-use of the keystream that is used to protect the SQN in the AKA resynchronization protocol. The attacker then guesses the authentication frequency based on the lowest bits of two XORed SQNs. The researchers� concern was that the authentication frequency would reflect phone usage behavior e.g. number of phone calls or SMS messages. However, there are many more triggers for authentication than phone calls or SMS messages, such as mobile data and various mobility events. The impact of the attack is also different depending on whether time or non-time-based SQN generation scheme is used. [XXX Massage?]</t>
+  <t>Borgaonkar et al discovered that the AKA resynchronization
+  protocol may also be used to predict the authentication frequency of
+  a subscribers if non-time-based SQN generation scheme is used <xref
+  target="Borgaonkar2018"/>. The attacker can force the re-use of the
+  keystream that is used to protect the SQN in the AKA
+  resynchronization protocol. The attacker then guesses the
+  authentication frequency based on the lowest bits of two XORed
+  SQNs. The researchers' concern was that the authentication frequency
+  would reveal some information about the phone usage behavior, e.g.,
+  number of phone calls made or number of SMS messages sent. However,
+  phone calls and SMS messages are just some of the many potential
+  triggers for authentication. For instance, various mobility events
+  and the amount of mobile data sent or received can also trigger
+  authentication. As a result, while some amount of information may be
+  derived about the activity level on a particular phone in some
+  cases, the linkage to specific activities is not direct. The impact
+  of the attack is also different depending on whether time or
+  non-time-based SQN generation scheme is used.</t>
 
-  <t>Similar attacks are possible outside AKA in the cellular paging protocols where the attacker can simply send application layer data, short messages or make phone calls to the intended victim and observe the air-interface [e.g. Kune2012, Shaik2016]. Hussain et. al. demonstrated a slightly more sophisticated version of the attack that exploits the fact that 4G paging protocol uses the IMSI to calculate the paging timeslot [Hussain2019]. As this attack is outside AKA, it does not impact EAP-AKA'.</t>
+  <t>Similar attacks are possible outside AKA in the cellular paging
+  protocols where the attacker can simply send application layer data,
+  short messages or make phone calls to the intended victim and
+  observe the air-interface [e.g. Kune2012, Shaik2016]. Hussain
+  et. al. demonstrated a slightly more sophisticated version of the
+  attack that exploits the fact that 4G paging protocol uses the IMSI
+  to calculate the paging timeslot [Hussain2019]. As this attack is
+  outside AKA, it does not impact EAP-AKA'.</t>
 
-  <t> [XXX Massage?] Finally, while it is not a problem with the protocol itself,
-  bad implementations may not produce pseudonym usernames or fast
-  re-authentication identities in a manner that is sufficiently
-  secure. Recommendations from <xref target="genpfr"/> need to be
+  <t>Finally, bad implementations EAP-AKA' may not produce pseudonym
+  usernames or fast re-authentication identities in a manner that is
+  sufficiently secure. While it is not a problem with the protocol
+  itself, recommendations from <xref target="genpfr"/> need to be
   followed to avoid this.</t>
   
 </section>
@@ -1676,6 +1700,15 @@ Value      Description              Reference
 
   <references title="Normative References">
     
+    <reference anchor="Note">
+	<front>
+	  <title>All 3GPP references should be updated to the latest
+          Release 15 version before publishing.</title>
+          <author><organization>Editors</organization></author>
+	  <date year="2019" />
+        </front>
+    </reference>
+    
       <reference anchor="TS-3GPP.23.003">
 	<front>
 	  <title>3rd Generation Partnership Project;
@@ -1685,7 +1718,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="September" year="2018" />
+	  <date month="June" year="2019" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 23.003" />
@@ -1700,7 +1733,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="September" year="2018" />
+	  <date month="June" year="2019" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Technical Specification 23.501" />
@@ -1718,7 +1751,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="September" year="2018" />
+	  <date month="June" year="2019" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 24.302" />
@@ -1736,7 +1769,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="September" year="2018" />
+	  <date month="June" year="2019" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 24.501" />
@@ -1754,7 +1787,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2018" />
+	  <date month="December" year="2018" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 33.102" />
@@ -1783,7 +1816,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="September" year="2018" />
+	  <date month="June" year="2019" />
 	</front>
 	
 	<seriesInfo name="3GPP" value="Draft Technical Specification 33.501" />
@@ -1814,12 +1847,12 @@ Value      Description              Reference
 
   <references title="Informative References">
 
-    <reference anchor="Note">
+    <reference anchor="NoteAlso">
 	<front>
 	  <title>All 3GPP references should be updated to the latest
           Release 15 version before publishing.</title>
           <author><organization>Editors</organization></author>
-	  <date month="July" year="2019" />
+	  <date year="2019" />
         </front>
     </reference>
     
@@ -1836,7 +1869,7 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="March" year="2017" />
+	  <date month="October" year="2018" />
 	</front>
 	<seriesInfo name="3GPP" value="Technical Specification 35.208" />
       </reference>
@@ -1944,6 +1977,17 @@ Value      Description              Reference
 	</front>
       </reference>
       
+      <reference anchor="Borgaonkar2018">
+	<front>
+	  <title>New Privacy Threat on 3G, 4G, and Upcoming 5G AKA Protocols</title>
+	  <author initials="R." surname="Borgaonkar"></author>
+	  <author initials="L." surname="Hirschi"></author>
+	  <author initials="S." surname="Park"></author>
+	  <author initials="A." surname="Shaik"></author>
+	  <date year="2018 in IACR Cryptology ePrint Archive"/>
+	</front>
+      </reference>
+      
   </references>
   
 <section anchor="diff2" title="Changes from RFC 5448">
@@ -2043,7 +2087,11 @@ Value      Description              Reference
 
   <t>The -05 version of the draft corrected the <xref target="priv"/>
   statement that SUCI must not be communicated in EAP-AKA'; this
-  statement was meant to say SUPI must not be communicated.</t>
+  statement was meant to say SUPI must not be communicated. The -05
+  version also added information about attacks against the
+  re-synchronization protocol, switched to use of hexadecimal for EAP
+  Type Values for consistency with other documents, and made editorial
+  clarifications to a number places in the document</t>
   
 </section>
 
@@ -2311,9 +2359,9 @@ Case 4
   Naslund, Adrian Escott, Brian Rosenberg, Laksminath Dondeti, Ahmad
   Muhanna, Stefan Rommer, Miguel Garcia, Jan Kall, Ankur Agarwal,
   Jouni Malinen, John Mattsson, Jesus De Gregorio, Brian Weis, Russ
-  Housley, Alfred Hoenes, Anand Palanigounder, Daniel Migault, and
-  Mohit Sethi for their in-depth reviews and interesting discussions
-  in this problem space.</t>
+  Housley, Alfred Hoenes, Anand Palanigounder, Michael Richardsson,
+  Marcus Wong, Kalle Jarvinen, Daniel Migault, and Mohit Sethi for their in-depth
+  reviews and interesting discussions in this problem space.</t>
   
 </section>
 
