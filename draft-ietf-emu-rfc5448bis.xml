@@ -2263,6 +2263,9 @@ Value      Description              Reference
   places in the document.</t>
 
   </list></t>
+
+  <t>The version -06 included changes to updates of references to
+  newer versions on IANA considerations guidelines, NAIs, and IKEv2.</t>
   
 </section>
 
