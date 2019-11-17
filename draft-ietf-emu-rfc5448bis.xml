@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-05" category="info" obsoletes="5448" updates="4187">
+<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-06" category="info" obsoletes="5448" updates="4187">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -63,7 +63,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
 </address>
 </author>
 
-<date month="July" year="2019" />
+<date month="November" year="2019" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -706,7 +706,7 @@ well as the AT_MAC and AT_CHECKCODE attributes.</t>
 <section title="PRF'">
 
 <t>The PRF' construction is the same one IKEv2 uses (see Section 2.13 of
-<xref target="RFC4306"/>). The function takes two arguments. K is a
+<xref target="RFC7296"/>). The function takes two arguments. K is a
 256-bit value and S is a byte string of arbitrary length. PRF' is
 defined as follows:</t>
 
@@ -1148,7 +1148,7 @@ the endpoints to use EAP-AKA'.</t>
     <section anchor="supifmt" title="Format of the SUPI">
 
       <t>A SUPI is either an IMSI or a Network Access Identifier <xref
-      target="RFC4282"/>.</t>
+      target="RFC7542"/>.</t>
 
       <t>When used in EAP-AKA', the format of the SUPI MUST be as
       specified in <xref target="TS-3GPP.23.003"/> Section 28.7.2,
@@ -1372,7 +1372,7 @@ discussed further in
 <xref target="bindprop"/>.<vspace blankLines="1"/>
 
 EAP-AKA' uses a pseudo-random function modeled after the one used in
-IKEv2 <xref target="RFC4306"/> together with SHA-256.</t>
+IKEv2 <xref target="RFC7296"/> together with SHA-256.</t>
 
 <t hangText="Key strength"><vspace blankLines="1"/> See above.</t>
 
@@ -1938,7 +1938,7 @@ Value      Description              Reference
       <?rfc include="reference.RFC.2119.xml"?>
       <?rfc include="reference.RFC.3748.xml"?>
       <?rfc include="reference.RFC.4187.xml"?>
-      <?rfc include="reference.RFC.4282.xml"?>
+      <?rfc include="reference.RFC.7542.xml"?>
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
       
@@ -2003,14 +2003,14 @@ Value      Description              Reference
       <?rfc include="reference.RFC.4169.xml"?>
       <?rfc include="reference.RFC.4186.xml"?>
       <?rfc include="reference.RFC.4284.xml"?>
-      <?rfc include="reference.RFC.4306.xml"?>
       <?rfc include="reference.RFC.5113.xml"?>
-      <?rfc include="reference.RFC.5226.xml"?>
       <?rfc include="reference.RFC.5247.xml"?>
       <?rfc include="reference.RFC.5448.xml"?>
       <?rfc include="reference.RFC.6194.xml"?>
       <?rfc include="reference.RFC.6973.xml"?>
       <?rfc include="reference.RFC.7258.xml"?>
+      <?rfc include="reference.RFC.7296.xml"?>
+      <?rfc include="reference.RFC.8126.xml"?>
       
       <?rfc include="reference.I-D.arkko-eap-aka-pfs.xml"?>
       
@@ -2145,7 +2145,8 @@ Value      Description              Reference
   have been updated or added. See <xref target="security"/>.</t>
   
   <t>The references to <xref target="RFC2119"/>, <xref
-  target="RFC5226"/>, <xref target="FIPS.180-1"/> and <xref
+  target="RFC7582"/>, <xref target="RFC7296"/>, <xref
+  target="RFC8226"/>, <xref target="FIPS.180-1"/> and <xref
   target="FIPS.180-2"/> have been updated to their most recent
   versions and language in this document changed
   accordingly. Similarly, references to all 3GPP technical
