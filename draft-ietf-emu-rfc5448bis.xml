@@ -2010,7 +2010,6 @@ Value      Description              Reference
       <?rfc include="reference.RFC.6973.xml"?>
       <?rfc include="reference.RFC.7258.xml"?>
       <?rfc include="reference.RFC.7296.xml"?>
-      <?rfc include="reference.RFC.8126.xml"?>
       
       <?rfc include="reference.I-D.arkko-eap-aka-pfs.xml"?>
       
@@ -2145,8 +2144,8 @@ Value      Description              Reference
   have been updated or added. See <xref target="security"/>.</t>
   
   <t>The references to <xref target="RFC2119"/>, <xref
-  target="RFC7582"/>, <xref target="RFC7296"/>, <xref
-  target="RFC8226"/>, <xref target="FIPS.180-1"/> and <xref
+  target="RFC7542"/>, <xref target="RFC7296"/>, <xref
+  target="RFC8126"/>, <xref target="FIPS.180-1"/> and <xref
   target="FIPS.180-2"/> have been updated to their most recent
   versions and language in this document changed
   accordingly. Similarly, references to all 3GPP technical
