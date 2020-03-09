@@ -403,7 +403,9 @@ networks, and as specified in <xref target="TS-3GPP.33.501"/> for 5G
 access networks. Per <xref target="TS-3GPP.33.402"/>, the server
 always verifies the authorization of a given access network to use a
 particular name before sending it to the peer over EAP-AKA'. The value
-of the AT_KDF_INPUT attribute from the server MUST be non-empty. If it
+of the AT_KDF_INPUT attribute from the server MUST be non-empty, with
+a greater than zero length in the Actual Network  Name Length
+field. If AT_KDF_INPUT attribute
 is empty, the peer behaves as if AUTN had been incorrect and
 authentication fails. See Section 3 and Figure 3 of <xref
 target="RFC4187"/> for an overview of how authentication failures are
@@ -2295,6 +2297,9 @@ Value      Description              Reference
     <t>The implications of the attack described by <xref
     target="Borgaonkar2018"/> have been updated.</t>
 
+    <t><xref target="netbind"/> now specifies more clearly that zero-length network
+    name is not  allowed.</t>
+    
     <t><xref target="security"/> now discusses cryptographic
     agility.</t>
     
