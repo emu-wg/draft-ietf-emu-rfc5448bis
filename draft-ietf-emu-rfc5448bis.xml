@@ -398,8 +398,8 @@ bytes of all zero bits when necessary.</t>
 </list></t>
 
 <t>Only the server sends the AT_KDF_INPUT attribute. The value is sent
-as specified in <xref target="TS-3GPP.24.302"/> for non-3GPP access
-networks, and as specified in <xref target="TS-3GPP.33.501"/> for 5G
+as specified in <xref target="TS-3GPP.24.302"/> for both non-3GPP access
+networks for 5G
 access networks. Per <xref target="TS-3GPP.33.402"/>, the server
 always verifies the authorization of a given access network to use a
 particular name before sending it to the peer over EAP-AKA'. The value
@@ -409,20 +409,7 @@ field. If AT_KDF_INPUT attribute
 is empty, the peer behaves as if AUTN had been incorrect and
 authentication fails. See Section 3 and Figure 3 of <xref
 target="RFC4187"/> for an overview of how authentication failures are
-handled.
-<list style="empty">
-  
-  <t>Note: Currently, <xref target="TS-3GPP.24.302"/> or <xref
-  target="TS-3GPP.33.501"/> specify separate values. The former
-  specifies what is called "Access Network ID" and the latter
-  specifies what is called "Serving Network Name". However, from an
-  EAP-AKA' perspective both occupy the same field, and need to be
-  distinguishable from each other, as otherwise collisions might open
-  attacks that the network name feature was designed to protect
-  against. Currently specified values are distinguishable, and the
-  3GPP specifications need to maintain that going forward.</t>
-  
-</list></t>
+handled.</t>
 
 <t>In addition, the peer MAY check the received value against its own
 understanding of the network name. Upon detecting a discrepancy, the
@@ -2299,9 +2286,14 @@ Value      Description              Reference
 
     <t><xref target="netbind"/> now specifies more clearly that zero-length network
     name is not  allowed.</t>
+
+    <t><xref target="netbind"/> refers to the network name
+    that is today specified in <xref target="TS-3GPP.24.302"/> for
+    both 4G (non-3GPP access) and 5G.</t>
     
     <t><xref target="security"/> now discusses cryptographic
     agility.</t>
+
     
     <t>The document now is clear that any change to key aspects of
     3GPP specifications, such as key derivation for AKA, would affect
