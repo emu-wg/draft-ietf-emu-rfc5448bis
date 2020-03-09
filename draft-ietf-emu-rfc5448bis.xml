@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-06" category="info" obsoletes="5448" updates="4187">
+<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-07" category="info" obsoletes="5448" updates="4187">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -63,7 +63,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
 </address>
 </author>
 
-<date month="November" year="2019" />
+<date month="March" year="2020" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -86,12 +86,13 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   function that binds the keys derived within the method to the name
   of the access network. The key derivation function has been defined
   in the 3rd Generation Partnership Project (3GPP). EAP-AKA' allows
-  its use in EAP in an interoperable manner. EAP-AKA' is also an
-  algorithm update, as it employs SHA-256 / HMAC-SHA-256 instead of
+  its use in EAP in an interoperable manner. EAP-AKA' also
+  updates the algorithm used in hash functions, as it employs SHA-256 / HMAC-SHA-256 instead of
   SHA-1 / HMAC-SHA-1 as in EAP-AKA.</t>
 
   <t>This version of EAP-AKA' specification specifies the protocol
-  behaviour for 5G deployments as well.</t>
+  behaviour for both 4G and 5G deployments, whereas the previous
+  version only did this for 4G.</t>
   
 </abstract>
 
@@ -120,8 +121,8 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   <t>EAP-AKA' differs from EAP-AKA by providing a different key
   derivation function. This function binds the keys derived within the
   method to the name of the access network. This limits the effects of
-  compromised access network nodes and keys. EAP-AKA' is also an
-  algorithm update for the used hash functions.</t>
+  compromised access network nodes and keys. EAP-AKA' also updates
+  the algorithm used for hash functions.</t>
 
   <t>The EAP-AKA' method employs the derived keys CK' and IK' from the
   3GPP specification <xref target="TS-3GPP.33.402"/> and updates the
@@ -151,7 +152,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   <list style="symbols">
     
     <t>Update the reference on how the Network Name field is
-    constructed in the protocol. The update ensures that EAP-AKA' is
+    constructed in the protocol. This update ensures that EAP-AKA' is
     compatible with 5G deployments. RFC 5448 referred to the Release 8
     version of <xref target="TS-3GPP.24.302"/> and this update points
     to the first 5G version, Release 15.</t>
@@ -188,11 +189,12 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   update of the RFC with the newest version pointer may be warranted.
   
   <list style="empty">
-    <t>Note: This specification refers only to the 5G
-    specifications. Any further update that affects, for instance, key
-    derivation is something that EAP-AKA' implementations should take
-    into account. Upon such updates there will be a need to both
-    update the specification and the implementations.</t></list></t>
+
+    <t>Note: Any further updates in 3GPP specifications that affect,
+    for instance, key derivation is something that EAP-AKA'
+    implementations need to take into account. Upon such updates there
+    will be a need to both update this specification and the
+    implementations.</t></list></t>
   
   <t>It is an explicit non-goal of this draft to include any other
   technical modifications, addition of new features or other
@@ -205,7 +207,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   target="prime"/> defines the EAP-AKA' method. <xref
   target="bidding"/> adds support to EAP-AKA to prevent bidding down
   attacks from EAP-AKA'. <xref target="identities"/> specifies
-  requirements regarding the use of peer identities, including how how
+  requirements regarding the use of peer identities, including how
   EAP-AKA' identifiers are used in 5G context. <xref
   target="exported-parameters"/> specifies what parameters EAP-AKA'
   exports out of the method.
@@ -413,9 +415,10 @@ handled.
   specifies what is called "Access Network ID" and the latter
   specifies what is called "Serving Network Name". However, from an
   EAP-AKA' perspective both occupy the same field, and need to be
-  distinguishable from each other. Currently specified values are
-  distinguishable, but it would be useful that this be specified
-  explicitly in the 3GPP specifications.</t>
+  distinguishable from each other, as otherwise collisions might open
+  attacks that the network name feature was designed to protect
+  against. Currently specified values are distinguishable, and the
+  3GPP specifications need to maintain that going forward.</t>
   
 </list></t>
 
@@ -773,7 +776,7 @@ hash output:</t>
 
 <section anchor="attrtable" title="Summary of Attributes for EAP-AKA'">
 
-   <t>The following table provides a guide to which attributes may be found
+   <t>Table 1 provides a guide to which attributes may be found
    in which kinds of messages, and in what quantity.</t>
 
    <t>Messages are denoted with numbers in parentheses as follows:
@@ -841,6 +844,9 @@ hash output:</t>
  AT_CLIENT_ERROR_CODE  0   0   0   0   0   0   1   0   0   0   0   N
                AT_KDF  0   0   1+  0+  0   0   0   0   0   0   1+  N
          AT_KDF_INPUT  0   0   1   0   0   0   0   0   0   0   0   N
+
+                      Table 1: The attribute table
+                          
    </artwork>
    </figure>
    
@@ -1007,12 +1013,12 @@ the endpoints to use EAP-AKA'.</t>
     they are distinguished from each other, and so on.
     </t>
 
-    <t>However, to ensure privacy some additional requirements need to
+    <t>However, to enhance privacy some additional requirements need to
     be applied.</t>
 
     <t>The pseudonym usernames and fast re-authentication identities
     MUST be generated in a cryptographically secure way so that that
-    it is computationally infeasible for at attacker to differentiate
+    it is computationally infeasible for an attacker to differentiate
     two identities belonging to the same user from two identities
     belonging to different users. This can be achieved, for instance,
     by using random or pseudo-random identifiers such as random byte
@@ -1321,14 +1327,29 @@ of EAP-AKA' are as follows:
 negotiation"><vspace blankLines="1"/> EAP-AKA' has no ciphersuite
 negotiation mechanisms. It does have a negotiation mechanism for
 selecting the key derivation functions.  This mechanism is secure
-against bidding down attacks. The negotiation mechanism allows
+against bidding down attacks from EAP-AKA' to EAP-AKA. The negotiation mechanism allows
 changing the offered key derivation function, but the change is
 visible in the final EAP-Request/AKA'-Challenge message that the
 server sends to the peer. This message is authenticated via the AT_MAC
 attribute, and carries both the chosen alternative and the initially
 offered list. The peer refuses to accept a change it did not initiate.
 As a result, both parties are aware that a change is being made and
-what the original offer was.</t>
+what the original offer was. <vspace blankLines="1"/>
+
+Per assumptions in <xref target="bidding"/>, there is no protection
+against bidding down attacks from EAP-AKA to EAP-AKA', should EAP-AKA'
+somehow be considered less secure some day than EAP-AKA. Such
+protection was not provided in RFC 5448 implementations and
+consequently neither does this specification provide it. If such
+support is needed, it would have to be added as a separate new
+feature. <vspace blankLines="1"/>
+
+In general, it is expected that the current negotiation capabilities
+in EAP-AKA' are sufficient for some types of extensions and
+cryptographic agility, including adding Perfect Forward Secrecy (<xref
+target="I-D.ietf-emu-aka-pfs"/>) and perhaps others. But as with how
+EAP-AKA' itself came about, some larger changes may require a new EAP
+method type.</t>
 
 <t hangText="Mutual authentication"><vspace blankLines="1"/> Under the
 SHA-256 assumption, the properties of EAP-AKA' are at least as good as
@@ -1439,8 +1460,9 @@ target="bindprop"/> for more discussion.</t>
 
   <t>As discussed in <xref target="identifiersin5g"/>, when
   authenticating to a 5G network, only the 5G SUCI identifier should
-  be used. The use of pseudonyms in this situation is at best
-  limited. In fact, the re-use of the same pseudonym multiple times
+  be used. The use of EAP-AKA' pseudonyms in this situation is at best
+  limited, because the 5G SUCI already provides a stronger mechanism.
+  In fact, the re-use of the same pseudonym multiple times
   will result in a tracking opportunity for observers that see the
   pseudonym pass by. To avoid this, the peer and server need to follow
   the guidelines given in <xref target="genpfr"/>.</t>
@@ -1465,7 +1487,7 @@ target="bindprop"/> for more discussion.</t>
   fast re-authentication identifiers in a proper manner specified in
   <xref target="genpfr"/>.</t>
   
-  <t>Outside 5G, there is a full choice to use permanent, pseudonym, or fast
+  <t>Outside 5G, the peer can freely choose between the use of permanent, pseudonym, or fast
   re-authentication identifiers:
   
   <list style="symbols">
@@ -1597,13 +1619,10 @@ target="bindprop"/> for more discussion.</t>
   authentication frequency based on the lowest bits of two XORed
   SQNs. The researchers' concern was that the authentication frequency
   would reveal some information about the phone usage behavior, e.g.,
-  number of phone calls made or number of SMS messages sent. However,
-  phone calls and SMS messages are just some of the many potential
-  triggers for authentication. For instance, various mobility events
-  and the amount of mobile data sent or received can also trigger
-  authentication. As a result, while some amount of information may be
-  derived about the activity level on a particular phone in some
-  cases, the linkage to specific activities is not direct. The impact
+  number of phone calls made or number of SMS messages sent.
+  There are a number of possible triggers for authentication, so
+  such information leak is not direct, but can be a concern.
+  The impact
   of the attack is also different depending on whether time or
   non-time-based SQN generation scheme is used.</t>
 
@@ -1654,10 +1673,10 @@ target="bindprop"/> for more discussion.</t>
   means to improve resistance to these attacks. One approach is to
   provide Perfect Forwards Secrecy (PFS). This would prevent any
   passive attacks merely based on the long-term secrets and
-  observation of traffic. Such a mechanism can be defined as an
+  observation of traffic. Such a mechanism can be defined as a
   backwards-compatible extension of EAP-AKA', and is pursued
   separately from this specification <xref
-  target="I-D.arkko-eap-aka-pfs"/>. Alternatively, EAP-AKA'
+  target="I-D.ietf-emu-aka-pfs"/>. Alternatively, EAP-AKA'
   authentication can be run inside a PFS-capable tunneled
   authentication method. In any case, the use of some PFS-capable
   mechanism is recommended. </t>
@@ -1799,15 +1818,6 @@ Value      Description              Reference
 
   <references title="Normative References">
     
-    <reference anchor="Note">
-	<front>
-	  <title>All 3GPP references should be updated to the latest
-          Release 15 version before publishing.</title>
-          <author><organization>Editors</organization></author>
-	  <date />
-        </front>
-    </reference>
-    
       <reference anchor="TS-3GPP.23.003">
 	<front>
 	  <title>3rd Generation Partnership Project;
@@ -1817,10 +1827,10 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2019" />
+	  <date month="September" year="2019" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Draft Technical Specification 23.003" />
+	<seriesInfo name="3GPP" value="Technical Specification 23.003 version 15.8.0" />
       </reference>
       
       <reference anchor="TS-3GPP.23.501">
@@ -1832,10 +1842,10 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2019" />
+	  <date month="December" year="2019" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Technical Specification 23.501" />
+	<seriesInfo name="3GPP" value="Technical Specification 23.501 version 15.8.0" />
 	
       </reference>
       
@@ -1853,7 +1863,7 @@ Value      Description              Reference
 	  <date month="June" year="2019" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Draft Technical Specification 24.302" />
+	<seriesInfo name="3GPP" value="Technical Specification 24.302 version 15.7.0" />
 	
       </reference>
       
@@ -1868,10 +1878,10 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2019" />
+	  <date month="December" year="2019" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Draft Technical Specification 24.501" />
+	<seriesInfo name="3GPP" value="Draft Technical Specification 24.501 version 15.6.0" />
 	
       </reference>
 
@@ -1889,7 +1899,7 @@ Value      Description              Reference
 	  <date month="December" year="2018" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Draft Technical Specification 33.102" />
+	<seriesInfo name="3GPP" value="Technical Specification 33.102 version 15.1.0" />
 	
       </reference>
 
@@ -1902,7 +1912,7 @@ Value      Description              Reference
 	  </author>
 	  <date month="June" year="2018" />
 	</front>
-	<seriesInfo name="3GPP" value="Draft Technical Specification 33.402" />
+	<seriesInfo name="3GPP" value="Technical Specification 33.402 version 15.1.0" />
       </reference>
       
       <reference anchor="TS-3GPP.33.501">
@@ -1915,10 +1925,10 @@ Value      Description              Reference
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2019" />
+	  <date month="December" year="2019" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Draft Technical Specification 33.501" />
+	<seriesInfo name="3GPP" value="Technical Specification 33.501 version 15.7.0" />
       </reference>
 
       <reference
@@ -1946,15 +1956,6 @@ Value      Description              Reference
 
   <references title="Informative References">
 
-    <reference anchor="NoteAlso">
-	<front>
-	  <title>All 3GPP references should be updated to the latest
-          Release 15 version before publishing.</title>
-          <author><organization>Editors</organization></author>
-	  <date />
-        </front>
-    </reference>
-    
       <reference anchor="TS-3GPP.35.208">
 	<front>
 	  <title>3rd Generation Partnership Project;
@@ -1970,7 +1971,7 @@ Value      Description              Reference
 	  </author>
 	  <date month="October" year="2018" />
 	</front>
-	<seriesInfo name="3GPP" value="Technical Specification 35.208" />
+	<seriesInfo name="3GPP" value="Technical Specification 35.208 version 15.0.0" />
       </reference>
 
       <reference anchor="FIPS.180-1" target="http://www.itl.nist.gov/fipspubs/fip180-1.htm">
@@ -2011,7 +2012,7 @@ Value      Description              Reference
       <?rfc include="reference.RFC.7258.xml"?>
       <?rfc include="reference.RFC.7296.xml"?>
       
-      <?rfc include="reference.I-D.arkko-eap-aka-pfs.xml"?>
+      <?rfc include="reference.I-D.ietf-emu-aka-pfs.xml"?>
       
       <reference anchor="Heist2015">
 	<front>
@@ -2158,13 +2159,20 @@ Value      Description              Reference
   
 </section>
 
-<section anchor="diff" title="Changes from RFC 4187 to RFC 5448">
+<section anchor="diff" title="Changes to RFC 4187">
 
-  <t>The changes to RFC 4187 relate only to the bidding down prevention
-  support defined in <xref target="bidding"/>. In particular, this
-  document does not change how the Master Key (MK) is calculated in RFC
-  4187 (it uses CK and IK, not CK' and IK'); neither is any processing
-  of the AMF bit added to RFC 4187.</t>
+  <t>In addition to specifying EAP-AKA', this document mandates also a
+  change to another EAP method, EAP-AKA that was defined in RFC 4187.
+  This change was mandated already in RFC 5448 but repeated here to
+  ensure that the latest EAP-AKA' specification contains the instructions
+  about the necessary bidding down feature in EAP-AKA as well.</t>
+  
+  <t>The changes to RFC 4187 relate only to the bidding down
+  prevention support defined in <xref target="bidding"/>. In
+  particular, this document does not change how the Master Key (MK) is
+  calculated or any other aspect of EAP-AKA. The provisions in this
+  specification for EAP-AKA' do not apply to EAP-AKA, outside <xref
+  target="bidding"/>.</t>
   
 </section>
 
@@ -2265,6 +2273,43 @@ Value      Description              Reference
 
   <t>The version -06 included changes to updates of references to
   newer versions on IANA considerations guidelines, NAIs, and IKEv2.</t>
+
+  <t>The version -07 includes the following changes, per AD  and
+  last call review comments:
+  <list style="symbols">
+
+    <t>The use of pseudonyms has been clarified in <xref
+    target="priv"/>.</t>
+
+    <t>The document now clarifies that it specifies behaviour both for
+    4G and 5G.</t>
+
+    <t>The implications of collisions between "Access Network ID" (4G)
+    and "Serving Network Name" (5G) have been explained in <xref
+    target="netbind"/>.</t>
+
+    <t>The ability of the bidding down protection to protect bidding
+    down only in the direction from EAP-AKA' to EAP-AKA but the other
+    way around has been noted in <xref target="security"/>.</t>
+    
+    <t>The implications of the attack described by <xref
+    target="Borgaonkar2018"/> have been updated.</t>
+
+    <t><xref target="security"/> now discusses cryptographic
+    agility.</t>
+    
+    <t>The document now is clear that any change to key aspects of
+    3GPP specifications, such as key derivation for AKA, would affect
+    this specification and implementations.</t>
+    
+    <t>References have been updated to the latest Release 15 versions,
+    that are now stable.</t>
+    
+    <t>Tables have been numbered.</t>
+    
+    <t>Adopted a number of other editorial corrections.</t>
+    
+  </list></t>
   
 </section>
 
@@ -2533,6 +2578,7 @@ Case 4
   Muhanna, Stefan Rommer, Miguel Garcia, Jan Kall, Ankur Agarwal,
   Jouni Malinen, John Mattsson, Jesus De Gregorio, Brian Weis, Russ
   Housley, Alfred Hoenes, Anand Palanigounder, Michael Richardsson,
+  Roman Danyliw, Dan Romascanu, Kyle Rose,
   Marcus Wong, Kalle Jarvinen, Daniel Migault, and Mohit Sethi for their in-depth
   reviews and interesting discussions in this problem space.</t>
   

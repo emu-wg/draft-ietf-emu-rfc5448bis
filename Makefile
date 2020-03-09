@@ -20,11 +20,14 @@ diff:
 	scp jar@arkko.eu:/tmp/draft-ietf-emu-rfc5448bis-from--04.diff.html .
 	ssh jar@arkko.eu 'cd /tmp; rfcdiff draft-ietf-emu-rfc5448bis-05.txt draft-ietf-emu-rfc5448bis.txt'
 	scp jar@arkko.eu:/tmp/draft-ietf-emu-rfc5448bis-from--05.diff.html .
+	ssh jar@arkko.eu 'cd /tmp; rfcdiff draft-ietf-emu-rfc5448bis-06.txt draft-ietf-emu-rfc5448bis.txt'
+	scp jar@arkko.eu:/tmp/draft-ietf-emu-rfc5448bis-from--06.diff.html .
 	scp draft-ietf-emu-rfc5448bis.txt \
 	    draft-ietf-emu-rfc5448bis-from--01.diff.html \
 	    draft-ietf-emu-rfc5448bis-from--02.diff.html \
 	    draft-ietf-emu-rfc5448bis-from--03.diff.html \
 	    draft-ietf-emu-rfc5448bis-from--04.diff.html \
 	    draft-ietf-emu-rfc5448bis-from--05.diff.html \
+	    draft-ietf-emu-rfc5448bis-from--06.diff.html \
 	    draft-ietf-emu-rfc5448bis-from-rfc5448.diff.html \
 	    jar@cloud1.arkko.eu:/var/www/www.arkko.com/html/ietf/eap
