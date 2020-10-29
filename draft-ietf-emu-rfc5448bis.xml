@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-07" category="info" obsoletes="5448" updates="4187">
+<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-08" category="info" obsoletes="5448" updates="4187">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -63,7 +63,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
 </address>
 </author>
 
-<date month="March" year="2020" />
+<date month="October" year="2020" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -965,8 +965,7 @@ the endpoints to use EAP-AKA'.</t>
 	usernames.</t>
 
 	<t>(b) Privacy-friendly temporary usernames, for instance 5G
-	privacy identifiers (see <xref target="id5guse"/> and <xref
-	target="sucifmt"/>.</t>
+	privacy identifiers (see <xref target="id5guse"/>).</t>
 
       </list></t>
       
@@ -1105,20 +1104,24 @@ the endpoints to use EAP-AKA'.</t>
     
     <t>In EAP-AKA', the peer identity is used in the <xref
     target="key"/> key derivation formula.</t>
-    
+
+    <t>The identity needs  to be represented in  exact correct format
+    for the key derivation formulala to produce correct results.</t>
+
     <t>If the AT_KDF_INPUT parameter contains the prefix "5G:", the
     AT_KDF parameter has the value 1, and this authentication is not a
     fast re-authentication, then the peer identity used in the key
-    derivation MUST be the 5G SUPI for the peer. This rule applies to
-    all full EAP-AKA' authentication processes, even if the peer sent
-    some other identifier at a lower layer or as a response to an EAP
-    Identity Request or if no identity was sent.</t>
+    derivation MUST be as specified in Annex F.3 of <xref
+    target="TS-3GPP.33.501"/> and Clause 2.2 of <xref
+    target="TS-3GPP.23.003"/>. This is in contrast to <xref
+    target="RFC5448"/>, which used the identity as communicated in
+    EAP and represented as a NAI. Also, in contrast to <xref
+    target="RFC5448"/>, in 5G EAP-AKA' does not use the "0" or "6"
+    prefix in front of the identifier.</t>
 
-    <t>The identity MUST also be represented in the exact correct
-    format for the key derivation formula to produce correct
-    results. In 5G, this identifier is the SUPI. The SUPI format is as defined <xref
-    target="supifmt"/>.</t>
-
+    <t>For instance, if if the IMSI is 234150999999999, it is encoded
+    as ...</t>
+    
     <t>In all other cases, the following applies:
 
     <list style="empty">
@@ -1140,28 +1143,6 @@ the endpoints to use EAP-AKA'.</t>
       
     </list></t>
 
-    <section anchor="supifmt" title="Format of the SUPI">
-
-      <t>A SUPI is either an IMSI or a Network Access Identifier <xref
-      target="RFC7542"/>.</t>
-
-      <t>When used in EAP-AKA', the format of the SUPI MUST be as
-      specified in <xref target="TS-3GPP.23.003"/> Section 28.7.2,
-      with the semantics defined in <xref target="TS-3GPP.23.003"/>
-      Section 2.2A.  Also, in contrast to <xref target="RFC5448"/>, in
-      5G EAP-AKA' does not use the "0" or "6" prefix in front of the
-      entire IMSI.</t>
-
-      <t>For instance, if the IMSI is 234150999999999 (MCC = 234, MNC = 15), the NAI format for the SUPI takes the form:
-
-      <figure>
-	<artwork>
-  234150999999999@nai.5gc.mnc015.mcc234.3gppnetwork.org
-        </artwork>
-      </figure></t>
-      
-    </section>
-    
   </section>
 
   <section anchor="id5guse" title="EAP Identity Response and EAP-AKA' AT_IDENTITY Attribute">
@@ -1178,53 +1159,9 @@ the endpoints to use EAP-AKA'.</t>
     identity is already made available on previous link layer
     exchanges.</t>
 
-    <t>In this situation, the EAP server SHOULD NOT request an additional
-    identity from the peer. If the peer for some reason receives
-    EAP-Request/Identity or EAP-Request/AKA-Identity messages, the peer 
-    behaves as follows.
-    <list style="hanging">
-
-    <t hangText="Receive EAP-Request/Identity"><vspace blankLines="1"/>
-    
-    In this case, the peer MUST respond with a EAP-Response/Identity
-    containing the privacy-friendly 5G identifier, the SUCI. The SUCI
-    MUST be represented as specified in <xref target="sucifmt"/>.</t>
-    
-    <t hangText="EAP-Request/AKA-Identity with AT_PERMANENT_REQ"><vspace blankLines="1"/>
-    
-    For privacy reasons, the peer MUST follow a "conservative"
-    policy and terminate the authentication exchange rather than
-    risk revealing its permanent identity.<vspace blankLines="1"/>
-
-    The peer MUST respond with EAP-Response/AKA-Client-Error with the
-    client error code 0, "unable to process packet".</t>
-    
-    <t hangText="EAP-Request/AKA-Identity with AT_FULLAUTH_REQ"><vspace blankLines="1"/>
-
-    In this case, the peer MUST respond with a EAP-Response/AKA-Identity
-    containing the SUCI.  The SUCI
-    MUST be represented as specified in <xref target="sucifmt"/>.</t>
-    
-    <t hangText="EAP-Request/AKA-Identity with AT_ANY_ID_REQ"><vspace blankLines="1"/>
-    
-    If the peer supports fast re-authentication and has a fast
-    re-authentication identity available, the peer SHOULD respond with
-    EAP-Response/AKA-Identity containing the fast re-authentication
-    identity. Otherwise the peer MUST respond with a
-    EAP-Response/AKA-Identity containing the SUCI, and MUST
-    represent the SUCI as specified in <xref target="sucifmt"/>.</t>
-
-  </list></t>
-  
-  <t>Similarly, if the peer is communicating over a non-3GPP network
-    but carrying EAP inside 5G NAS protocol, it MUST assume that the EAP
-    server is in a 5G network, and again employ the SUCI within
-    EAP.</t>
-    
-    <t>Otherwise, the peer SHOULD employ IMSI, SUPI, or a NAI as it is
-    configured to use.</t>
-    
-  <section anchor="sucifmt" title="Format of the SUCI">
+    <t>In this situation, the EAP Identity Response and EAP-AKA'
+    AT_IDENTITY attribute are handled as specified in Annex F.2 of
+    <xref target="TS-3GPP.33.501"/>.</t>
 
     <t>When used in EAP-AKA', the format of the SUCI MUST be as
     specified in <xref target="TS-3GPP.23.003"/> Section 28.7.3, with the semantics defined in
@@ -1235,25 +1172,13 @@ the endpoints to use EAP-AKA'.</t>
     <t>For instance, assuming the IMSI 234150999999999, where MCC=234,
     MNC=15 and MSISN=0999999999, the Routing Indicator 678, and a Home
     Network Public Key Identifier of 27, the NAI format for the SUCI
-    takes the form:
-
-    <figure>
-      <artwork>
-  For the null-scheme:
-
-    type0.rid678.schid0.userid0999999999@nai.5gc.mnc015.
-    mcc234.3gppnetwork.org
-
-  For the Profile &lt;A&gt; protection scheme:
-
-    type0.rid678.schid1.hnkey27.ecckey&lt;ECC ephemeral public key&gt;.
-    cip&lt;encryption of 0999999999&gt;.mac&lt;MAC tag value&gt;@nai.5gc.
-    mnc015.mcc234.3gppnetwork.org
-      </artwork>
-    </figure></t>
-
-  </section>
-  
+    takes the form
+    type0.rid678.schid0.userid0999999999@nai.5gc.mnc015.mcc234.3gppnetwork.org
+    for the null-scheme.</t>
+    
+    <t>Otherwise, the peer SHOULD employ IMSI, SUPI, or a NAI as it is
+    configured to use.</t>
+    
   </section>
 
 </section>
@@ -1448,8 +1373,8 @@ target="bindprop"/> for more discussion.</t>
   RECOMMENDED.</t>
 
   <t>As discussed in <xref target="identifiersin5g"/>, when
-  authenticating to a 5G network, only the 5G SUCI identifier should
-  be used. The use of EAP-AKA' pseudonyms in this situation is at best
+  authenticating to a 5G network, only the 5G SUCI identifier is normally
+  used. The use of EAP-AKA' pseudonyms in this situation is at best
   limited, because the 5G SUCI already provides a stronger mechanism.
   In fact, the re-use of the same pseudonym multiple times
   will result in a tracking opportunity for observers that see the
@@ -2294,7 +2219,6 @@ Value      Description              Reference
     <t><xref target="security"/> now discusses cryptographic
     agility.</t>
 
-    
     <t>The document now is clear that any change to key aspects of
     3GPP specifications, such as key derivation for AKA, would affect
     this specification and implementations.</t>
@@ -2305,6 +2229,23 @@ Value      Description              Reference
     <t>Tables have been numbered.</t>
     
     <t>Adopted a number of other editorial corrections.</t>
+    
+  </list></t>
+
+  <t>The version -08 includes the following changes:
+  <list style="symbols">
+
+    <t>Alignment of the 3GPP TS Annex and this draft, so that each
+    individual part of the specification is stated in only one
+    place. This has lead to this draft referring to bigger parts of
+    the 3GPP specification, instead of spelling out the details within
+    this document. Note that this alignment change is a proposal at
+    this stage, and will be discussed in the upcoming 3GPP meeting.</t>
+
+    <t>Relaxed the language on using only SUCI in 5G. While that is
+    the mode of operation expected to be used, <xref
+    target="TS-3GPP.33.501"/> does not prohibit other types of
+    identifiers.</t>
     
   </list></t>
   
