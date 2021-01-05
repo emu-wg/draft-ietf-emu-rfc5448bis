@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-08" category="info" obsoletes="5448" updates="4187">
+<rfc ipr='trust200902' docName="draft-ietf-emu-rfc5448bis-09" category="info" updates="5448,4187">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -63,7 +63,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
 </address>
 </author>
 
-<date month="October" year="2020" />
+<date month="January" year="2021" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -78,9 +78,9 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   possible within the Extensible Authentication Protocol (EAP)
   framework. RFC 5448 (EAP-AKA') was an improved version of EAP-AKA.</t>
 
-  <t>This memo replaces the specification of EAP-AKA'. EAP-AKA' was
-  defined in RFC 5448 and updated EAP-AKA RFC 4187. As such this
-  document obsoletes RFC 5448 and updates RFC 4187.</t>
+  <t>This memo is the most recent specification of EAP-AKA',
+  including, for instance, details and references about related to
+  operating EAP-AKA' in 5G networks.</t>
 
   <t>EAP-AKA' differs from EAP-AKA by providing a key derivation
   function that binds the keys derived within the method to the name
@@ -108,10 +108,14 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   framework <xref target="RFC3748"/>.</t>
 
   <t><xref target="RFC5448"/> (EAP-AKA') was an improved version of
-  EAP-AKA.  This memo replaces the specification of
-  EAP-AKA'. EAP-AKA' was defined in RFC 5448 and updated EAP-AKA RFC
-  4187. As such this document obsoletes RFC 5448 and updates RFC
-  4187.</t>
+  EAP-AKA. EAP-AKA' was defined in RFC 5448 and updated EAP-AKA RFC
+  4187. </t>
+
+  <t>This memo is the most recent specification of EAP-AKA',
+  including, for instance, details and references about related to
+  operating EAP-AKA' in 5G networks. RFC 5448 is not obsole, but the
+  most recent and fully backwards compatible specification is in this
+  memo.</t>
 
   <t>EAP-AKA' is commonly implemented in mobile phones and network
   equipment. It can be used for authentication to gain network access via
@@ -1119,8 +1123,8 @@ the endpoints to use EAP-AKA'.</t>
     target="RFC5448"/>, in 5G EAP-AKA' does not use the "0" or "6"
     prefix in front of the identifier.</t>
 
-    <t>For instance, if if the IMSI is 234150999999999, it is encoded
-    as ...</t>
+    <t>For an example of the format of the identity, see Clause 2.2 of <xref
+    target="TS-3GPP.23.003"/>.</t>
     
     <t>In all other cases, the following applies:
 
@@ -1151,13 +1155,23 @@ the endpoints to use EAP-AKA'.</t>
     new 5G core network is also in use. However, in other networks an
     EAP-AKA' peer may be connecting to other types of networks and
     existing equipment.</t>
+
+    <t>When the EAP server is in a 5G network, the 5G procedures for
+    EAP-AKA' apply. When EAP server is defined to be in a 5G network
+    is specified in <xref target="TS-3GPP.33.501"/>.
+    <list style="empty">
+      <t>Note: Currently, at least the following conditions are specified: when the
+    EAP peer uses the 5G Non-Access Stratum (NAS) protocol <xref
+    target="TS-3GPP.24.501"/> or when the EAP peer attaches to a network
+    that advertises 5G connectivity without NAS <xref
+    target="TS-3GPP.23.501"/>. Possible future conditions
+    may also be specified by 3GPP.</t>
+    </list>
+    </t>
     
-    <t>When the EAP peer is connecting to a 5G access network and uses
-    the 5G Non-Access Stratum (NAS) protocol <xref
-    target="TS-3GPP.24.501"/>, the EAP server is in a 5G network. The
-    EAP identity exchanges are generally not used in this case, as the
-    identity is already made available on previous link layer
-    exchanges.</t>
+    <t>When the 5G procedures for EAP-AKA' apply, EAP identity
+    exchanges are generally not used as the identity is already made
+    available on previous link layer exchanges.</t>
 
     <t>In this situation, the EAP Identity Response and EAP-AKA'
     AT_IDENTITY attribute are handled as specified in Annex F.2 of
@@ -1168,14 +1182,10 @@ the endpoints to use EAP-AKA'.</t>
     <xref target="TS-3GPP.23.003"/> Section 2.2B. Also, in contrast to <xref
     target="RFC5448"/>, in 5G EAP-AKA' does not use the "0" or "6"
     prefix in front of the identifier.</t>
-
-    <t>For instance, assuming the IMSI 234150999999999, where MCC=234,
-    MNC=15 and MSISN=0999999999, the Routing Indicator 678, and a Home
-    Network Public Key Identifier of 27, the NAI format for the SUCI
-    takes the form
-    type0.rid678.schid0.userid0999999999@nai.5gc.mnc015.mcc234.3gppnetwork.org
-    for the null-scheme.</t>
     
+    <t>For an example of an IMSI in NAI format, see <xref
+    target="TS-3GPP.23.003"/> Section 28.7.3.</t>
+        
     <t>Otherwise, the peer SHOULD employ IMSI, SUPI, or a NAI as it is
     configured to use.</t>
     
@@ -2247,6 +2257,19 @@ Value      Description              Reference
     target="TS-3GPP.33.501"/> does not prohibit other types of
     identifiers.</t>
     
+  </list></t>
+
+  <t>The version -09 includes the following changes:
+  <list style="symbols">
+
+    <t>Updated the language relating to obsoleting/updating RFC 5448;
+    there was an interest to ensure that RFC 5448 stays a valid
+    specification also in the future, owing to existing
+    implementations.</t>
+
+    <t>Updated the language relating to when 5G-specific procedures
+    are in effect, to support new use cases 3GPP has defined.</t>
+
   </list></t>
   
 </section>
