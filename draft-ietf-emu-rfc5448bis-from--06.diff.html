@@ -321,7 +321,31 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   use the network name as received in the AT_KDF_INPUT attribute.  If</td><td> </td><td class="right">   use the network name as received in the AT_KDF_INPUT attribute.  If</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   the policy indicates that the authentication should fail, the peer</td><td> </td><td class="right">   the policy indicates that the authentication should fail, the peer</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l5" /><small>skipping to change at</small><em> page 16, line 22</em></th><th> </th><th><a name="part-r5" /><small>skipping to change at</small><em> page 16, line 22</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l5" /><small>skipping to change at</small><em> page 13, line 44</em></th><th> </th><th><a name="part-r5" /><small>skipping to change at</small><em> page 13, line 41</em></th><td></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      IK' and CK' are derived as specified in [TS-3GPP.33.402].  The</td><td> </td><td class="right">      IK' and CK' are derived as specified in [TS-3GPP.33.402].  The</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      functions that derive IK' and CK' take the following parameters:</td><td> </td><td class="right">      functions that derive IK' and CK' take the following parameters:</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      CK and IK produced by the AKA algorithm, and value of the Network</td><td> </td><td class="right">      CK and IK produced by the AKA algorithm, and value of the Network</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      Name field comes from the AT_KDF_INPUT attribute (without length</td><td> </td><td class="right">      Name field comes from the AT_KDF_INPUT attribute (without length</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      or padding).</td><td> </td><td class="right">      or padding).</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      The value "EAP-AKA'" is an eight-characters-long ASCII string.  It</td><td> </td><td class="right">      The value "EAP-AKA'" is an eight-characters-long ASCII string.  It</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      is used as is, without any trailing NUL characters.</td><td> </td><td class="right">      is used as is, without any trailing NUL characters.</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      Identity is the peer identity as specified in Section 7 of</td><td> </td><td class="right">      Identity is the peer identity as specified in Section 7 of</td><td class="lineno" valign="top"></td></tr>
+      <tr><td><a name="diff0022" /></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="lblock">      [RFC4187].</td><td> </td><td class="rblock">      [RFC4187]<span class="insert">, and Section 5.3.2 in this memo for the 5G cases</span>.</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      When the server creates an AKA challenge and corresponding AUTN,</td><td> </td><td class="right">      When the server creates an AKA challenge and corresponding AUTN,</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      CK, CK', IK, and IK' values, it MUST set the Authentication</td><td> </td><td class="right">      CK, CK', IK, and IK' values, it MUST set the Authentication</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      Management Field (AMF) separation bit to 1 in the AKA algorithm</td><td> </td><td class="right">      Management Field (AMF) separation bit to 1 in the AKA algorithm</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      [TS-3GPP.33.102].  Similarly, the peer MUST check that the AMF</td><td> </td><td class="right">      [TS-3GPP.33.102].  Similarly, the peer MUST check that the AMF</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      separation bit is set to 1.  If the bit is not set to 1, the peer</td><td> </td><td class="right">      separation bit is set to 1.  If the bit is not set to 1, the peer</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      behaves as if the AUTN had been incorrect and fails the</td><td> </td><td class="right">      behaves as if the AUTN had been incorrect and fails the</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      authentication.</td><td> </td><td class="right">      authentication.</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="left">      On fast re-authentication, the following keys are calculated:</td><td> </td><td class="right">      On fast re-authentication, the following keys are calculated:</td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l6" /><small>skipping to change at</small><em> page 16, line 22</em></th><th> </th><th><a name="part-r6" /><small>skipping to change at</small><em> page 16, line 22</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   |                                                               |</td><td> </td><td class="right">   |                                                               |</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   |                                                               |</td><td> </td><td class="right">   |                                                               |</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   |                                                               |</td><td> </td><td class="right">   |                                                               |</td><td class="lineno" valign="top"></td></tr>
@@ -332,7 +356,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">3.5.  Summary of Attributes for EAP-AKA'</td><td> </td><td class="right">3.5.  Summary of Attributes for EAP-AKA'</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0022" /></td></tr>
+      <tr><td><a name="diff0023" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   <span class="delete">The following table</span> provides a guide to which attributes may be found</td><td> </td><td class="rblock">   <span class="insert">Table 1</span> provides a guide to which attributes may be found in which</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   in which kinds of messages, and in what quantity.</td><td> </td><td class="rblock">   kinds of messages, and in what quantity.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -346,7 +370,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      (4) EAP-Response/AKA-Challenge,</td><td> </td><td class="right">      (4) EAP-Response/AKA-Challenge,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l6" /><small>skipping to change at</small><em> page 18, line 30</em></th><th> </th><th><a name="part-r6" /><small>skipping to change at</small><em> page 18, line 30</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l7" /><small>skipping to change at</small><em> page 18, line 30</em></th><th> </th><th><a name="part-r7" /><small>skipping to change at</small><em> page 18, line 30</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">           AT_RESULT_IND  0   0  0-1 0-1  0   0   0  0-1 0-1  0   0   N</td><td> </td><td class="right">           AT_RESULT_IND  0   0  0-1 0-1  0   0   0  0-1 0-1  0   0   N</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">                  AT_MAC  0   0   1  0-1 0-1 0-1  0   1   1   0   0   N</td><td> </td><td class="right">                  AT_MAC  0   0   1  0-1 0-1 0-1  0   1   1   0   0   N</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              AT_COUNTER  0   0   0   0  0-1 0-1  0   1   1   0   0   Y</td><td> </td><td class="right">              AT_COUNTER  0   0   0   0  0-1 0-1  0   1   1   0   0   Y</td><td class="lineno" valign="top"></td></tr>
@@ -357,7 +381,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">                  AT_KDF  0   0   1+  0+  0   0   0   0   0   0   1+  N</td><td> </td><td class="right">                  AT_KDF  0   0   1+  0+  0   0   0   0   0   0   1+  N</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">            AT_KDF_INPUT  0   0   1   0   0   0   0   0   0   0   0   N</td><td> </td><td class="right">            AT_KDF_INPUT  0   0   1   0   0   0   0   0   0   0   0   N</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0023" /></td></tr>
+      <tr><td><a name="diff0024" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">                         <span class="insert">Table 1: The attribute table</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">                                                                         </td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">4.  Bidding Down Prevention for EAP-AKA</td><td> </td><td class="right">4.  Bidding Down Prevention for EAP-AKA</td><td class="lineno" valign="top"></td></tr>
@@ -371,7 +395,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   In order to prevent such attacks, this RFC specifies a new mechanism</td><td> </td><td class="right">   In order to prevent such attacks, this RFC specifies a new mechanism</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   for EAP-AKA that allows the endpoints to securely discover the</td><td> </td><td class="right">   for EAP-AKA that allows the endpoints to securely discover the</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l7" /><small>skipping to change at</small><em> page 20, line 43</em></th><th> </th><th><a name="part-r7" /><small>skipping to change at</small><em> page 20, line 48</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l8" /><small>skipping to change at</small><em> page 20, line 43</em></th><th> </th><th><a name="part-r8" /><small>skipping to change at</small><em> page 20, line 48</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   usernames.  This specification extends this definition as follows.</td><td> </td><td class="right">   usernames.  This specification extends this definition as follows.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   There are four types of usernames:</td><td> </td><td class="right">   There are four types of usernames:</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -382,7 +406,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">         (a) Permanent usernames, for instance IMSI-based usernames.</td><td> </td><td class="right">         (a) Permanent usernames, for instance IMSI-based usernames.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">         (b) Privacy-friendly temporary usernames, for instance 5G</td><td> </td><td class="right">         (b) Privacy-friendly temporary usernames, for instance 5G</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0024" /></td></tr>
+      <tr><td><a name="diff0025" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">         privacy identifiers (see Section 5.3.2<span class="delete"> and Section 5.3.2.1</span>.</td><td> </td><td class="rblock">         privacy identifiers (see Section 5.3.2<span class="insert">)</span>.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      (2) EAP-AKA' pseudonym usernames.  For example,</td><td> </td><td class="right">      (2) EAP-AKA' pseudonym usernames.  For example,</td><td class="lineno" valign="top"></td></tr>
@@ -395,7 +419,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   The permanent, privacy-friendly temporary, and pseudonym usernames</td><td> </td><td class="right">   The permanent, privacy-friendly temporary, and pseudonym usernames</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l8" /><small>skipping to change at</small><em> page 21, line 21</em></th><th> </th><th><a name="part-r8" /><small>skipping to change at</small><em> page 21, line 25</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l9" /><small>skipping to change at</small><em> page 21, line 21</em></th><th> </th><th><a name="part-r9" /><small>skipping to change at</small><em> page 21, line 25</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">5.2.  Generating Pseudonyms and Fast Re-Authentication Identities</td><td> </td><td class="right">5.2.  Generating Pseudonyms and Fast Re-Authentication Identities</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -406,13 +430,13 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   the NAI syntax, how they are distinguished from each other, and so</td><td> </td><td class="right">   the NAI syntax, how they are distinguished from each other, and so</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   on.</td><td> </td><td class="right">   on.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0025" /></td></tr>
+      <tr><td><a name="diff0026" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   However, to en<span class="delete">sur</span>e privacy some additional requirements need to be</td><td> </td><td class="rblock">   However, to en<span class="insert">hanc</span>e privacy some additional requirements need to be</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   applied.</td><td> </td><td class="right">   applied.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   The pseudonym usernames and fast re-authentication identities MUST be</td><td> </td><td class="right">   The pseudonym usernames and fast re-authentication identities MUST be</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   generated in a cryptographically secure way so that that it is</td><td> </td><td class="right">   generated in a cryptographically secure way so that that it is</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0026" /></td></tr>
+      <tr><td><a name="diff0027" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   computationally infeasible for a<span class="delete">t</span> attacker to differentiate two</td><td> </td><td class="rblock">   computationally infeasible for a<span class="insert">n</span> attacker to differentiate two</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   identities belonging to the same user from two identities belonging</td><td> </td><td class="right">   identities belonging to the same user from two identities belonging</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   to different users.  This can be achieved, for instance, by using</td><td> </td><td class="right">   to different users.  This can be achieved, for instance, by using</td><td class="lineno" valign="top"></td></tr>
@@ -425,7 +449,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   to a particular entity or a particular permanent identity.  For</td><td> </td><td class="right">   to a particular entity or a particular permanent identity.  For</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   instance, the usernames can not include any subscriber-identifying</td><td> </td><td class="right">   instance, the usernames can not include any subscriber-identifying</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l9" /><small>skipping to change at</small><em> page 23, line 15</em></th><th> </th><th><a name="part-r9" /><small>skipping to change at</small><em> page 23, line 19</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l10" /><small>skipping to change at</small><em> page 23, line 15</em></th><th> </th><th><a name="part-r10" /><small>skipping to change at</small><em> page 23, line 19</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   to prepare for many different situations, including sometimes having</td><td> </td><td class="right">   to prepare for many different situations, including sometimes having</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   to communicate identities within EAP.</td><td> </td><td class="right">   to communicate identities within EAP.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -436,21 +460,21 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   In EAP-AKA', the peer identity is used in the Section 3.3 key</td><td> </td><td class="right">   In EAP-AKA', the peer identity is used in the Section 3.3 key</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   derivation formula.</td><td> </td><td class="right">   derivation formula.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0027" /></td></tr>
+      <tr><td><a name="diff0028" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">   <span class="insert">The identity needs to be represented in exact correct format for the</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">   key derivation formulala to produce correct results.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">                                                                         </td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   If the AT_KDF_INPUT parameter contains the prefix "5G:", the AT_KDF</td><td> </td><td class="right">   If the AT_KDF_INPUT parameter contains the prefix "5G:", the AT_KDF</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   parameter has the value 1, and this authentication is not a fast re-</td><td> </td><td class="right">   parameter has the value 1, and this authentication is not a fast re-</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   authentication, then the peer identity used in the key derivation</td><td> </td><td class="right">   authentication, then the peer identity used in the key derivation</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0028" /></td></tr>
+      <tr><td><a name="diff0029" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   MUST be <span class="delete">the 5G SUPI for the peer.</span>  This <span class="delete">rule applies</span> to <span class="delete">all full EAP-</span></td><td> </td><td class="rblock">   MUST be <span class="insert">as specified in Annex F.3 of [TS-3GPP.33.501] and Clause 2.2</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   AKA' authentication processes, even if</span> the <span class="delete">peer sent some other</span></td><td> </td><td class="rblock"><span class="insert">   of [TS-3GPP.23.003].</span>  This <span class="insert">is in contrast</span> to <span class="insert">[RFC5448], which used</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   identifier at a lower layer or</span> as a <span class="delete">response</span> to <span class="delete">an EAP Identity</span></td><td> </td><td class="rblock">   the <span class="insert">identity as communicated in EAP and represented</span> as a <span class="insert">NAI.  Also,</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   Request</span> or <span class="delete">if no identity was sent.</span></td><td> </td><td class="rblock"><span class="insert">   in contrast</span> to <span class="insert">[RFC5448], in 5G EAP-AKA' does not use the "0"</span> or <span class="insert">"6"</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">   prefix in front of the identifier.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0029" /></td></tr>
+      <tr><td><a name="diff0030" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   <span class="delete">The identity MUST also be represented in</span> the <span class="delete">exact correct</span> format <span class="delete">for</span></td><td> </td><td class="rblock">   <span class="insert">For an example of</span> the format <span class="insert">of</span> the <span class="insert">identity, see Clause 2.2 of</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   the <span class="delete">key derivation formula to produce correct results.  In 5G, this</span></td><td> </td><td class="rblock"><span class="insert">   [TS-3GPP.23.003].</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   identifier is the SUPI.  The SUPI format is as defined</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
@@ -472,7 +496,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">      communicated by the peer to the network, again regardless of what</td><td> </td><td class="right">      communicated by the peer to the network, again regardless of what</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      type of identity it may have been.</td><td> </td><td class="right">      type of identity it may have been.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0030" /></td></tr>
+      <tr><td><a name="diff0031" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">5.3.1.1.  Format of the SUPI</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete"></span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   A SUPI is either an IMSI or a Network Access Identifier [RFC7542].</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
@@ -495,7 +519,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   peer may be connecting to other types of networks and existing</td><td> </td><td class="right">   peer may be connecting to other types of networks and existing</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   equipment.</td><td> </td><td class="right">   equipment.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0031" /></td></tr>
+      <tr><td><a name="diff0032" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   When the EAP <span class="delete">peer is connecting to a 5G access network and uses the</span></td><td> </td><td class="rblock">   When the EAP server is in a 5G <span class="insert">network,</span> the <span class="insert">5G procedures</span> for EAP-</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   5G Non-Access Stratum (NAS) protocol [TS-3GPP.24.501], the EAP</span> server</td><td> </td><td class="rblock">   <span class="insert">AKA' apply.  When EAP server is defined</span> to be in a <span class="insert">5G network is</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   is in a 5G <span class="delete">network.  The EAP identity exchanges are generally not</span></td><td> </td><td class="rblock">   specified in <span class="insert">[TS-3GPP.33.501].</span></td><td class="lineno" valign="top"></td></tr>
@@ -536,19 +560,19 @@
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">      AKA-Identity containing the SUCI, and MUST represent the SUCI as</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">      specified in <span class="delete">Section 5.3.2.1.</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0032" /></td></tr>
+      <tr><td><a name="diff0033" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   <span class="delete">Similarly, if</span> the <span class="delete">peer is communicating over a non-3GPP network but</span></td><td> </td><td class="rblock">      <span class="insert">Note: Currently, at least the following conditions are specified:</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   carrying</span> EAP <span class="delete">inside</span> 5G <span class="delete">NAS protocol, it MUST assume that</span> the EAP</td><td> </td><td class="rblock"><span class="insert">      when</span> the EAP <span class="insert">peer uses the</span> 5G <span class="insert">Non-Access Stratum (NAS) protocol</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   <span class="delete">server is in</span> a 5G <span class="delete">network, and again employ the SUCI within EAP.</span></td><td> </td><td class="rblock"><span class="insert">      [TS-3GPP.24.501] or when</span> the EAP <span class="insert">peer attaches to</span> a <span class="insert">network that</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">      advertises</span> 5G <span class="insert">connectivity without NAS [TS-3GPP.23.501].  Possible</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">      future conditions may also be specified by 3GPP.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0033" /></td></tr>
+      <tr><td><a name="diff0034" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   <span class="delete">Otherwise,</span> the <span class="delete">peer SHOULD employ IMSI, SUPI, or a NAI</span> as <span class="delete">it</span> is</td><td> </td><td class="rblock">   <span class="insert">When</span> the <span class="insert">5G procedures for EAP-AKA' apply, EAP identity exchanges are</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   <span class="delete">configured to use.</span></td><td> </td><td class="rblock"><span class="insert">   generally not used</span> as <span class="insert">the identity</span> is <span class="insert">already made available on</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">   previous link layer exchanges.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0034" /></td></tr>
+      <tr><td><a name="diff0035" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">5.3.2.1.  Format of</span> the <span class="delete">SUCI</span></td><td> </td><td class="rblock">   <span class="insert">In this situation,</span> the <span class="insert">EAP Identity Response and EAP-AKA' AT_IDENTITY</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">   attribute are handled as specified in Annex F.2 of [TS-3GPP.33.501].</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -558,7 +582,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   EAP-AKA' does not use the "0" or "6" prefix in front of the</td><td> </td><td class="right">   EAP-AKA' does not use the "0" or "6" prefix in front of the</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   identifier.</td><td> </td><td class="right">   identifier.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0035" /></td></tr>
+      <tr><td><a name="diff0036" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   For <span class="delete">instance, assuming the IMSI 234150999999999, where MCC=234,</span></td><td> </td><td class="rblock">   For <span class="insert">an example</span> of <span class="insert">an IMSI in</span> NAI <span class="insert">format, see [TS-3GPP.23.003]</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   MNC=15 and MSISN=0999999999, the Routing Indicator 678, and a Home</span></td><td> </td><td class="rblock"><span class="insert">   Section 28.7.3.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   Network Public Key Identifier</span> of <span class="delete">27, the</span> NAI <span class="delete">format for the SUCI</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
@@ -571,7 +595,7 @@
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete"></span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">     For the Profile &lt;A&gt; protection scheme:</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0036" /></td></tr>
+      <tr><td><a name="diff0037" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">       <span class="delete">type0.rid678.schid1.hnkey27.ecckey&lt;ECC ephemeral public key&gt;.</span></td><td> </td><td class="rblock">   <span class="insert">Otherwise, the peer SHOULD employ IMSI, SUPI, or a NAI as it is</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">       cip&lt;encryption of 0999999999&gt;.mac&lt;MAC tag value&gt;@nai.5gc.</span></td><td> </td><td class="rblock"><span class="insert">   configured to use.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">       mnc015.mcc234.3gppnetwork.org</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
@@ -586,7 +610,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">         Session-Id = 0x32 || RAND || AUTN</td><td> </td><td class="right">         Session-Id = 0x32 || RAND || AUTN</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l10" /><small>skipping to change at</small><em> page 26, line 41</em></th><th> </th><th><a name="part-r10" /><small>skipping to change at</small><em> page 25, line 37</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l11" /><small>skipping to change at</small><em> page 26, line 41</em></th><th> </th><th><a name="part-r11" /><small>skipping to change at</small><em> page 25, line 37</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   section.  Under this assumption, EAP-AKA' is at least as secure as</td><td> </td><td class="right">   section.  Under this assumption, EAP-AKA' is at least as secure as</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   EAP-AKA.</td><td> </td><td class="right">   EAP-AKA.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -597,7 +621,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      EAP-AKA' has no ciphersuite negotiation mechanisms.  It does have</td><td> </td><td class="right">      EAP-AKA' has no ciphersuite negotiation mechanisms.  It does have</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      a negotiation mechanism for selecting the key derivation</td><td> </td><td class="right">      a negotiation mechanism for selecting the key derivation</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0037" /></td></tr>
+      <tr><td><a name="diff0038" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">      functions.  This mechanism is secure against bidding down <span class="delete">attacks.</span></td><td> </td><td class="rblock">      functions.  This mechanism is secure against bidding down <span class="insert">attacks</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">      The negotiation mechanism allows changing the offered key</td><td> </td><td class="rblock"><span class="insert">      from EAP-AKA' to EAP-AKA.</span>  The negotiation mechanism allows</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">      derivation function, but the change is visible in the final <span class="delete">EAP-</span></td><td> </td><td class="rblock">      changing the offered key derivation function, but the change is</td><td class="lineno" valign="top"></td></tr>
@@ -624,7 +648,7 @@
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">      require a new EAP method type.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   Mutual authentication</td><td> </td><td class="right">   Mutual authentication</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0038" /></td></tr>
+      <tr><td><a name="diff0039" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">                                                                         </span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      Under the SHA-256 assumption, the properties of EAP-AKA' are at</td><td> </td><td class="right">      Under the SHA-256 assumption, the properties of EAP-AKA' are at</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      least as good as those of EAP-AKA in this respect.  Refer to</td><td> </td><td class="right">      least as good as those of EAP-AKA in this respect.  Refer to</td><td class="lineno" valign="top"></td></tr>
@@ -637,7 +661,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">      respect.  Refer to [RFC4187], Section 12 for further details.  The</td><td> </td><td class="right">      respect.  Refer to [RFC4187], Section 12 for further details.  The</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      only difference is that a stronger hash algorithm and keyed MAC,</td><td> </td><td class="right">      only difference is that a stronger hash algorithm and keyed MAC,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l11" /><small>skipping to change at</small><em> page 29, line 26</em></th><th> </th><th><a name="part-r11" /><small>skipping to change at</small><em> page 28, line 40</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l12" /><small>skipping to change at</small><em> page 29, line 26</em></th><th> </th><th><a name="part-r12" /><small>skipping to change at</small><em> page 28, line 40</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   EAP-AKA' uses several different types of identifiers to identify the</td><td> </td><td class="right">   EAP-AKA' uses several different types of identifiers to identify the</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   authenticating peer.  It is strongly RECOMMENDED to use the privacy-</td><td> </td><td class="right">   authenticating peer.  It is strongly RECOMMENDED to use the privacy-</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   friendly temporary or hidden identifiers, i.e., the 5G SUCI,</td><td> </td><td class="right">   friendly temporary or hidden identifiers, i.e., the 5G SUCI,</td><td class="lineno" valign="top"></td></tr>
@@ -648,7 +672,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   RECOMMENDED.</td><td> </td><td class="right">   RECOMMENDED.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   As discussed in Section 5.3, when authenticating to a 5G network,</td><td> </td><td class="right">   As discussed in Section 5.3, when authenticating to a 5G network,</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0039" /></td></tr>
+      <tr><td><a name="diff0040" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   only the 5G SUCI identifier <span class="delete">should be</span> used.  The use of pseudonyms in</td><td> </td><td class="rblock">   only the 5G SUCI identifier <span class="insert">is normally</span> used.  The use of <span class="insert">EAP-AKA'</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   this situation is at best <span class="delete">limited.</span>  In fact, the re-use of the same</td><td> </td><td class="rblock">   pseudonyms in this situation is at best <span class="insert">limited, because the 5G SUCI</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   pseudonym multiple times will result in a tracking opportunity for</td><td> </td><td class="rblock"><span class="insert">   already provides a stronger mechanism.</span>  In fact, the re-use of the</td><td class="lineno" valign="top"></td></tr>
@@ -666,7 +690,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   While the use of SUCI in 5G networks generally provides identity</td><td> </td><td class="right">   While the use of SUCI in 5G networks generally provides identity</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   privacy, this is not true if the null-scheme encryption is used to</td><td> </td><td class="right">   privacy, this is not true if the null-scheme encryption is used to</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l12" /><small>skipping to change at</small><em> page 30, line 5</em></th><th> </th><th><a name="part-r12" /><small>skipping to change at</small><em> page 29, line 20</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l13" /><small>skipping to change at</small><em> page 30, line 5</em></th><th> </th><th><a name="part-r13" /><small>skipping to change at</small><em> page 29, line 20</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   scheme turns the use of SUCI equivalent to the use of SUPI or IMSI.</td><td> </td><td class="right">   scheme turns the use of SUCI equivalent to the use of SUPI or IMSI.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   The use of the null scheme is NOT RECOMMENDED where identity privacy</td><td> </td><td class="right">   The use of the null scheme is NOT RECOMMENDED where identity privacy</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   is important.</td><td> </td><td class="right">   is important.</td><td class="lineno" valign="top"></td></tr>
@@ -677,7 +701,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   authentication identifiers in a proper manner specified in</td><td> </td><td class="right">   authentication identifiers in a proper manner specified in</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   Section 5.2.</td><td> </td><td class="right">   Section 5.2.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0040" /></td></tr>
+      <tr><td><a name="diff0041" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   Outside 5G, <span class="delete">there is a full choice to</span> use permanent, pseudonym, or</td><td> </td><td class="rblock">   Outside 5G, <span class="insert">the peer can freely choose between the</span> use <span class="insert">of</span> permanent,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   fast re-authentication identifiers:</td><td> </td><td class="rblock">   pseudonym, or fast re-authentication identifiers:</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -691,7 +715,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">      impersonates the network may use the AT_PERMANENT_ID_REQ attribute</td><td> </td><td class="right">      impersonates the network may use the AT_PERMANENT_ID_REQ attribute</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">      ([RFC4187] Section 4.1.2) to learn the subscriber's IMSI.</td><td> </td><td class="right">      ([RFC4187] Section 4.1.2) to learn the subscriber's IMSI.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l13" /><small>skipping to change at</small><em> page 32, line 26</em></th><th> </th><th><a name="part-r13" /><small>skipping to change at</small><em> page 31, line 42</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l14" /><small>skipping to change at</small><em> page 32, line 26</em></th><th> </th><th><a name="part-r14" /><small>skipping to change at</small><em> page 31, line 42</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   Borgaonkar et al discovered that the AKA resynchronization protocol</td><td> </td><td class="right">   Borgaonkar et al discovered that the AKA resynchronization protocol</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   may also be used to predict the authentication frequency of a</td><td> </td><td class="right">   may also be used to predict the authentication frequency of a</td><td class="lineno" valign="top"></td></tr>
@@ -702,7 +726,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   based on the lowest bits of two XORed SQNs.  The researchers' concern</td><td> </td><td class="right">   based on the lowest bits of two XORed SQNs.  The researchers' concern</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   was that the authentication frequency would reveal some information</td><td> </td><td class="right">   was that the authentication frequency would reveal some information</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   about the phone usage behavior, e.g., number of phone calls made or</td><td> </td><td class="right">   about the phone usage behavior, e.g., number of phone calls made or</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0041" /></td></tr>
+      <tr><td><a name="diff0042" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   number of SMS messages sent.  <span class="delete">However, phone calls and SMS messages</span></td><td> </td><td class="rblock">   number of SMS messages sent.  <span class="insert">There</span> are <span class="insert">a number</span> of <span class="insert">possible</span> triggers</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   are <span class="delete">just some</span> of <span class="delete">the many potential</span> triggers for <span class="delete">authentication.  For</span></td><td> </td><td class="rblock">   for <span class="insert">authentication, so such</span> information <span class="insert">leak</span> is not <span class="insert">direct, but can</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   instance, various mobility events and the amount of mobile data sent</span></td><td> </td><td class="rblock"><span class="insert">   be a concern.</span>  The impact of the attack is also different depending</td><td class="lineno" valign="top"></td></tr>
@@ -722,7 +746,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   outside AKA, it does not impact EAP-AKA'.</td><td> </td><td class="right">   outside AKA, it does not impact EAP-AKA'.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l14" /><small>skipping to change at</small><em> page 33, line 33</em></th><th> </th><th><a name="part-r14" /><small>skipping to change at</small><em> page 32, line 42</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l15" /><small>skipping to change at</small><em> page 33, line 33</em></th><th> </th><th><a name="part-r15" /><small>skipping to change at</small><em> page 32, line 42</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   In particular, it is crucial that manufacturers limit access to the</td><td> </td><td class="right">   In particular, it is crucial that manufacturers limit access to the</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   secret information and the cards only to necessary systems and</td><td> </td><td class="right">   secret information and the cards only to necessary systems and</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   personnel.  It is also crucial that secure mechanisms be used to</td><td> </td><td class="right">   personnel.  It is also crucial that secure mechanisms be used to</td><td class="lineno" valign="top"></td></tr>
@@ -733,10 +757,10 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   means to improve resistance to these attacks.  One approach is to</td><td> </td><td class="right">   means to improve resistance to these attacks.  One approach is to</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   provide Perfect Forwards Secrecy (PFS).  This would prevent any</td><td> </td><td class="right">   provide Perfect Forwards Secrecy (PFS).  This would prevent any</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   passive attacks merely based on the long-term secrets and observation</td><td> </td><td class="right">   passive attacks merely based on the long-term secrets and observation</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0042" /></td></tr>
+      <tr><td><a name="diff0043" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   of traffic.  Such a mechanism can be defined as a<span class="delete">n</span> backwards-</td><td> </td><td class="rblock">   of traffic.  Such a mechanism can be defined as a backwards-</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   compatible extension of EAP-AKA', and is pursued separately from this</td><td> </td><td class="right">   compatible extension of EAP-AKA', and is pursued separately from this</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0043" /></td></tr>
+      <tr><td><a name="diff0044" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   specification [I-D.<span class="delete">arkko-eap</span>-aka-pfs].  Alternatively, EAP-AKA'</td><td> </td><td class="rblock">   specification [I-D.<span class="insert">ietf-emu</span>-aka-pfs].  Alternatively, EAP-AKA'</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   authentication can be run inside a PFS-capable tunneled</td><td> </td><td class="right">   authentication can be run inside a PFS-capable tunneled</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   authentication method.  In any case, the use of some PFS-capable</td><td> </td><td class="right">   authentication method.  In any case, the use of some PFS-capable</td><td class="lineno" valign="top"></td></tr>
@@ -749,7 +773,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   inappropriate parties.  The keys used in the protocol are specific to</td><td> </td><td class="right">   inappropriate parties.  The keys used in the protocol are specific to</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   a particular network name.  If key leakage occurs due to an accident,</td><td> </td><td class="right">   a particular network name.  If key leakage occurs due to an accident,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l15" /><small>skipping to change at</small><em> page 35, line 45</em></th><th> </th><th><a name="part-r15" /><small>skipping to change at</small><em> page 35, line 9</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l16" /><small>skipping to change at</small><em> page 35, line 45</em></th><th> </th><th><a name="part-r16" /><small>skipping to change at</small><em> page 35, line 9</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   Value      Description              Reference</td><td> </td><td class="right">   Value      Description              Reference</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   ---------  ----------------------   -------------------------------</td><td> </td><td class="right">   ---------  ----------------------   -------------------------------</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   0          Reserved                 [RFC Editor: Refer to this RFC]</td><td> </td><td class="right">   0          Reserved                 [RFC Editor: Refer to this RFC]</td><td class="lineno" valign="top"></td></tr>
@@ -760,14 +784,14 @@
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">9.1.  Normative References</td><td> </td><td class="right">9.1.  Normative References</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0044" /></td></tr>
+      <tr><td><a name="diff0045" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   <span class="delete">[Note]     Editors, "All 3GPP references should be updated to the</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">              latest Release 15 version before publishing.".</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">                                                                         </td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   [TS-3GPP.23.003]</td><td> </td><td class="right">   [TS-3GPP.23.003]</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              3GPP, "3rd Generation Partnership Project; Technical</td><td> </td><td class="right">              3GPP, "3rd Generation Partnership Project; Technical</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Specification Group Core Network and Terminals; Numbering,</td><td> </td><td class="right">              Specification Group Core Network and Terminals; Numbering,</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0045" /></td></tr>
+      <tr><td><a name="diff0046" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              addressing and identification (Release 15)", 3GPP <span class="delete">Draft</span></td><td> </td><td class="rblock">              addressing and identification (Release 15)",</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              Technical Specification <span class="delete">23.003, June</span> 2019.</td><td> </td><td class="rblock">              3GPP Technical Specification <span class="insert">23.003 version 15.8.0,</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">              September</span> 2019.</td><td class="lineno" valign="top"></td></tr>
@@ -776,7 +800,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              3GPP, "3rd Generation Partnership Project; Technical</td><td> </td><td class="right">              3GPP, "3rd Generation Partnership Project; Technical</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Specification Group Services and System Aspects; 3G</td><td> </td><td class="right">              Specification Group Services and System Aspects; 3G</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Security; Security architecture and procedures for 5G</td><td> </td><td class="right">              Security; Security architecture and procedures for 5G</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0046" /></td></tr>
+      <tr><td><a name="diff0047" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              System; (Release 15)", 3GPP Technical Specification</td><td> </td><td class="rblock">              System; (Release 15)", 3GPP Technical Specification <span class="insert">23.501</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              <span class="delete">23.501, June</span> 2019.</td><td> </td><td class="rblock"><span class="insert">              version 15.8.0, December</span> 2019.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -784,7 +808,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              3GPP, "3rd Generation Partnership Project; Technical</td><td> </td><td class="right">              3GPP, "3rd Generation Partnership Project; Technical</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Specification Group Core Network and Terminals; Access to</td><td> </td><td class="right">              Specification Group Core Network and Terminals; Access to</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              the 3GPP Evolved Packet Core (EPC) via non-3GPP access</td><td> </td><td class="right">              the 3GPP Evolved Packet Core (EPC) via non-3GPP access</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0047" /></td></tr>
+      <tr><td><a name="diff0048" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              networks; Stage 3; (Release 15)", 3GPP <span class="delete">Draft</span> Technical</td><td> </td><td class="rblock">              networks; Stage 3; (Release 15)", 3GPP Technical</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              Specification <span class="delete">24.302,</span> June 2019.</td><td> </td><td class="rblock">              Specification <span class="insert">24.302 version 15.7.0,</span> June 2019.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -793,20 +817,20 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              Specification Group Core Network and Terminals; Access to</td><td> </td><td class="right">              Specification Group Core Network and Terminals; Access to</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              the 3GPP Evolved Packet Core (EPC) via non-3GPP access</td><td> </td><td class="right">              the 3GPP Evolved Packet Core (EPC) via non-3GPP access</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              networks; Stage 3; (Release 15)", 3GPP Draft Technical</td><td> </td><td class="right">              networks; Stage 3; (Release 15)", 3GPP Draft Technical</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0048" /></td></tr>
+      <tr><td><a name="diff0049" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              Specification 24.501<span class="delete">, June</span> 2019.</td><td> </td><td class="rblock">              Specification 24.501<span class="insert"> version 15.6.0, December</span> 2019.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   [TS-3GPP.33.102]</td><td> </td><td class="right">   [TS-3GPP.33.102]</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              3GPP, "3rd Generation Partnership Project; Technical</td><td> </td><td class="right">              3GPP, "3rd Generation Partnership Project; Technical</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Specification Group Services and System Aspects; 3G</td><td> </td><td class="right">              Specification Group Services and System Aspects; 3G</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0049" /></td></tr>
+      <tr><td><a name="diff0050" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              Security; Security architecture (Release 15)", 3GPP <span class="delete">Draft</span></td><td> </td><td class="rblock">              Security; Security architecture (Release 15)",</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              Technical Specification <span class="delete">33.102,</span> December 2018.</td><td> </td><td class="rblock">              3GPP Technical Specification <span class="insert">33.102 version 15.1.0,</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">              December 2018.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   [TS-3GPP.33.402]</td><td> </td><td class="right">   [TS-3GPP.33.402]</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              3GPP, "3GPP System Architecture Evolution (SAE); Security</td><td> </td><td class="right">              3GPP, "3GPP System Architecture Evolution (SAE); Security</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0050" /></td></tr>
+      <tr><td><a name="diff0051" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              aspects of non-3GPP accesses (Release 15)", 3GPP <span class="delete">Draft</span></td><td> </td><td class="rblock">              aspects of non-3GPP accesses (Release 15)", 3GPP Technical</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              Technical Specification <span class="delete">33.402,</span> June 2018.</td><td> </td><td class="rblock">              Specification <span class="insert">33.402 version 15.1.0,</span> June 2018.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -814,7 +838,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              3GPP, "3rd Generation Partnership Project; Technical</td><td> </td><td class="right">              3GPP, "3rd Generation Partnership Project; Technical</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Specification Group Services and System Aspects; 3G</td><td> </td><td class="right">              Specification Group Services and System Aspects; 3G</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Security; Security architecture and procedures for 5G</td><td> </td><td class="right">              Security; Security architecture and procedures for 5G</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0051" /></td></tr>
+      <tr><td><a name="diff0052" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              System (Release 15)", 3GPP <span class="delete">Draft</span> Technical Specification</td><td> </td><td class="rblock">              System (Release 15)", 3GPP Technical Specification <span class="insert">33.501</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              <span class="delete">33.501, June</span> 2019.</td><td> </td><td class="rblock"><span class="insert">              version 15.7.0, December</span> 2019.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -828,7 +852,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              Hashing for Message Authentication", RFC 2104,</td><td> </td><td class="right">              Hashing for Message Authentication", RFC 2104,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              DOI 10.17487/RFC2104, February 1997, &lt;https://www.rfc-</td><td> </td><td class="right">              DOI 10.17487/RFC2104, February 1997, &lt;https://www.rfc-</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l16" /><small>skipping to change at</small><em> page 37, line 40</em></th><th> </th><th><a name="part-r16" /><small>skipping to change at</small><em> page 37, line 7</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l17" /><small>skipping to change at</small><em> page 37, line 40</em></th><th> </th><th><a name="part-r17" /><small>skipping to change at</small><em> page 37, line 7</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Writing an IANA Considerations Section in RFCs", BCP 26,</td><td> </td><td class="right">              Writing an IANA Considerations Section in RFCs", BCP 26,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              RFC 8126, DOI 10.17487/RFC8126, June 2017,</td><td> </td><td class="right">              RFC 8126, DOI 10.17487/RFC8126, June 2017,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              &lt;https://www.rfc-editor.org/info/rfc8126&gt;.</td><td> </td><td class="right">              &lt;https://www.rfc-editor.org/info/rfc8126&gt;.</td><td class="lineno" valign="top"></td></tr>
@@ -839,7 +863,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">9.2.  Informative References</td><td> </td><td class="right">9.2.  Informative References</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0052" /></td></tr>
+      <tr><td><a name="diff0053" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   <span class="delete">[NoteAlso]</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">              Editors, "All 3GPP references should be updated to the</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">              latest Release 15 version before publishing.".</span></td><td> </td><td class="rblock"></td><td class="lineno" valign="top"></td></tr>
@@ -851,7 +875,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              example algorithm set for the 3GPP authentication and key</td><td> </td><td class="right">              example algorithm set for the 3GPP authentication and key</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              generation functions f1, f1*, f2, f3, f4, f5 and f5*;</td><td> </td><td class="right">              generation functions f1, f1*, f2, f3, f4, f5 and f5*;</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Document 4: Design Conformance Test Data (Release 14)",</td><td> </td><td class="right">              Document 4: Design Conformance Test Data (Release 14)",</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0053" /></td></tr>
+      <tr><td><a name="diff0054" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              3GPP Technical Specification <span class="delete">35.208,</span> October 2018.</td><td> </td><td class="rblock">              3GPP Technical Specification <span class="insert">35.208 version 15.0.0,</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">              October 2018.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -865,7 +889,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              Hash Standard", FIPS PUB 180-2, August 2002,</td><td> </td><td class="right">              Hash Standard", FIPS PUB 180-2, August 2002,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              &lt;http://csrc.nist.gov/publications/fips/fips180-2/</td><td> </td><td class="right">              &lt;http://csrc.nist.gov/publications/fips/fips180-2/</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l17" /><small>skipping to change at</small><em> page 39, line 31</em></th><th> </th><th><a name="part-r17" /><small>skipping to change at</small><em> page 38, line 46</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l18" /><small>skipping to change at</small><em> page 39, line 31</em></th><th> </th><th><a name="part-r18" /><small>skipping to change at</small><em> page 38, line 46</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an</td><td> </td><td class="right">   [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May</td><td> </td><td class="right">              Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May</td><td class="lineno" valign="top"></td></tr>
@@ -876,12 +900,12 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              (IKEv2)", STD 79, RFC 7296, DOI 10.17487/RFC7296, October</td><td> </td><td class="right">              (IKEv2)", STD 79, RFC 7296, DOI 10.17487/RFC7296, October</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              2014, &lt;https://www.rfc-editor.org/info/rfc7296&gt;.</td><td> </td><td class="right">              2014, &lt;https://www.rfc-editor.org/info/rfc7296&gt;.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0054" /></td></tr>
+      <tr><td><a name="diff0055" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   [I-D.<span class="delete">arkko-eap</span>-aka-pfs]</td><td> </td><td class="rblock">   [I-D.<span class="insert">ietf-emu</span>-aka-pfs]</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Arkko, J., Norrman, K., and V. Torvinen, "Perfect-Forward</td><td> </td><td class="right">              Arkko, J., Norrman, K., and V. Torvinen, "Perfect-Forward</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              Secrecy for the Extensible Authentication Protocol Method</td><td> </td><td class="right">              Secrecy for the Extensible Authentication Protocol Method</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              for Authentication and Key Agreement (EAP-AKA' PFS)",</td><td> </td><td class="right">              for Authentication and Key Agreement (EAP-AKA' PFS)",</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0055" /></td></tr>
+      <tr><td><a name="diff0056" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">              <span class="delete">draft-arkko-eap-aka-pfs-04</span> (work in progress), <span class="delete">January</span></td><td> </td><td class="rblock">              <span class="insert">draft-ietf-emu-aka-pfs-05</span> (work in progress), <span class="insert">October</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">              2019.</span></td><td> </td><td class="rblock"><span class="insert">              2020.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -895,7 +919,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">              October 2012, in Proceedings of the 6th international</td><td> </td><td class="right">              October 2012, in Proceedings of the 6th international</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">              conference on Mathematical Methods, Models and</td><td> </td><td class="right">              conference on Mathematical Methods, Models and</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l18" /><small>skipping to change at</small><em> page 41, line 34</em></th><th> </th><th><a name="part-r18" /><small>skipping to change at</small><em> page 40, line 48</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l19" /><small>skipping to change at</small><em> page 41, line 34</em></th><th> </th><th><a name="part-r19" /><small>skipping to change at</small><em> page 40, line 48</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   The references to [RFC2119], [RFC7542], [RFC7296], [RFC8126],</td><td> </td><td class="right">   The references to [RFC2119], [RFC7542], [RFC7296], [RFC8126],</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   [FIPS.180-1] and [FIPS.180-2] have been updated to their most recent</td><td> </td><td class="right">   [FIPS.180-1] and [FIPS.180-2] have been updated to their most recent</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   versions and language in this document changed accordingly.</td><td> </td><td class="right">   versions and language in this document changed accordingly.</td><td class="lineno" valign="top"></td></tr>
@@ -906,7 +930,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   Finally, a number of clarifications have been made, including a</td><td> </td><td class="right">   Finally, a number of clarifications have been made, including a</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   summary of where attributes may appear.</td><td> </td><td class="right">   summary of where attributes may appear.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0056" /></td></tr>
+      <tr><td><a name="diff0057" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">Appendix B.  Changes <span class="delete">from</span> RFC 4187 to RFC 5448</td><td> </td><td class="rblock">Appendix B.  Changes <span class="insert">to</span> RFC 4187</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">                                                                         </td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">   <span class="insert">In addition to specifying EAP-AKA', this document mandates also a</span></td><td class="lineno" valign="top"></td></tr>
@@ -918,7 +942,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   The changes to RFC 4187 relate only to the bidding down prevention</td><td> </td><td class="right">   The changes to RFC 4187 relate only to the bidding down prevention</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   support defined in Section 4.  In particular, this document does not</td><td> </td><td class="right">   support defined in Section 4.  In particular, this document does not</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0057" /></td></tr>
+      <tr><td><a name="diff0058" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   change how the Master Key (MK) is calculated <span class="delete">in RFC 4187 (it uses CK</span></td><td> </td><td class="rblock">   change how the Master Key (MK) is calculated <span class="insert">or</span> any <span class="insert">other aspect</span> of</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   and IK, not CK' and IK'); neither is</span> any <span class="delete">processing</span> of <span class="delete">the AMF bit</span></td><td> </td><td class="rblock">   <span class="insert">EAP-AKA.  The provisions in this specification for EAP-AKA' do not</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"><span class="delete">   added</span> to <span class="delete">RFC 4187.</span></td><td> </td><td class="rblock"><span class="insert">   apply</span> to <span class="insert">EAP-AKA, outside Section 4.</span></td><td class="lineno" valign="top"></td></tr>
@@ -933,7 +957,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   The -01 version of the working group draft clarifies updates</td><td> </td><td class="right">   The -01 version of the working group draft clarifies updates</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   relationship to RFC 4187, clarifies language relating to obsoleting</td><td> </td><td class="right">   relationship to RFC 4187, clarifies language relating to obsoleting</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l19" /><small>skipping to change at</small><em> page 43, line 36</em></th><th> </th><th><a name="part-r19" /><small>skipping to change at</small><em> page 43, line 8</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l20" /><small>skipping to change at</small><em> page 43, line 36</em></th><th> </th><th><a name="part-r20" /><small>skipping to change at</small><em> page 43, line 8</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   o  Updated and added several references</td><td> </td><td class="right">   o  Updated and added several references</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   o  Switched to use of hexadecimal for EAP Type Values for consistency</td><td> </td><td class="right">   o  Switched to use of hexadecimal for EAP Type Values for consistency</td><td class="lineno" valign="top"></td></tr>
@@ -944,7 +968,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   The version -06 included changes to updates of references to newer</td><td> </td><td class="right">   The version -06 included changes to updates of references to newer</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   versions on IANA considerations guidelines, NAIs, and IKEv2.</td><td> </td><td class="right">   versions on IANA considerations guidelines, NAIs, and IKEv2.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0058" /></td></tr>
+      <tr><td><a name="diff0059" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">   <span class="insert">The version -07 includes the following changes, per AD and last call</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">   review comments:</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert"></span></td><td class="lineno" valign="top"></td></tr>
@@ -1005,6 +1029,9 @@
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert"></span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">   o  Updated the language relating to when 5G-specific procedures are</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">      in effect, to support new use cases 3GPP has defined.</span></td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert"></span></td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">   o  Updated the reference in Section 3.3, as the identities are</span></td><td class="lineno" valign="top"></td></tr>
+      <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock"><span class="insert">      different in the 5G case.</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock"></td><td> </td><td class="rblock">                                                                         </td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">Appendix D.  Importance of Explicit Negotiation</td><td> </td><td class="right">Appendix D.  Importance of Explicit Negotiation</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
@@ -1017,7 +1044,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   protocols that cannot be mixed with the old ones; clients will always</td><td> </td><td class="right">   protocols that cannot be mixed with the old ones; clients will always</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   know whether they are connecting to the old or new system.</td><td> </td><td class="right">   know whether they are connecting to the old or new system.</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno"></td></tr>
-      <tr bgcolor="gray" ><td></td><th><a name="part-l20" /><small>skipping to change at</small><em> page 49, line 15</em></th><th> </th><th><a name="part-r20" /><small>skipping to change at</small><em> page 50, line 15</em></th><td></td></tr>
+      <tr bgcolor="gray" ><td></td><th><a name="part-l21" /><small>skipping to change at</small><em> page 49, line 15</em></th><th> </th><th><a name="part-r21" /><small>skipping to change at</small><em> page 50, line 15</em></th><td></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   Jouni Malinen provided suggested text for Section 6.  John Mattsson</td><td> </td><td class="right">   Jouni Malinen provided suggested text for Section 6.  John Mattsson</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   provided much of the text for Section 7.1.  Karl Norrman was the</td><td> </td><td class="right">   provided much of the text for Section 7.1.  Karl Norrman was the</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   source of much of the information in Section 7.2.</td><td> </td><td class="right">   source of much of the information in Section 7.2.</td><td class="lineno" valign="top"></td></tr>
@@ -1028,7 +1055,7 @@
       <tr><td class="lineno" valign="top"></td><td class="left">   Naslund, Adrian Escott, Brian Rosenberg, Laksminath Dondeti, Ahmad</td><td> </td><td class="right">   Naslund, Adrian Escott, Brian Rosenberg, Laksminath Dondeti, Ahmad</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   Muhanna, Stefan Rommer, Miguel Garcia, Jan Kall, Ankur Agarwal, Jouni</td><td> </td><td class="right">   Muhanna, Stefan Rommer, Miguel Garcia, Jan Kall, Ankur Agarwal, Jouni</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="left">   Malinen, John Mattsson, Jesus De Gregorio, Brian Weis, Russ Housley,</td><td> </td><td class="right">   Malinen, John Mattsson, Jesus De Gregorio, Brian Weis, Russ Housley,</td><td class="lineno" valign="top"></td></tr>
-      <tr><td><a name="diff0059" /></td></tr>
+      <tr><td><a name="diff0060" /></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   Alfred Hoenes, Anand Palanigounder, Michael Richardsson, Marcus Wong,</td><td> </td><td class="rblock">   Alfred Hoenes, Anand Palanigounder, Michael Richardsson, <span class="insert">Roman</span></td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   Kalle Jarvinen, Daniel Migault, and Mohit Sethi for their in-depth</td><td> </td><td class="rblock"><span class="insert">   Danyliw, Dan Romascanu, Kyle Rose,</span> Marcus Wong, Kalle Jarvinen,</td><td class="lineno" valign="top"></td></tr>
       <tr><td class="lineno" valign="top"></td><td class="lblock">   reviews and interesting discussions in this problem space.</td><td> </td><td class="rblock">   Daniel Migault, and Mohit Sethi for their in-depth reviews and</td><td class="lineno" valign="top"></td></tr>
@@ -1045,8 +1072,8 @@
       <tr><td class="lineno" valign="top"></td><td class="left"></td><td> </td><td class="right"></td><td class="lineno" valign="top"></td></tr>
 
      <tr><td></td><td class="left"></td><td> </td><td class="right"></td><td></td></tr>
-     <tr bgcolor="gray"><th colspan="5" align="center"><a name="end">&nbsp;End of changes. 59 change blocks.&nbsp;</a></th></tr>
-     <tr class="stats"><td></td><th><i>215 lines changed or deleted</i></th><th><i> </i></th><th><i>236 lines changed or added</i></th><td></td></tr>
+     <tr bgcolor="gray"><th colspan="5" align="center"><a name="end">&nbsp;End of changes. 60 change blocks.&nbsp;</a></th></tr>
+     <tr class="stats"><td></td><th><i>216 lines changed or deleted</i></th><th><i> </i></th><th><i>240 lines changed or added</i></th><td></td></tr>
      <tr><td colspan="5" align="center" class="small"><br/>This html diff was produced by rfcdiff 1.42. The latest version is available from <a href="http://www.tools.ietf.org/tools/rfcdiff/" >http://tools.ietf.org/tools/rfcdiff/</a> </td></tr>
    </table>
    </body>

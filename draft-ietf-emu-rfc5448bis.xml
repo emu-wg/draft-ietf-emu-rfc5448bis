@@ -628,7 +628,9 @@ follows:<vspace blankLines="1"/>
    <t>The value "EAP-AKA'" is an eight-characters-long ASCII string.  It is
    used as is, without any trailing NUL characters.</t>
 
-   <t>Identity is the peer identity as specified in Section 7 of <xref target="RFC4187"/>.</t>
+   <t>Identity is the peer identity as specified in Section 7 of <xref
+   target="RFC4187"/>, and <xref target="id5guse"/> in this memo for
+   the 5G cases.</t>
 
    <t>When the server creates an AKA challenge and corresponding AUTN, CK,
    CK', IK, and IK' values, it MUST set the Authentication Management
@@ -2269,6 +2271,9 @@ Value      Description              Reference
 
     <t>Updated the language relating to when 5G-specific procedures
     are in effect, to support new use cases 3GPP has defined.</t>
+
+    <t>Updated the reference in <xref target="key"/>, as the
+    identities are different in the 5G case.</t>
 
   </list></t>
   
