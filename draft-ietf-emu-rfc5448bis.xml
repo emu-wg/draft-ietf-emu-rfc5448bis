@@ -73,7 +73,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
 <abstract>
 
   <t>The 3GPP Mobile Network Authentication and Key Agreement (AKA) 
-  is the primary authentication mechanism for devices wishing to
+  is an authentication mechanism for devices wishing to
   access mobile networks. RFC 4187 (EAP-AKA) made the use of this mechanism
   possible within the Extensible Authentication Protocol (EAP)
   framework. RFC 5448 (EAP-AKA') was an improved version of EAP-AKA.</t>
@@ -101,8 +101,8 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
 
 <section title="Introduction">
 
-  <t>The 3GPP Mobile Network Authentication and Key Agreement (AKA) is the
-  primary authentication mechanism for devices wishing to access mobile
+  <t>The 3GPP Mobile Network Authentication and Key Agreement (AKA) is
+  an authentication mechanism for devices wishing to access mobile
   networks. <xref target="RFC4187"/> (EAP-AKA) made the use of this mechanism
   possible within the Extensible Authentication Protocol (EAP)
   framework <xref target="RFC3748"/>.</t>
@@ -222,20 +222,7 @@ Method for 3GPP Mobile Network Authentication and Key Agreement
   RFC 5448 EAP-AKA' and RFC 4187 EAP-AKA have been made in this
   specification. <xref target="baddesign"/> explains some of the design
   rationale for creating EAP-AKA'. Finally, <xref target="testvectors"/>
-  provides test vectors.
-  
-  <list style="empty">
-    
-    <t>Editor's Note: The publication of this RFC depends on its
-    normative references to 3GPP Technical Specifications reaching a
-    stable status for Release 15, as indicated by 3GPP. The RFC Editor
-    should check with the 3GPP liaisons that a stable version from
-    Release 15 is available and refer to that version. RFC Editor:
-    Please delete this note upon publication of this specification as
-    an RFC.
-    </t>
-    
-  </list></t>
+  provides test vectors.</t>
 
 </section>
 
@@ -339,10 +326,11 @@ AT_MAC, and AT_RES can be found in <xref target="RFC4187"/>.</t>
    employ the same identities.  However, EAP-AKA' employs different
    leading characters than EAP-AKA for the conventions given in
    Section 4.1.1 of <xref target="RFC4187"/> for International Mobile
-   Subscriber Identifier (IMSI) based usernames.  EAP-AKA' MUST use
+   Subscriber Identifier (IMSI) based usernames.  For 4G networks, EAP-AKA' MUST use
    the leading character "6" (ASCII 36 hexadecimal) instead of "0" for
-   IMSI-based permanent usernames, or 5G-specific identifiers in 5G
-   networks. Identifier usage in 5G is specified in Section 5.3. All
+   IMSI-based permanent usernames.
+   For 5G networks, leading character "6" is not used for IMSI-based permanent user names.
+   Identifier usage in 5G is specified in Section 5.3. All
    other usage and processing of the leading characters, usernames,
    and identities is as defined by EAP-AKA <xref target="RFC4187"/>.
    For instance, the pseudonym and fast re-authentication usernames
@@ -403,7 +391,7 @@ bytes of all zero bits when necessary.</t>
 
 <t>Only the server sends the AT_KDF_INPUT attribute. The value is sent
 as specified in <xref target="TS-3GPP.24.302"/> for both non-3GPP access
-networks for 5G
+networks and for 5G
 access networks. Per <xref target="TS-3GPP.33.402"/>, the server
 always verifies the authorization of a given access network to use a
 particular name before sending it to the peer over EAP-AKA'. The value
@@ -704,7 +692,8 @@ well as the AT_MAC and AT_CHECKCODE attributes.</t>
 <section title="PRF'">
 
 <t>The PRF' construction is the same one IKEv2 uses (see Section 2.13 of
-<xref target="RFC7296"/>). The function takes two arguments. K is a
+<xref target="RFC7296"/>; this is the same function as was defined <xref
+target="RFC4306"/> that RFC 5448 referred to). The function takes two arguments. K is a
 256-bit value and S is a byte string of arbitrary length. PRF' is
 defined as follows:</t>
 
@@ -800,8 +789,10 @@ hash output:</t>
    <t>"1" indicates that the attribute MUST be included in the message,</t>
    <t>"0-1" indicates that the attribute is sometimes included in the
    message, </t>
-   <t>"0+" indicates that zero or more copies of the attribute MAY be included in the message,</t>
-   <t>"1+" indicates that there MUST be at least one attribute in the message but more than one MAY be included in the message, and </t>
+   <t>"0+" indicates that zero or more copies of the attribute
+   MAY be included in the message,</t>
+   <t>"1+" indicates that there MUST be at least one attribute
+   in the message but more than one MAY be included in the message, and </t>
    <t>"0*" indicates that the attribute is not included in the
    message in cases specified in this document, but MAY be included in
    the future versions of the protocol.</t></list></t>
@@ -919,7 +910,8 @@ bidding "down" attacks in the other direction, i.e., attackers forcing
 the endpoints to use EAP-AKA'.</t>
 
 <section anchor="attrtable2" title="Summary of Attributes for EAP-AKA">
-   <t>The appearance of the AT_BIDDING attribute in EAP-AKA exchanges is shown below, using the notation from <xref target="attrtable"/>:</t>
+  <t>The appearance of the AT_BIDDING attribute in EAP-AKA exchanges
+  is shown below, using the notation from <xref target="attrtable"/>:</t>
 
    <figure>
    <artwork>
@@ -953,7 +945,7 @@ the endpoints to use EAP-AKA'.</t>
   separate from the Temporary Mobile Subscriber Identities (TMSI) that
   are used on cellular networks.</t>
   
-  <section title="Username Types in EAP-AKA' Identities">
+  <section title="Username Types in EAP-AKA' Identities" anchor="untypes">
 
     <t>Section 4.1.1.3 of <xref target="RFC4187"/> specified that there
     are three types of usernames: permanent, pseudonym, and fast
@@ -963,7 +955,7 @@ the endpoints to use EAP-AKA'.</t>
     <list style="empty">
       
       <t>(1) Regular usernames. These are external names given to
-      EAP-AKA'.  The regular usernames are further subdivided into to
+      EAP-AKA' peers.  The regular usernames are further subdivided into to
       categories:
       <list style="empty">
 
@@ -971,6 +963,7 @@ the endpoints to use EAP-AKA'.</t>
 	usernames.</t>
 
 	<t>(b) Privacy-friendly temporary usernames, for instance 5G
+        GUTI or 5G
 	privacy identifiers (see <xref target="id5guse"/>).</t>
 
       </list></t>
@@ -999,6 +992,14 @@ the endpoints to use EAP-AKA'.</t>
   <section anchor="genpfr"
 	   title="Generating Pseudonyms and Fast Re-Authentication Identities">
 
+    <t>This section provides some additional guidance for
+    implementations for producing secure pseudonyms and fast
+    re-authentication identities. It does not impact backwards
+    compatibility, because each server consumes only the identities it
+    itself generates. However, adherence to the guidance will provide
+    better security.
+    </t>
+    
     <t>As specified by <xref target="RFC4187"/> Section 4.1.1.7,
     pseudonym usernames and fast re-authentication identities are
     generated by the EAP server, in an implementation-dependent
@@ -1054,7 +1055,7 @@ the endpoints to use EAP-AKA'.</t>
     <t>With the EAP-Response/Identity message in the beginning of the
     EAP exchange, but before the selection of EAP-AKA'.</t>
     
-    <t>Transmitted from the peer to the server using EAP-AKA messages
+    <t>Transmitted from the peer to the server using EAP-AKA' messages
     instead of EAP-Response/Identity.  In this case, the server
     includes an identity requesting attribute (AT_ANY_ID_REQ,
     AT_FULLAUTH_ID_REQ or AT_PERMANENT_ID_REQ) in the
@@ -1112,7 +1113,7 @@ the endpoints to use EAP-AKA'.</t>
     target="key"/> key derivation formula.</t>
 
     <t>The identity needs  to be represented in  exact correct format
-    for the key derivation formulala to produce correct results.</t>
+    for the key derivation formula to produce correct results.</t>
 
     <t>If the AT_KDF_INPUT parameter contains the prefix "5G:", the
     AT_KDF parameter has the value 1, and this authentication is not a
@@ -1162,7 +1163,7 @@ the endpoints to use EAP-AKA'.</t>
     EAP-AKA' apply. When EAP server is defined to be in a 5G network
     is specified in <xref target="TS-3GPP.33.501"/>.
     <list style="empty">
-      <t>Note: Currently, at least the following conditions are specified: when the
+      <t>Note: Currently, the following conditions are specified: when the
     EAP peer uses the 5G Non-Access Stratum (NAS) protocol <xref
     target="TS-3GPP.24.501"/> or when the EAP peer attaches to a network
     that advertises 5G connectivity without NAS <xref
@@ -1489,8 +1490,10 @@ target="bindprop"/> for more discussion.</t>
   target="ZF2005"/> to leverage security policy differences between
   different operator networks, for instance. To gain something in such
   an attack, the attacker needs to trick the user into believing it is
-  in another location where, for instance, it is not required to
-  encrypt all payload traffic after encryption. As an authentication
+  in another location. If policies between different locations differ,
+  for instance, in some location it is not required to
+  encrypt all payload traffic, the attacker may trick the user into
+  opening a vulnerability. As an authentication
   mechanism, EAP-AKA' is not directly affected by most such
   attacks. EAP-AKA' network name binding can also help alleviate some
   of the attacks.  In any case, it is recommended that EAP-AKA'
@@ -1749,14 +1752,14 @@ Value      Description              Reference
 	  <title>3rd Generation Partnership Project;
 	  Technical Specification Group Core Network and Terminals;
 	  Numbering, addressing and identification
-	  (Release 15)</title>
+	  (Release 16)</title>
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="September" year="2019" />
+	  <date month="December" year="2020" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Technical Specification 23.003 version 15.8.0" />
+	<seriesInfo name="3GPP" value="Technical Specification 23.003 version 16.5.0" />
       </reference>
       
       <reference anchor="TS-3GPP.23.501">
@@ -1764,14 +1767,14 @@ Value      Description              Reference
 	  <title>3rd Generation Partnership Project;
 	  Technical Specification Group Services and System Aspects;
 	  3G Security; Security architecture and procedures for 5G System; 
-	  (Release 15)</title>
+	  (Release 16)</title>
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="December" year="2019" />
+	  <date month="December" year="2020" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Technical Specification 23.501 version 15.8.0" />
+	<seriesInfo name="3GPP" value="Technical Specification 23.501 version 16.7.0" />
 	
       </reference>
       
@@ -1782,14 +1785,14 @@ Value      Description              Reference
 	  Access to the 3GPP Evolved Packet Core (EPC)
 	  via non-3GPP access networks;
 	  Stage 3;
-	  (Release 15)</title>
+	  (Release 16)</title>
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2019" />
+	  <date month="July" year="2020" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Technical Specification 24.302 version 15.7.0" />
+	<seriesInfo name="3GPP" value="Technical Specification 24.302 version 16.4.0" />
 	
       </reference>
       
@@ -1800,14 +1803,14 @@ Value      Description              Reference
 	  Access to the 3GPP Evolved Packet Core (EPC)
 	  via non-3GPP access networks;
 	  Stage 3;
-	  (Release 15)</title>
+	  (Release 16)</title>
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="December" year="2019" />
+	  <date month="December" year="2020" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Draft Technical Specification 24.501 version 15.6.0" />
+	<seriesInfo name="3GPP" value="Draft Technical Specification 24.501 version 16.7.0" />
 	
       </reference>
 
@@ -1817,28 +1820,28 @@ Value      Description              Reference
 	  Technical Specification Group Services and System Aspects;
 	  3G Security;
 	  Security architecture
-	  (Release 15)
+	  (Release 16)
 	  </title>
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="December" year="2018" />
+	  <date month="July" year="2020" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Technical Specification 33.102 version 15.1.0" />
+	<seriesInfo name="3GPP" value="Technical Specification 33.102 version 16.0.0" />
 	
       </reference>
 
 
       <reference anchor="TS-3GPP.33.402">
 	<front>
-	  <title>3GPP System Architecture Evolution (SAE); Security aspects of non-3GPP accesses (Release 15)</title>
+	  <title>3GPP System Architecture Evolution (SAE); Security aspects of non-3GPP accesses (Release 16)</title>
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="June" year="2018" />
+	  <date month="July" year="2020" />
 	</front>
-	<seriesInfo name="3GPP" value="Technical Specification 33.402 version 15.1.0" />
+	<seriesInfo name="3GPP" value="Technical Specification 33.402 version 16.0.0" />
       </reference>
       
       <reference anchor="TS-3GPP.33.501">
@@ -1847,14 +1850,14 @@ Value      Description              Reference
           3rd Generation Partnership Project;
 	  Technical Specification Group Services and System Aspects;
 	  3G Security; Security architecture and procedures for 5G System
-	  (Release 15)</title>
+	  (Release 16)</title>
 	  <author>
 	    <organization>3GPP</organization>
 	  </author>
-	  <date month="December" year="2019" />
+	  <date month="December" year="2020" />
 	</front>
 	
-	<seriesInfo name="3GPP" value="Technical Specification 33.501 version 15.7.0" />
+	<seriesInfo name="3GPP" value="Technical Specification 33.501 version 16.5.0" />
       </reference>
 
       <reference
@@ -1930,6 +1933,7 @@ Value      Description              Reference
       <?rfc include="reference.RFC.4169.xml"?>
       <?rfc include="reference.RFC.4186.xml"?>
       <?rfc include="reference.RFC.4284.xml"?>
+      <?rfc include="reference.RFC.4306.xml"?>
       <?rfc include="reference.RFC.5113.xml"?>
       <?rfc include="reference.RFC.5247.xml"?>
       <?rfc include="reference.RFC.5448.xml"?>
@@ -2075,8 +2079,12 @@ Value      Description              Reference
   target="RFC8126"/>, <xref target="FIPS.180-1"/> and <xref
   target="FIPS.180-2"/> have been updated to their most recent
   versions and language in this document changed
-  accordingly. Similarly, references to all 3GPP technical
-  specifications have been updated to their 5G (Release 15) versions
+  accordingly. However, this is merely an update to a newer RFC but
+  the actual protocol functions are the same as defined in the earlier RFCs.
+  <vspace blankLines="1"/>
+
+  Similarly, references to all 3GPP technical
+  specifications have been updated to their 5G (Release 16) versions
   or otherwise most recent version when there has not been a
   5G-related update.</t>
 
@@ -2269,11 +2277,29 @@ Value      Description              Reference
     specification also in the future, owing to existing
     implementations.</t>
 
+    <t>Clarified that the leading digit "6" is not used in 5G
+    networks.</t>
+    
     <t>Updated the language relating to when 5G-specific procedures
     are in effect, to support new use cases 3GPP has defined.</t>
 
     <t>Updated the reference in <xref target="key"/>, as the
     identities are different in the 5G case.</t>
+
+    <t>Clarified that the use of the newer reference to IKEv2 RFC did
+    not change the actual PRF' function from RFC 5448.</t>
+
+    <t>Clarified that the <xref target="genpfr"/> text does not impact
+    backwards compatibility.</t>
+    
+    <t>Corrected the characterization of the attack from <xref
+    target="ZF2005"/>.</t>
+
+    <t>Mentioned 5G GUTIs as one possible 5G-identifier in <xref
+    target="untypes"/>.</t>
+    
+    <t>Updated the references to Release 16. These specifications are
+    stable in 3GPP.</t>
 
   </list></t>
   
